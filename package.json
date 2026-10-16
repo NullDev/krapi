@@ -1,8 +1,14 @@
 {
     "name": "krapio",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Typed client for the Krunker.io APIs",
-    "keywords": ["krunker", "krunkerio", "krunker-api", "api-client", "typescript"],
+    "keywords": [
+        "krunker",
+        "krunkerio",
+        "krunker-api",
+        "api-client",
+        "typescript"
+    ],
     "homepage": "https://github.com/NullDev/krapio#readme",
     "bugs": {
         "url": "https://github.com/NullDev/krapio/issues"
@@ -26,7 +32,12 @@
         },
         "./package.json": "./package.json"
     },
-    "files": ["dist", "src", "README.md", "LICENSE"],
+    "files": [
+        "dist",
+        "src",
+        "README.md",
+        "LICENSE"
+    ],
     "engines": {
         "node": ">=20.0.0",
         "bun": ">=1.0.0"
