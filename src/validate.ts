@@ -61,6 +61,15 @@ export function oneOf<T extends string>(value: T | undefined, allowed: readonly 
 export const list = (values: readonly number[] | undefined): string | undefined =>
     values === undefined || values.length === 0 ? undefined : values.map((v) => int(v, "filter value", 0)).join(",");
 
+export const textList = (values: readonly string[] | undefined, what: string, max = Number.MAX_SAFE_INTEGER): string | undefined => {
+    if (values === undefined || values.length === 0) return undefined;
+    if (values.length > max) throw new KrunkerArgumentError(`${what} takes ${max} values at most, got ${values.length}`);
+    return values.map((v) => text(v, what)).join(",");
+};
+
+export const idList = (values: readonly (number | string)[] | undefined, what: string, max = Number.MAX_SAFE_INTEGER): string | undefined =>
+    textList(values?.map((v) => id(v, what)), what, max);
+
 export function leaderboardType(value: LeaderboardType | undefined): LeaderboardType | undefined {
     if (value === undefined) return undefined;
     if (value !== "score" && value !== "time") throw new KrunkerArgumentError(`type must be "score" or "time", got ${String(value)}`);

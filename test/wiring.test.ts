@@ -56,6 +56,24 @@ describe("Krunker", () => {
         expect(fake.calls[0]!.headers["User-Agent"]).toBe("t/1");
     });
 
+    test("events and kpd calls build their urls and refuse bad filters locally", async() => {
+        const fake = fakeFetch(() => ok({ events: [], next: 0, has_more: false }));
+        const krunker = new Krunker({ apiKey: "k", fetch: fake.fetch });
+        await krunker.events.list();
+        await krunker.events.list({ after: 1042, types: ["map.featured", "map.unfeatured"], target_type: "map", target_id: [8497, "8500"], limit: 50 });
+        await krunker.kpd.latestCalls();
+        expect(fake.calls.map((c) => c.url)).toEqual([
+            `${GAPI_URL}/api/events`,
+            `${GAPI_URL}/api/events?after=1042&types=map.featured%2Cmap.unfeatured&target_type=map&target_id=8497%2C8500&limit=50`,
+            `${GAPI_URL}/api/kpd/latest-calls`,
+        ]);
+        expect(await caught(() => krunker.events.list({ target_id: [1] }))).toBeInstanceOf(KrunkerArgumentError);
+        expect(await caught(() => krunker.events.list({ limit: 101 }))).toBeInstanceOf(KrunkerArgumentError);
+        expect(await caught(() => krunker.events.list({ after: -1 }))).toBeInstanceOf(KrunkerArgumentError);
+        expect(await caught(() => krunker.events.list({ target_type: "map", target_id: Array.from({ length: 101 }, (_, i) => i) }))).toBeInstanceOf(KrunkerArgumentError);
+        expect(fake.calls).toHaveLength(3);
+    });
+
     test("without a key the root throws before a request and the game tier still works", async() => {
         const fake = fakeFetch(anything);
         const krunker = new Krunker({ fetch: fake.fetch });

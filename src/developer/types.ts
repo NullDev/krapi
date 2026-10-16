@@ -374,3 +374,80 @@ export type ApiErrorBody = {
     error: string | { code?: string; message?: string };
     retry_after?: number;
 };
+
+/** 0 public, 1 ranked, 2 comp, 3 custom */
+export type KpdCallContext = 0 | 1 | 2 | 3;
+/** 1 not responded, 2 responded, 3 reviewed */
+export type KpdCallStatus = 1 | 2 | 3;
+/** 0 pending, 1 banned, 2 rejected */
+export type KpdCallRating = 0 | 1 | 2;
+
+export type KpdCall = {
+    id: number;
+    /** rfc3339 utc */
+    date: string;
+    caller_id: number;
+    caller_name: string;
+    caller_score: number;
+    caller_job_rating: number;
+    /** correct calls of the reporter */
+    caller_job_rating_positive: number;
+    called_id: number;
+    /** "guest" when unregistered */
+    called_name: string;
+    called_score: number;
+    kdf_type: KpdCallContext;
+    kdf_type_label: string;
+    status: KpdCallStatus;
+    status_label: string;
+    rating: KpdCallRating;
+    rating_label: string;
+    /** 0 without one */
+    officer_id: number;
+    officer_name: string;
+    /** last status change, rfc3339 utc */
+    status_date: string;
+    game_code: string;
+    host: string;
+    port: string;
+    /** internal call token */
+    token: string;
+};
+
+/** the types documented so far; a key only sees the types of the event scopes it holds */
+export type EventType = "map.featured" | "map.unfeatured" | (string & {});
+
+export type EventTarget = {
+    type: string;
+    id: number | string;
+};
+
+export type MapEventData = {
+    map_id: number;
+    map_name: string;
+    creator: string;
+};
+
+export type ApiEvent = {
+    /** only ever increases, gaps are normal */
+    id: number;
+    type: EventType;
+    /** rfc3339 utc */
+    created_at: string;
+    target: EventTarget;
+    data: MapEventData | Record<string, unknown>;
+};
+
+export type EventsPage = {
+    /** oldest first */
+    events: ApiEvent[];
+    /** pass as `after` on the next call, it also moves past events the filters skipped */
+    next: number;
+    has_more: boolean;
+};
+
+/** one webhook delivery; test and verify sends carry id 0, the real id is in the Krunker-Event-Id header */
+export type WebhookEvent = Omit<ApiEvent, "type" | "data"> & {
+    type: EventType | "webhook.test" | "webhook.verify";
+    data: MapEventData | { nonce: string } | Record<string, unknown>;
+};

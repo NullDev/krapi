@@ -1,6 +1,8 @@
 import { KrunkerClient, type ClientOptions } from "../client.js";
 import type { RateLimitState } from "../rateLimit.js";
 import { ClanApi } from "./resources/clan.js";
+import { EventsApi } from "./resources/events.js";
+import { KpdApi } from "./resources/kpd.js";
 import { LeaderboardApi } from "./resources/leaderboard.js";
 import { MapApi } from "./resources/map.js";
 import { MarketApi } from "./resources/market.js";
@@ -19,6 +21,8 @@ export type { RankedQuery } from "./resources/leaderboard.js";
 export type { MapLeaderboardQuery } from "./resources/map.js";
 export { MAX_HISTORY_DAYS, type MarketSkinQuery } from "./resources/market.js";
 export { MAX_SKINS_PER_PAGE, type SkinsQuery } from "./resources/skins.js";
+export { MAX_EVENTS_PER_PAGE, MAX_EVENT_TARGETS, type EventsQuery } from "./resources/events.js";
+export * from "./webhooks.js";
 
 /** the documented developer api; one key is one rate limit window, so keep one instance per key */
 export class KrunkerDeveloperApi {
@@ -30,6 +34,10 @@ export class KrunkerDeveloperApi {
     readonly mods: ModsApi;
     readonly market: MarketApi;
     readonly skins: SkinsApi;
+    /** needs the `kpd` scope on the key */
+    readonly kpd: KpdApi;
+    /** needs an events scope on the key */
+    readonly events: EventsApi;
     readonly #client: KrunkerClient;
 
     constructor(options: ClientOptions = {}){
@@ -43,6 +51,8 @@ export class KrunkerDeveloperApi {
         this.mods = new ModsApi(this.#client);
         this.market = new MarketApi(this.#client);
         this.skins = new SkinsApi(this.#client);
+        this.kpd = new KpdApi(this.#client);
+        this.events = new EventsApi(this.#client);
     }
 
     /** false without an api key, every call throws KrunkerConfigError then */
