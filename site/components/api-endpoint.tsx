@@ -28,6 +28,21 @@ function loadScalar(onReady: () => void): () => void {
     return () => script.removeEventListener("load", onReady);
 }
 
+// Scalar renders an operation only once it intersects the viewport, about a second after; its observers get a wide margin
+// so an operation is rendered before the reader reaches it. only observers created by Scalar's bundle are widened
+let observersWidened = false;
+function widenScalarObservers(): void {
+    if (observersWidened || typeof IntersectionObserver === "undefined") return;
+    observersWidened = true;
+    const Original = IntersectionObserver;
+    window.IntersectionObserver = class extends Original {
+        constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit){
+            const fromScalar = new Error().stack?.includes("@scalar/api-reference");
+            super(callback, fromScalar ? { ...options, rootMargin: "1600px 0px" } : options);
+        }
+    };
+}
+
 // Scalar routes by hash and rewrites it on mount and while scrolling (`#.../GET/api/player/{playerName}`); the docs own
 // the hash (their section anchors never contain a slash), so those writes are dropped
 let hashKept = false;
@@ -48,12 +63,18 @@ function ScalarOperation({ spec, className }: { spec: string; className: string 
     const container = useRef<HTMLDivElement>(null);
     const [near, setNear] = useState(false);
 
+    // the bundle loads with the page, so the first embed in view does not wait for it
+    useEffect(() => {
+        widenScalarObservers();
+        return loadScalar(() => {});
+    }, []);
+
     useEffect(() => {
         const target = container.current;
         if (!target || near) return undefined;
         const observer = new IntersectionObserver((entries) => {
             if (entries.some((entry) => entry.isIntersecting)) setNear(true);
-        }, { rootMargin: "800px 0px" });
+        }, { rootMargin: "2000px 0px" });
         // the split embed is `display: contents` and has no box of its own, its section has one
         observer.observe(target.closest(".api-endpoint") ?? target);
         return () => observer.disconnect();

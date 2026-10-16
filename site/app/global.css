@@ -81,9 +81,22 @@ article#nd-page:has(.api-endpoint) {
         grid-column: 2 !important;
         margin-block: 0 2rem;
     }
-    /* one endpoint: the examples sit beside the whole section and follow it */
+    /* one endpoint: the examples sit beside the whole section and follow it. the rows are explicit, with a flexible
+       spacer last, so a tall example panel grows the spacer instead of opening gaps between the text and the lists */
+    .api-endpoint-single {
+        grid-template-rows: auto auto auto auto minmax(0, 1fr);
+    }
+    .api-endpoint-single .scalar-embed.scalar-ready .operation-auth {
+        grid-row: 2 !important;
+    }
+    .api-endpoint-single .scalar-embed.scalar-ready .operation-description {
+        grid-row: 3 !important;
+    }
+    .api-endpoint-single .scalar-embed.scalar-ready .operation-details {
+        grid-row: 4 !important;
+    }
     .api-endpoint-single .scalar-embed.scalar-ready .examples {
-        grid-row: 1 / span 60 !important;
+        grid-row: 1 / 6 !important;
         align-self: start;
         position: sticky;
         top: calc(var(--fd-nav-height, 3.5rem) + 1rem);
