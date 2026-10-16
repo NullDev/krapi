@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { StaticSearchDialog } from "@/components/search";
 
 export const metadata: Metadata = {
-    title: { template: "%s | krapi", default: "krapi" },
+    title: { template: "%s | krapio", default: "krapio" },
     description: "Typed client and documentation for the Krunker.io APIs",
 };
 

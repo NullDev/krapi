@@ -3,8 +3,8 @@
   "info": {
     "title": "Krunker API",
     "version": "0.1.0",
-    "summary": "The Krunker.io developer API, the game's public endpoints and the token bound ones, as krapi wraps them",
-    "description": "Generated from the krapi source and docs. The developer API is the official one from FRVR and needs an API key; the game and token tiers are the endpoints the game itself reads, documented from observation. Full docs: https://github.com/NullDev/krapi",
+    "summary": "The Krunker.io developer API, the game's public endpoints and the token bound ones, as krapio wraps them",
+    "description": "Generated from the krapio source and docs. The developer API is the official one from FRVR and needs an API key; the game and token tiers are the endpoints the game itself reads, documented from observation. Full docs: https://github.com/NullDev/krapio",
     "license": {
       "name": "MIT",
       "identifier": "MIT"
@@ -88,7 +88,7 @@
     {
       "name": "game/turf",
       "x-displayName": "Turf Wars",
-      "description": "`https://gapi.svc.krunker.io/territorial-wars/*`. Days are whole UTC days since the season epoch `2026-03-17` (`TURF_EPOCH_UTC`, `turfDay(date)` in krapi). `map_id` is the Turf map: 0 Burg, 2 Sandstorm, 3 Subzero (`TURF_MAPS`). Leaderboards return 100 rows, `kd` is a float."
+      "description": "`https://gapi.svc.krunker.io/territorial-wars/*`. Days are whole UTC days since the season epoch `2026-03-17` (`TURF_EPOCH_UTC`, `turfDay(date)` in krapio). `map_id` is the Turf map: 0 Burg, 2 Sandstorm, 3 Subzero (`TURF_MAPS`). Leaderboards return 100 rows, `kd` is a float."
     },
     {
       "name": "game/leaderboards",
@@ -123,7 +123,7 @@
     {
       "name": "game/matchmaker",
       "x-displayName": "Matchmaker",
-      "description": "`https://matchmaker.krunker.io`, plain JSON without an envelope. The game polls the list every 60 seconds. krapi adds `hostname=krunker.io` to every call."
+      "description": "`https://matchmaker.krunker.io`, plain JSON without an envelope. The game polls the list every 60 seconds. krapio adds `hostname=krunker.io` to every call."
     },
     {
       "name": "game/legacy",
@@ -143,7 +143,7 @@
     {
       "name": "token/trades",
       "x-displayName": "Trades",
-      "description": "Player to player trades. Creating, accepting and cancelling are writes and are not in krapi."
+      "description": "Player to player trades. Creating, accepting and cancelling are writes and are not in krapio."
     },
     {
       "name": "token/shop",
@@ -153,12 +153,12 @@
     {
       "name": "token/creator",
       "x-displayName": "Creator",
-      "description": "What a creator sees of their own maps and studios, plus the player's clan applications. The studio replies are untyped in krapi (`unknown`), only their existence was verified."
+      "description": "What a creator sees of their own maps and studios, plus the player's clan applications. The studio replies are untyped in krapio (`unknown`), only their existence was verified."
     },
     {
       "name": "token/staff",
       "x-displayName": "Staff",
-      "description": "Role gated reads for moderators and KPD reviewers. A normal account gets a 403 `insufficient permissions` (or `not authorized` for reports). The replies are untyped in krapi, no account with the role was available to verify them.\n\n`me.staff.chatBan(playerName)`, `.reports(playerName)`, `.kpdDemos({ off, q })`, `.kpdDemo(demoId, ct?)`, `.kpdReviewers()`\n\n`chatBan` is a player's chat ban, `kpdDemos` the demo review queue (`off` is the offset, `q` a search), `kpdDemo` one demo where `ct` is the review ticket the game passes along."
+      "description": "Role gated reads for moderators and KPD reviewers. A normal account gets a 403 `insufficient permissions` (or `not authorized` for reports). The replies are untyped in krapio, no account with the role was available to verify them.\n\n`me.staff.chatBan(playerName)`, `.reports(playerName)`, `.kpdDemos({ off, q })`, `.kpdDemo(demoId, ct?)`, `.kpdReviewers()`\n\n`chatBan` is a player's chat ban, `kpdDemos` the demo review queue (`off` is the offset, `q` a search), `kpdDemo` one demo where `ct` is the review ticket the game passes along."
     },
     {
       "name": "token/ranked",
@@ -220,15 +220,15 @@
         "tags": [
           "developer/clan"
         ],
-        "x-krapi": "krunker.clan.profile()",
+        "x-krapio": "krunker.clan.profile()",
         "x-routes": [
           "clan.profile"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst profile = await krunker.clan.profile(clanName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst profile = await krunker.clan.profile(clanName);\n"
           }
         ],
         "security": [
@@ -289,15 +289,15 @@
         "tags": [
           "developer/clan"
         ],
-        "x-krapi": "krunker.clan.members()",
+        "x-krapio": "krunker.clan.members()",
         "x-routes": [
           "clan.members"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst members = await krunker.clan.members(clanName, { page });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst members = await krunker.clan.members(clanName, { page });\n"
           }
         ],
         "security": [
@@ -376,15 +376,15 @@
         "tags": [
           "developer/events"
         ],
-        "x-krapi": "krunker.events.list()",
+        "x-krapio": "krunker.events.list()",
         "x-routes": [
           "events.list"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst list = await krunker.events.list({ after, types, target_type, target_id, limit });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst list = await krunker.events.list({ after, types, target_type, target_id, limit });\n"
           }
         ],
         "security": [
@@ -506,15 +506,15 @@
         "tags": [
           "developer/kpd"
         ],
-        "x-krapi": "krunker.kpd.latestCalls()",
+        "x-krapio": "krunker.kpd.latestCalls()",
         "x-routes": [
           "kpd.latestCalls"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst latestCalls = await krunker.kpd.latestCalls();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst latestCalls = await krunker.kpd.latestCalls();\n"
           }
         ],
         "security": [
@@ -585,15 +585,15 @@
         "tags": [
           "developer/leaderboard"
         ],
-        "x-krapi": "krunker.leaderboard.ranked()",
+        "x-krapio": "krunker.leaderboard.ranked()",
         "x-routes": [
           "leaderboard.ranked"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst ranked = await krunker.leaderboard.ranked(region, { page, season });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst ranked = await krunker.leaderboard.ranked(region, { page, season });\n"
           }
         ],
         "security": [
@@ -686,15 +686,15 @@
         "tags": [
           "developer/map"
         ],
-        "x-krapi": "krunker.map.get()",
+        "x-krapio": "krunker.map.get()",
         "x-routes": [
           "map.get"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst get = await krunker.map.get(mapName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst get = await krunker.map.get(mapName);\n"
           }
         ],
         "security": [
@@ -760,15 +760,15 @@
         "tags": [
           "developer/map"
         ],
-        "x-krapi": "krunker.map.featured()",
+        "x-krapio": "krunker.map.featured()",
         "x-routes": [
           "map.featured"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst featured = await krunker.map.featured();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst featured = await krunker.map.featured();\n"
           }
         ],
         "security": [
@@ -820,15 +820,15 @@
         "tags": [
           "developer/map"
         ],
-        "x-krapi": "krunker.map.leaderboard()",
+        "x-krapio": "krunker.map.leaderboard()",
         "x-routes": [
           "map.leaderboard"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst leaderboard = await krunker.map.leaderboard(mapName, { page, type, order });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst leaderboard = await krunker.map.leaderboard(mapName, { page, type, order });\n"
           }
         ],
         "security": [
@@ -932,15 +932,15 @@
         "tags": [
           "developer/map"
         ],
-        "x-krapi": "krunker.map.leaderboardPlayer()",
+        "x-krapio": "krunker.map.leaderboardPlayer()",
         "x-routes": [
           "map.leaderboardPlayer"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst leaderboardPlayer = await krunker.map.leaderboardPlayer(mapName, playerName, { type, order });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst leaderboardPlayer = await krunker.map.leaderboardPlayer(mapName, playerName, { type, order });\n"
           }
         ],
         "security": [
@@ -1038,15 +1038,15 @@
         "tags": [
           "developer/market"
         ],
-        "x-krapi": "krunker.market.skin()",
+        "x-krapio": "krunker.market.skin()",
         "x-routes": [
           "market.skin"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst skin = await krunker.market.skin(skinIndex, { page, days });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst skin = await krunker.market.skin(skinIndex, { page, days });\n"
           }
         ],
         "security": [
@@ -1156,15 +1156,15 @@
         "tags": [
           "developer/match"
         ],
-        "x-krapi": "krunker.match.get()",
+        "x-krapio": "krunker.match.get()",
         "x-routes": [
           "match.get"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst get = await krunker.match.get(matchId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst get = await krunker.match.get(matchId);\n"
           }
         ],
         "security": [
@@ -1241,15 +1241,15 @@
         "tags": [
           "developer/mods"
         ],
-        "x-krapi": "krunker.mods.list()",
+        "x-krapio": "krunker.mods.list()",
         "x-routes": [
           "mods.list"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst list = await krunker.mods.list({ page });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst list = await krunker.mods.list({ page });\n"
           }
         ],
         "security": [
@@ -1319,15 +1319,15 @@
         "tags": [
           "developer/mods"
         ],
-        "x-krapi": "krunker.mods.get()",
+        "x-krapio": "krunker.mods.get()",
         "x-routes": [
           "mods.get"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst get = await krunker.mods.get(modName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst get = await krunker.mods.get(modName);\n"
           }
         ],
         "security": [
@@ -1390,15 +1390,15 @@
         "tags": [
           "developer/player"
         ],
-        "x-krapi": "krunker.player.profile()",
+        "x-krapio": "krunker.player.profile()",
         "x-routes": [
           "player.profile"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst profile = await krunker.player.profile(playerName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst profile = await krunker.player.profile(playerName);\n"
           }
         ],
         "security": [
@@ -1515,15 +1515,15 @@
         "tags": [
           "developer/player"
         ],
-        "x-krapi": "krunker.player.inventory()",
+        "x-krapio": "krunker.player.inventory()",
         "x-routes": [
           "player.inventory"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst inventory = await krunker.player.inventory(playerName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst inventory = await krunker.player.inventory(playerName);\n"
           }
         ],
         "security": [
@@ -1585,15 +1585,15 @@
         "tags": [
           "developer/player"
         ],
-        "x-krapi": "krunker.player.listings()",
+        "x-krapio": "krunker.player.listings()",
         "x-routes": [
           "player.listings"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst listings = await krunker.player.listings(playerName, { page });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst listings = await krunker.player.listings(playerName, { page });\n"
           }
         ],
         "security": [
@@ -1668,15 +1668,15 @@
         "tags": [
           "developer/player"
         ],
-        "x-krapi": "krunker.player.matches()",
+        "x-krapio": "krunker.player.matches()",
         "x-routes": [
           "player.matches"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst matches = await krunker.player.matches(playerName, { page, season });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst matches = await krunker.player.matches(playerName, { page, season });\n"
           }
         ],
         "security": [
@@ -1778,15 +1778,15 @@
         "tags": [
           "developer/player"
         ],
-        "x-krapi": "krunker.player.posts()",
+        "x-krapio": "krunker.player.posts()",
         "x-routes": [
           "player.posts"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst posts = await krunker.player.posts(playerName, { page });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst posts = await krunker.player.posts(playerName, { page });\n"
           }
         ],
         "security": [
@@ -1862,15 +1862,15 @@
         "tags": [
           "developer/skins"
         ],
-        "x-krapi": "krunker.skins.list()",
+        "x-krapio": "krunker.skins.list()",
         "x-routes": [
           "skins.list"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst list = await krunker.skins.list({ page, per_page, season });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst list = await krunker.skins.list({ page, per_page, season });\n"
           }
         ],
         "security": [
@@ -1958,15 +1958,15 @@
         "tags": [
           "developer/skins"
         ],
-        "x-krapi": "krunker.skins.get()",
+        "x-krapio": "krunker.skins.get()",
         "x-routes": [
           "skins.get"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst get = await krunker.skins.get(skinIndex);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst get = await krunker.skins.get(skinIndex);\n"
           }
         ],
         "security": [
@@ -2024,15 +2024,15 @@
         "tags": [
           "game/clans"
         ],
-        "x-krapi": "krunker.game.clans.byName()",
+        "x-krapio": "krunker.game.clans.byName()",
         "x-routes": [
           "game.clans.byName"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst byName = await krunker.game.clans.byName(clanName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst byName = await krunker.game.clans.byName(clanName);\n"
           }
         ],
         "security": [],
@@ -2092,15 +2092,15 @@
         "tags": [
           "game/clans"
         ],
-        "x-krapi": "krunker.game.clans.profile()",
+        "x-krapio": "krunker.game.clans.profile()",
         "x-routes": [
           "game.clans.profile"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst profile = await krunker.game.clans.profile(clanId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst profile = await krunker.game.clans.profile(clanId);\n"
           }
         ],
         "security": [],
@@ -2160,15 +2160,15 @@
         "tags": [
           "game/clans"
         ],
-        "x-krapi": "krunker.game.clans.lootConfig()",
+        "x-krapio": "krunker.game.clans.lootConfig()",
         "x-routes": [
           "game.clans.lootConfig"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst lootConfig = await krunker.game.clans.lootConfig(clanId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst lootConfig = await krunker.game.clans.lootConfig(clanId);\n"
           }
         ],
         "security": [],
@@ -2228,15 +2228,15 @@
         "tags": [
           "game/clans"
         ],
-        "x-krapi": "krunker.game.clans.motd()",
+        "x-krapio": "krunker.game.clans.motd()",
         "x-routes": [
           "game.clans.motd"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst motd = await krunker.game.clans.motd(clanId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst motd = await krunker.game.clans.motd(clanId);\n"
           }
         ],
         "security": [],
@@ -2296,15 +2296,15 @@
         "tags": [
           "game/clans"
         ],
-        "x-krapi": "krunker.game.clans.recruitment()",
+        "x-krapio": "krunker.game.clans.recruitment()",
         "x-routes": [
           "game.clans.recruitment"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst recruitment = await krunker.game.clans.recruitment(clanId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst recruitment = await krunker.game.clans.recruitment(clanId);\n"
           }
         ],
         "security": [],
@@ -2364,15 +2364,15 @@
         "tags": [
           "game/clans"
         ],
-        "x-krapi": "krunker.game.clans.recruitmentBoard()",
+        "x-krapio": "krunker.game.clans.recruitmentBoard()",
         "x-routes": [
           "game.clans.recruitmentBoard"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst recruitmentBoard = await krunker.game.clans.recruitmentBoard({ page, limit, region, language });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst recruitmentBoard = await krunker.game.clans.recruitmentBoard({ page, limit, region, language });\n"
           }
         ],
         "security": [],
@@ -2460,15 +2460,15 @@
         "tags": [
           "game/game"
         ],
-        "x-krapi": "krunker.game.game.maps()",
+        "x-krapio": "krunker.game.game.maps()",
         "x-routes": [
           "game.game.maps"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst maps = await krunker.game.game.maps();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst maps = await krunker.game.game.maps();\n"
           }
         ],
         "security": [],
@@ -2517,19 +2517,19 @@
       "get": {
         "operationId": "game.game.mapConfig",
         "summary": "Map Config",
-        "description": "The whole map file (120 KB for Burg). krapi names only the keys the client reads (`name`, `modes`, `spawns`, `objects`, `sky`, `skyDome`), the rest is `Record<string, unknown>`.",
+        "description": "The whole map file (120 KB for Burg). krapio names only the keys the client reads (`name`, `modes`, `spawns`, `objects`, `sky`, `skyDome`), the rest is `Record<string, unknown>`.",
         "tags": [
           "game/game"
         ],
-        "x-krapi": "krunker.game.game.mapConfig()",
+        "x-krapio": "krunker.game.game.mapConfig()",
         "x-routes": [
           "game.game.mapConfig"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst mapConfig = await krunker.game.game.mapConfig(mapId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst mapConfig = await krunker.game.game.mapConfig(mapId);\n"
           }
         ],
         "security": [],
@@ -2589,15 +2589,15 @@
         "tags": [
           "game/game"
         ],
-        "x-krapi": "krunker.game.game.mapByName()",
+        "x-krapio": "krunker.game.game.mapByName()",
         "x-routes": [
           "game.game.mapByName"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst mapByName = await krunker.game.game.mapByName(mapName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst mapByName = await krunker.game.game.mapByName(mapName);\n"
           }
         ],
         "security": [],
@@ -2657,15 +2657,15 @@
         "tags": [
           "game/game"
         ],
-        "x-krapi": "krunker.game.game.mapLeaderboard()",
+        "x-krapio": "krunker.game.game.mapLeaderboard()",
         "x-routes": [
           "game.game.mapLeaderboard"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst mapLeaderboard = await krunker.game.game.mapLeaderboard(mapName, { page, type, order });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst mapLeaderboard = await krunker.game.game.mapLeaderboard(mapName, { page, type, order });\n"
           }
         ],
         "security": [],
@@ -2759,15 +2759,15 @@
         "tags": [
           "game/game"
         ],
-        "x-krapi": "krunker.game.game.modByName()",
+        "x-krapio": "krunker.game.game.modByName()",
         "x-routes": [
           "game.game.modByName"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst modByName = await krunker.game.game.modByName(modName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst modByName = await krunker.game.game.modByName(modName);\n"
           }
         ],
         "security": [],
@@ -2827,15 +2827,15 @@
         "tags": [
           "game/game"
         ],
-        "x-krapi": "krunker.game.game.titles()",
+        "x-krapio": "krunker.game.game.titles()",
         "x-routes": [
           "game.game.titles"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst titles = await krunker.game.game.titles();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst titles = await krunker.game.game.titles();\n"
           }
         ],
         "security": [],
@@ -2888,15 +2888,15 @@
         "tags": [
           "game/game"
         ],
-        "x-krapi": "krunker.game.game.creatorEvents()",
+        "x-krapio": "krunker.game.game.creatorEvents()",
         "x-routes": [
           "game.game.creatorEvents"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst creatorEvents = await krunker.game.game.creatorEvents();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst creatorEvents = await krunker.game.game.creatorEvents();\n"
           }
         ],
         "security": [],
@@ -2946,15 +2946,15 @@
         "tags": [
           "game/items"
         ],
-        "x-krapi": "krunker.game.items.view()",
+        "x-krapio": "krunker.game.items.view()",
         "x-routes": [
           "game.items.view"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst view = await krunker.game.items.view(skinIndex);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst view = await krunker.game.items.view(skinIndex);\n"
           }
         ],
         "security": [],
@@ -3014,15 +3014,15 @@
         "tags": [
           "game/items"
         ],
-        "x-krapi": "krunker.game.items.sales()",
+        "x-krapio": "krunker.game.items.sales()",
         "x-routes": [
           "game.items.sales"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst sales = await krunker.game.items.sales(skinIndex, range);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst sales = await krunker.game.items.sales(skinIndex, range);\n"
           }
         ],
         "security": [],
@@ -3095,15 +3095,15 @@
         "tags": [
           "game/items"
         ],
-        "x-krapi": "krunker.game.items.instances()",
+        "x-krapio": "krunker.game.items.instances()",
         "x-routes": [
           "game.items.instances"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst instances = await krunker.game.items.instances(skinIndex, sort);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst instances = await krunker.game.items.instances(skinIndex, sort);\n"
           }
         ],
         "security": [],
@@ -3174,15 +3174,15 @@
         "tags": [
           "game/leaderboards"
         ],
-        "x-krapi": "krunker.game.leaderboards.players()",
+        "x-krapio": "krunker.game.leaderboards.players()",
         "x-routes": [
           "game.leaderboards.players"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst players = await krunker.game.leaderboards.players(type, { sort, season });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst players = await krunker.game.leaderboards.players(type, { sort, season });\n"
           }
         ],
         "security": [],
@@ -3273,15 +3273,15 @@
         "tags": [
           "game/leaderboards"
         ],
-        "x-krapi": "krunker.game.leaderboards.clans()",
+        "x-krapio": "krunker.game.leaderboards.clans()",
         "x-routes": [
           "game.leaderboards.clans"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst clans = await krunker.game.leaderboards.clans(sort);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst clans = await krunker.game.leaderboards.clans(sort);\n"
           }
         ],
         "security": [],
@@ -3348,15 +3348,15 @@
         "tags": [
           "game/leaderboards"
         ],
-        "x-krapi": "krunker.game.leaderboards.raids()",
+        "x-krapio": "krunker.game.leaderboards.raids()",
         "x-routes": [
           "game.leaderboards.raids"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst raids = await krunker.game.leaderboards.raids(mapId, sort);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst raids = await krunker.game.leaderboards.raids(mapId, sort);\n"
           }
         ],
         "security": [],
@@ -3427,19 +3427,19 @@
       "get": {
         "operationId": "game.leaderboards.raidsMonthly",
         "summary": "Monthly Raid Leaderboard",
-        "description": "`month` is required, as `YYYY-MM` (what the game sends). A bare number like `8` is also answered, with different rows of unknown meaning, so krapi only accepts `YYYY-MM`. A month without runs answers `{\"data\": null}`, which krapi returns as `[]`.",
+        "description": "`month` is required, as `YYYY-MM` (what the game sends). A bare number like `8` is also answered, with different rows of unknown meaning, so krapio only accepts `YYYY-MM`. A month without runs answers `{\"data\": null}`, which krapio returns as `[]`.",
         "tags": [
           "game/leaderboards"
         ],
-        "x-krapi": "krunker.game.leaderboards.raidsMonthly()",
+        "x-krapio": "krunker.game.leaderboards.raidsMonthly()",
         "x-routes": [
           "game.leaderboards.raidsMonthly"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst raidsMonthly = await krunker.game.leaderboards.raidsMonthly(mapId, month, sort);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst raidsMonthly = await krunker.game.leaderboards.raidsMonthly(mapId, month, sort);\n"
           }
         ],
         "security": [],
@@ -3531,15 +3531,15 @@
         "tags": [
           "game/leaderboards"
         ],
-        "x-krapi": "krunker.game.leaderboards.krunkCupTeams()",
+        "x-krapio": "krunker.game.leaderboards.krunkCupTeams()",
         "x-routes": [
           "game.leaderboards.krunkCupTeams"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst krunkCupTeams = await krunker.game.leaderboards.krunkCupTeams();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst krunkCupTeams = await krunker.game.leaderboards.krunkCupTeams();\n"
           }
         ],
         "security": [],
@@ -3592,15 +3592,15 @@
         "tags": [
           "game/leaderboards"
         ],
-        "x-krapi": "krunker.game.leaderboards.krunkCupContributors()",
+        "x-krapio": "krunker.game.leaderboards.krunkCupContributors()",
         "x-routes": [
           "game.leaderboards.krunkCupContributors"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst krunkCupContributors = await krunker.game.leaderboards.krunkCupContributors(teamId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst krunkCupContributors = await krunker.game.leaderboards.krunkCupContributors(teamId);\n"
           }
         ],
         "security": [],
@@ -3663,15 +3663,15 @@
         "tags": [
           "game/leaderboards"
         ],
-        "x-krapi": "krunker.game.leaderboards.krunkCupPlayers()",
+        "x-krapio": "krunker.game.leaderboards.krunkCupPlayers()",
         "x-routes": [
           "game.leaderboards.krunkCupPlayers"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst krunkCupPlayers = await krunker.game.leaderboards.krunkCupPlayers(limit);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst krunkCupPlayers = await krunker.game.leaderboards.krunkCupPlayers(limit);\n"
           }
         ],
         "security": [],
@@ -3734,15 +3734,15 @@
         "tags": [
           "game/legacy"
         ],
-        "x-krapi": "krunker.game.legacy.mapsList()",
+        "x-krapio": "krunker.game.legacy.mapsList()",
         "x-routes": [
           "game.legacy.mapsList"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst mapsList = await krunker.game.legacy.mapsList({ index, pos });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst mapsList = await krunker.game.legacy.mapsList({ index, pos });\n"
           }
         ],
         "security": [],
@@ -3805,15 +3805,15 @@
         "tags": [
           "game/legacy"
         ],
-        "x-krapi": "krunker.game.legacy.modsList()",
+        "x-krapio": "krunker.game.legacy.modsList()",
         "x-routes": [
           "game.legacy.modsList"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst modsList = await krunker.game.legacy.modsList({ index, pos });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst modsList = await krunker.game.legacy.modsList({ index, pos });\n"
           }
         ],
         "security": [],
@@ -3876,15 +3876,15 @@
         "tags": [
           "game/legacy"
         ],
-        "x-krapi": "krunker.game.legacy.itemPrices()",
+        "x-krapio": "krunker.game.legacy.itemPrices()",
         "x-routes": [
           "game.legacy.itemPrices"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst itemPrices = await krunker.game.legacy.itemPrices();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst itemPrices = await krunker.game.legacy.itemPrices();\n"
           }
         ],
         "security": [],
@@ -3922,19 +3922,19 @@
       "get": {
         "operationId": "game.legacy.topStreams",
         "summary": "Top Streams",
-        "description": "The menu's stream box plus the running drop campaigns. krapi unwraps the `data` key.\n\n```ts\ntype TopStreams = {\n    streams: { id: string; username: string; title: string; viewerCount: number; thumbnailUrl: string; startedAt: string; provider: string; featured: boolean; languageCode: string }[];\n    promo: boolean;\n    dropCampaigns: { name: string; startDate: number; endDate: number; drops: { itemId: number }[]; startDateISO: string; endDateISO: string }[];\n};\n```",
+        "description": "The menu's stream box plus the running drop campaigns. krapio unwraps the `data` key.\n\n```ts\ntype TopStreams = {\n    streams: { id: string; username: string; title: string; viewerCount: number; thumbnailUrl: string; startedAt: string; provider: string; featured: boolean; languageCode: string }[];\n    promo: boolean;\n    dropCampaigns: { name: string; startDate: number; endDate: number; drops: { itemId: number }[]; startDateISO: string; endDateISO: string }[];\n};\n```",
         "tags": [
           "game/legacy"
         ],
-        "x-krapi": "krunker.game.legacy.topStreams()",
+        "x-krapio": "krunker.game.legacy.topStreams()",
         "x-routes": [
           "game.legacy.topStreams"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst topStreams = await krunker.game.legacy.topStreams();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst topStreams = await krunker.game.legacy.topStreams();\n"
           }
         ],
         "security": [],
@@ -3994,15 +3994,15 @@
         "tags": [
           "game/market"
         ],
-        "x-krapi": "krunker.game.market.stats()",
+        "x-krapio": "krunker.game.market.stats()",
         "x-routes": [
           "game.market.stats"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst stats = await krunker.game.market.stats({ cursor, limit, sort, rarities, weapons, types, season, searchTerm });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst stats = await krunker.game.market.stats({ cursor, limit, sort, rarities, weapons, types, season, searchTerm });\n"
           }
         ],
         "security": [],
@@ -4136,15 +4136,15 @@
         "tags": [
           "game/market"
         ],
-        "x-krapi": "krunker.game.market.itemSales()",
+        "x-krapio": "krunker.game.market.itemSales()",
         "x-routes": [
           "game.market.itemSales"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst itemSales = await krunker.game.market.itemSales(skinIndex);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst itemSales = await krunker.game.market.itemSales(skinIndex);\n"
           }
         ],
         "security": [],
@@ -4207,15 +4207,15 @@
         "tags": [
           "game/market"
         ],
-        "x-krapi": "krunker.game.market.itemSalesStatistics()",
+        "x-krapio": "krunker.game.market.itemSalesStatistics()",
         "x-routes": [
           "game.market.itemSalesStatistics"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst itemSalesStatistics = await krunker.game.market.itemSalesStatistics(skinIndex, daysBack);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst itemSalesStatistics = await krunker.game.market.itemSalesStatistics(skinIndex, daysBack);\n"
           }
         ],
         "security": [],
@@ -4288,15 +4288,15 @@
         "tags": [
           "game/matchmaker"
         ],
-        "x-krapi": "krunker.game.matchmaker.gameList()",
+        "x-krapio": "krunker.game.matchmaker.gameList()",
         "x-routes": [
           "game.matchmaker.gameList"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst gameList = await krunker.game.matchmaker.gameList();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst gameList = await krunker.game.matchmaker.gameList();\n"
           }
         ],
         "security": [],
@@ -4348,15 +4348,15 @@
         "tags": [
           "game/matchmaker"
         ],
-        "x-krapi": "krunker.game.matchmaker.pingList()",
+        "x-krapio": "krunker.game.matchmaker.pingList()",
         "x-routes": [
           "game.matchmaker.pingList"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst pingList = await krunker.game.matchmaker.pingList();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst pingList = await krunker.game.matchmaker.pingList();\n"
           }
         ],
         "security": [],
@@ -4408,15 +4408,15 @@
         "tags": [
           "game/matchmaker"
         ],
-        "x-krapi": "krunker.game.matchmaker.gameInfo()",
+        "x-krapio": "krunker.game.matchmaker.gameInfo()",
         "x-routes": [
           "game.matchmaker.gameInfo"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst gameInfo = await krunker.game.matchmaker.gameInfo(gameId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst gameInfo = await krunker.game.matchmaker.gameInfo(gameId);\n"
           }
         ],
         "security": [],
@@ -4467,15 +4467,15 @@
         "tags": [
           "game/players"
         ],
-        "x-krapi": "krunker.game.players.get()",
+        "x-krapio": "krunker.game.players.get()",
         "x-routes": [
           "game.players.get"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst get = await krunker.game.players.get(playerName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst get = await krunker.game.players.get(playerName);\n"
           }
         ],
         "security": [],
@@ -4532,19 +4532,19 @@
       "get": {
         "operationId": "game.players.search",
         "summary": "Search Players",
-        "description": "Prefix match on the name, `limit` 1 to 20. Returns `{player_id, player_name, player_score}[]` (krapi unwraps the `results` key).",
+        "description": "Prefix match on the name, `limit` 1 to 20. Returns `{player_id, player_name, player_score}[]` (krapio unwraps the `results` key).",
         "tags": [
           "game/players"
         ],
-        "x-krapi": "krunker.game.players.search()",
+        "x-krapio": "krunker.game.players.search()",
         "x-routes": [
           "game.players.search"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst search = await krunker.game.players.search(query, limit);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst search = await krunker.game.players.search(query, limit);\n"
           }
         ],
         "security": [],
@@ -4626,15 +4626,15 @@
         "tags": [
           "game/players"
         ],
-        "x-krapi": "krunker.game.players.sales()",
+        "x-krapio": "krunker.game.players.sales()",
         "x-routes": [
           "game.players.sales"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst sales = await krunker.game.players.sales(playerName, range);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst sales = await krunker.game.players.sales(playerName, range);\n"
           }
         ],
         "security": [],
@@ -4708,15 +4708,15 @@
         "tags": [
           "game/players"
         ],
-        "x-krapi": "krunker.game.players.listings()",
+        "x-krapio": "krunker.game.players.listings()",
         "x-routes": [
           "game.players.listings"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst listings = await krunker.game.players.listings(playerName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst listings = await krunker.game.players.listings(playerName);\n"
           }
         ],
         "security": [],
@@ -4778,15 +4778,15 @@
         "tags": [
           "game/players"
         ],
-        "x-krapi": "krunker.game.players.followers()",
+        "x-krapio": "krunker.game.players.followers()",
         "x-routes": [
           "game.players.followers"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst followers = await krunker.game.players.followers(playerName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst followers = await krunker.game.players.followers(playerName);\n"
           }
         ],
         "security": [],
@@ -4850,15 +4850,15 @@
         "tags": [
           "game/players"
         ],
-        "x-krapi": "krunker.game.players.following()",
+        "x-krapio": "krunker.game.players.following()",
         "x-routes": [
           "game.players.following"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst following = await krunker.game.players.following(playerName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst following = await krunker.game.players.following(playerName);\n"
           }
         ],
         "security": [],
@@ -4918,12 +4918,12 @@
       "get": {
         "operationId": "game.players.feed",
         "summary": "Get Player Feed",
-        "description": "A player's posts, `limit` 1 to 50. krapi returns the `posts` array of `FeedPost` (see [Social](#social) for the keys).\n\n`global` is the only tab seen; an unknown one is a 400 `SOCIAL_INVALID_TAB`. `limit` 1 to 50. krapi returns the `posts` array.\n\n```ts\ntype FeedPost = {\n    pid: number;      // post id\n    pln: string;      // poster name\n    pli: number;      // poster id\n    tim: number;\n    lnk: string;\n    txt: string;\n    ftr: number;\n    typ: number;\n    cln: string;\n    flw: number;\n    clr: number;\n    prm: number;\n    lnk2: string;\n    vot: number;      // votes\n    dlk: number;\n    cnt: number;      // comment count\n    exp: number;\n    fds: number;\n};\n```",
+        "description": "A player's posts, `limit` 1 to 50. krapio returns the `posts` array of `FeedPost` (see [Social](#social) for the keys).\n\n`global` is the only tab seen; an unknown one is a 400 `SOCIAL_INVALID_TAB`. `limit` 1 to 50. krapio returns the `posts` array.\n\n```ts\ntype FeedPost = {\n    pid: number;      // post id\n    pln: string;      // poster name\n    pli: number;      // poster id\n    tim: number;\n    lnk: string;\n    txt: string;\n    ftr: number;\n    typ: number;\n    cln: string;\n    flw: number;\n    clr: number;\n    prm: number;\n    lnk2: string;\n    vot: number;      // votes\n    dlk: number;\n    cnt: number;      // comment count\n    exp: number;\n    fds: number;\n};\n```",
         "tags": [
           "game/players",
           "game/social"
         ],
-        "x-krapi": [
+        "x-krapio": [
           "krunker.game.players.feed()",
           "krunker.game.social.feed()"
         ],
@@ -4934,13 +4934,13 @@
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi: players.feed",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst feed = await krunker.game.players.feed(playerId, limit);\n"
+            "label": "krapio: players.feed",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst feed = await krunker.game.players.feed(playerId, limit);\n"
           },
           {
             "lang": "ts",
-            "label": "krapi: social.feed",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst feed = await krunker.game.social.feed(tab, limit);\n"
+            "label": "krapio: social.feed",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst feed = await krunker.game.social.feed(tab, limit);\n"
           }
         ],
         "security": [],
@@ -5032,15 +5032,15 @@
         "tags": [
           "game/shop"
         ],
-        "x-krapi": "krunker.game.shop.display()",
+        "x-krapio": "krunker.game.shop.display()",
         "x-routes": [
           "game.shop.display"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst display = await krunker.game.shop.display(displayId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst display = await krunker.game.shop.display(displayId);\n"
           }
         ],
         "security": [],
@@ -5100,15 +5100,15 @@
         "tags": [
           "game/shop"
         ],
-        "x-krapi": "krunker.game.shop.displayByTag()",
+        "x-krapio": "krunker.game.shop.displayByTag()",
         "x-routes": [
           "game.shop.displayByTag"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst displayByTag = await krunker.game.shop.displayByTag(tag);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst displayByTag = await krunker.game.shop.displayByTag(tag);\n"
           }
         ],
         "security": [],
@@ -5168,15 +5168,15 @@
         "tags": [
           "game/shop"
         ],
-        "x-krapi": "krunker.game.shop.spinWheels()",
+        "x-krapio": "krunker.game.shop.spinWheels()",
         "x-routes": [
           "game.shop.spinWheels"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst spinWheels = await krunker.game.shop.spinWheels();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst spinWheels = await krunker.game.shop.spinWheels();\n"
           }
         ],
         "security": [],
@@ -5229,15 +5229,15 @@
         "tags": [
           "game/shop"
         ],
-        "x-krapi": "krunker.game.shop.lottery()",
+        "x-krapio": "krunker.game.shop.lottery()",
         "x-routes": [
           "game.shop.lottery"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst lottery = await krunker.game.shop.lottery(lotteryId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst lottery = await krunker.game.shop.lottery(lotteryId);\n"
           }
         ],
         "security": [],
@@ -5297,15 +5297,15 @@
         "tags": [
           "game/social"
         ],
-        "x-krapi": "krunker.game.social.post()",
+        "x-krapio": "krunker.game.social.post()",
         "x-routes": [
           "game.social.post"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst post = await krunker.game.social.post(postId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst post = await krunker.game.social.post(postId);\n"
           }
         ],
         "security": [],
@@ -5365,15 +5365,15 @@
         "tags": [
           "game/social"
         ],
-        "x-krapi": "krunker.game.social.news()",
+        "x-krapio": "krunker.game.social.news()",
         "x-routes": [
           "game.social.news"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst news = await krunker.game.social.news();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst news = await krunker.game.social.news();\n"
           }
         ],
         "security": [],
@@ -5423,15 +5423,15 @@
         "tags": [
           "game/turf"
         ],
-        "x-krapi": "krunker.game.turf.status()",
+        "x-krapio": "krunker.game.turf.status()",
         "x-routes": [
           "game.turf.status"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst status = await krunker.game.turf.status();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst status = await krunker.game.turf.status();\n"
           }
         ],
         "security": [],
@@ -5484,15 +5484,15 @@
         "tags": [
           "game/turf"
         ],
-        "x-krapi": "krunker.game.turf.clan()",
+        "x-krapio": "krunker.game.turf.clan()",
         "x-routes": [
           "game.turf.clan"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst clan = await krunker.game.turf.clan(clanId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst clan = await krunker.game.turf.clan(clanId);\n"
           }
         ],
         "security": [],
@@ -5552,15 +5552,15 @@
         "tags": [
           "game/turf"
         ],
-        "x-krapi": "krunker.game.turf.clanPlayers()",
+        "x-krapio": "krunker.game.turf.clanPlayers()",
         "x-routes": [
           "game.turf.clanPlayers"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst clanPlayers = await krunker.game.turf.clanPlayers(clanId, { day, map_id });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst clanPlayers = await krunker.game.turf.clanPlayers(clanId, { day, map_id });\n"
           }
         ],
         "security": [],
@@ -5641,15 +5641,15 @@
         "tags": [
           "game/turf"
         ],
-        "x-krapi": "krunker.game.turf.clanEarnings()",
+        "x-krapio": "krunker.game.turf.clanEarnings()",
         "x-routes": [
           "game.turf.clanEarnings"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst clanEarnings = await krunker.game.turf.clanEarnings(clanId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst clanEarnings = await krunker.game.turf.clanEarnings(clanId);\n"
           }
         ],
         "security": [],
@@ -5712,15 +5712,15 @@
         "tags": [
           "game/turf"
         ],
-        "x-krapi": "krunker.game.turf.clanPayouts()",
+        "x-krapio": "krunker.game.turf.clanPayouts()",
         "x-routes": [
           "game.turf.clanPayouts"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst clanPayouts = await krunker.game.turf.clanPayouts(clanId, day);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst clanPayouts = await krunker.game.turf.clanPayouts(clanId, day);\n"
           }
         ],
         "security": [],
@@ -5789,15 +5789,15 @@
         "tags": [
           "game/turf"
         ],
-        "x-krapi": "krunker.game.turf.topClans()",
+        "x-krapio": "krunker.game.turf.topClans()",
         "x-routes": [
           "game.turf.topClans"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst topClans = await krunker.game.turf.topClans({ day, map_id, clan_name });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst topClans = await krunker.game.turf.topClans({ day, map_id, clan_name });\n"
           }
         ],
         "security": [],
@@ -5877,15 +5877,15 @@
         "tags": [
           "game/turf"
         ],
-        "x-krapi": "krunker.game.turf.topGrossing()",
+        "x-krapio": "krunker.game.turf.topGrossing()",
         "x-routes": [
           "game.turf.topGrossing"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst topGrossing = await krunker.game.turf.topGrossing(clanName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst topGrossing = await krunker.game.turf.topGrossing(clanName);\n"
           }
         ],
         "security": [],
@@ -5947,15 +5947,15 @@
         "tags": [
           "game/turf"
         ],
-        "x-krapi": "krunker.game.turf.topPlayers()",
+        "x-krapio": "krunker.game.turf.topPlayers()",
         "x-routes": [
           "game.turf.topPlayers"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst topPlayers = await krunker.game.turf.topPlayers({ map_id, player_name });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst topPlayers = await krunker.game.turf.topPlayers({ map_id, player_name });\n"
           }
         ],
         "security": [],
@@ -6026,15 +6026,15 @@
         "tags": [
           "game/turf"
         ],
-        "x-krapi": "krunker.game.turf.player()",
+        "x-krapio": "krunker.game.turf.player()",
         "x-routes": [
           "game.turf.player"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst player = await krunker.game.turf.player(playerId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst player = await krunker.game.turf.player(playerId);\n"
           }
         ],
         "security": [],
@@ -6094,15 +6094,15 @@
         "tags": [
           "game/turf"
         ],
-        "x-krapi": "krunker.game.turf.playerContributions()",
+        "x-krapio": "krunker.game.turf.playerContributions()",
         "x-routes": [
           "game.turf.playerContributions"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst playerContributions = await krunker.game.turf.playerContributions(playerId, day);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst playerContributions = await krunker.game.turf.playerContributions(playerId, day);\n"
           }
         ],
         "security": [],
@@ -6174,15 +6174,15 @@
         "tags": [
           "game/turf"
         ],
-        "x-krapi": "krunker.game.turf.playerEarnings()",
+        "x-krapio": "krunker.game.turf.playerEarnings()",
         "x-routes": [
           "game.turf.playerEarnings"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst playerEarnings = await krunker.game.turf.playerEarnings(playerId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst playerEarnings = await krunker.game.turf.playerEarnings(playerId);\n"
           }
         ],
         "security": [],
@@ -6245,15 +6245,15 @@
         "tags": [
           "token/creator"
         ],
-        "x-krapi": "krunker.as(token).creator.clanApplications()",
+        "x-krapio": "krunker.as(token).creator.clanApplications()",
         "x-routes": [
           "token.creator.clanApplications"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst clanApplications = await krunker.as(token).creator.clanApplications();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst clanApplications = await krunker.as(token).creator.clanApplications();\n"
           }
         ],
         "security": [
@@ -6307,15 +6307,15 @@
         "tags": [
           "token/creator"
         ],
-        "x-krapi": "krunker.as(token).creator.mapVersions()",
+        "x-krapio": "krunker.as(token).creator.mapVersions()",
         "x-routes": [
           "token.creator.mapVersions"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst mapVersions = await krunker.as(token).creator.mapVersions(mapId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst mapVersions = await krunker.as(token).creator.mapVersions(mapId);\n"
           }
         ],
         "security": [
@@ -6380,15 +6380,15 @@
         "tags": [
           "token/creator"
         ],
-        "x-krapi": "krunker.as(token).creator.mapData()",
+        "x-krapio": "krunker.as(token).creator.mapData()",
         "x-routes": [
           "token.creator.mapData"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst mapData = await krunker.as(token).creator.mapData(mapId, playerName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst mapData = await krunker.as(token).creator.mapData(mapId, playerName);\n"
           }
         ],
         "security": [
@@ -6459,15 +6459,15 @@
         "tags": [
           "token/creator"
         ],
-        "x-krapi": "krunker.as(token).creator.studios()",
+        "x-krapio": "krunker.as(token).creator.studios()",
         "x-routes": [
           "token.creator.studios"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst studios = await krunker.as(token).creator.studios();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst studios = await krunker.as(token).creator.studios();\n"
           }
         ],
         "security": [
@@ -6522,15 +6522,15 @@
         "tags": [
           "token/creator"
         ],
-        "x-krapi": "krunker.as(token).creator.studioInvites()",
+        "x-krapio": "krunker.as(token).creator.studioInvites()",
         "x-routes": [
           "token.creator.studioInvites"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst studioInvites = await krunker.as(token).creator.studioInvites();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst studioInvites = await krunker.as(token).creator.studioInvites();\n"
           }
         ],
         "security": [
@@ -6585,15 +6585,15 @@
         "tags": [
           "token/creator"
         ],
-        "x-krapi": "krunker.as(token).creator.studio()",
+        "x-krapio": "krunker.as(token).creator.studio()",
         "x-routes": [
           "token.creator.studio"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst studio = await krunker.as(token).creator.studio(studioId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst studio = await krunker.as(token).creator.studio(studioId);\n"
           }
         ],
         "security": [
@@ -6655,15 +6655,15 @@
         "tags": [
           "token/creator"
         ],
-        "x-krapi": "krunker.as(token).creator.studioMonetization()",
+        "x-krapio": "krunker.as(token).creator.studioMonetization()",
         "x-routes": [
           "token.creator.studioMonetization"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst studioMonetization = await krunker.as(token).creator.studioMonetization(studioId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst studioMonetization = await krunker.as(token).creator.studioMonetization(studioId);\n"
           }
         ],
         "security": [
@@ -6725,15 +6725,15 @@
         "tags": [
           "token/creator"
         ],
-        "x-krapi": "krunker.as(token).creator.studioAnalytics()",
+        "x-krapio": "krunker.as(token).creator.studioAnalytics()",
         "x-routes": [
           "token.creator.studioAnalytics"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst studioAnalytics = await krunker.as(token).creator.studioAnalytics(studioId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst studioAnalytics = await krunker.as(token).creator.studioAnalytics(studioId);\n"
           }
         ],
         "security": [
@@ -6795,15 +6795,15 @@
         "tags": [
           "token/creator"
         ],
-        "x-krapi": "krunker.as(token).creator.studioSkins()",
+        "x-krapio": "krunker.as(token).creator.studioSkins()",
         "x-routes": [
           "token.creator.studioSkins"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst studioSkins = await krunker.as(token).creator.studioSkins(studioId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst studioSkins = await krunker.as(token).creator.studioSkins(studioId);\n"
           }
         ],
         "security": [
@@ -6868,15 +6868,15 @@
         "tags": [
           "token/market"
         ],
-        "x-krapi": "krunker.as(token).market.listings()",
+        "x-krapio": "krunker.as(token).market.listings()",
         "x-routes": [
           "token.market.listings"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst listings = await krunker.as(token).market.listings({ item_id, items, sort, cursor_id, limit, rarities, weapons, types, wears, season, painted, searchTerm });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst listings = await krunker.as(token).market.listings({ item_id, items, sort, cursor_id, limit, rarities, weapons, types, wears, season, painted, searchTerm });\n"
           }
         ],
         "security": [
@@ -7065,15 +7065,15 @@
         "tags": [
           "token/market"
         ],
-        "x-krapi": "krunker.as(token).market.inventory()",
+        "x-krapio": "krunker.as(token).market.inventory()",
         "x-routes": [
           "token.market.inventory"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst inventory = await krunker.as(token).market.inventory();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst inventory = await krunker.as(token).market.inventory();\n"
           }
         ],
         "security": [
@@ -7130,15 +7130,15 @@
         "tags": [
           "token/market"
         ],
-        "x-krapi": "krunker.as(token).market.sales()",
+        "x-krapio": "krunker.as(token).market.sales()",
         "x-routes": [
           "token.market.sales"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst sales = await krunker.as(token).market.sales();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst sales = await krunker.as(token).market.sales();\n"
           }
         ],
         "security": [
@@ -7193,15 +7193,15 @@
         "tags": [
           "token/market"
         ],
-        "x-krapi": "krunker.as(token).market.history()",
+        "x-krapio": "krunker.as(token).market.history()",
         "x-routes": [
           "token.market.history"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst history = await krunker.as(token).market.history({ sort, cursor, limit });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst history = await krunker.as(token).market.history({ sort, cursor, limit });\n"
           }
         ],
         "security": [
@@ -7291,15 +7291,15 @@
         "tags": [
           "token/market"
         ],
-        "x-krapi": "krunker.as(token).market.blackMarket()",
+        "x-krapio": "krunker.as(token).market.blackMarket()",
         "x-routes": [
           "token.market.blackMarket"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst blackMarket = await krunker.as(token).market.blackMarket();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst blackMarket = await krunker.as(token).market.blackMarket();\n"
           }
         ],
         "security": [
@@ -7353,15 +7353,15 @@
         "tags": [
           "token/market"
         ],
-        "x-krapi": "krunker.as(token).market.blackMarketRank()",
+        "x-krapio": "krunker.as(token).market.blackMarketRank()",
         "x-routes": [
           "token.market.blackMarketRank"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst blackMarketRank = await krunker.as(token).market.blackMarketRank();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst blackMarketRank = await krunker.as(token).market.blackMarketRank();\n"
           }
         ],
         "security": [
@@ -7415,15 +7415,15 @@
         "tags": [
           "token/player"
         ],
-        "x-krapi": "krunker.as(token).player.me()",
+        "x-krapio": "krunker.as(token).player.me()",
         "x-routes": [
           "token.player.me"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst me = await krunker.as(token).player.me();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst me = await krunker.as(token).player.me();\n"
           }
         ],
         "security": [
@@ -7477,15 +7477,15 @@
         "tags": [
           "token/player"
         ],
-        "x-krapi": "krunker.as(token).player.wallet()",
+        "x-krapio": "krunker.as(token).player.wallet()",
         "x-routes": [
           "token.player.wallet"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst wallet = await krunker.as(token).player.wallet();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst wallet = await krunker.as(token).player.wallet();\n"
           }
         ],
         "security": [
@@ -7539,15 +7539,15 @@
         "tags": [
           "token/player"
         ],
-        "x-krapi": "krunker.as(token).player.guestProfile()",
+        "x-krapio": "krunker.as(token).player.guestProfile()",
         "x-routes": [
           "token.player.guestProfile"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst guestProfile = await krunker.as(token).player.guestProfile();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst guestProfile = await krunker.as(token).player.guestProfile();\n"
           }
         ],
         "security": [
@@ -7601,15 +7601,15 @@
         "tags": [
           "token/player"
         ],
-        "x-krapi": "krunker.as(token).player.usernames()",
+        "x-krapio": "krunker.as(token).player.usernames()",
         "x-routes": [
           "token.player.usernames"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst usernames = await krunker.as(token).player.usernames();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst usernames = await krunker.as(token).player.usernames();\n"
           }
         ],
         "security": [
@@ -7663,15 +7663,15 @@
         "tags": [
           "token/player"
         ],
-        "x-krapi": "krunker.as(token).player.emailPreferences()",
+        "x-krapio": "krunker.as(token).player.emailPreferences()",
         "x-routes": [
           "token.player.emailPreferences"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst emailPreferences = await krunker.as(token).player.emailPreferences();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst emailPreferences = await krunker.as(token).player.emailPreferences();\n"
           }
         ],
         "security": [
@@ -7725,15 +7725,15 @@
         "tags": [
           "token/player"
         ],
-        "x-krapi": "krunker.as(token).player.discordStatus()",
+        "x-krapio": "krunker.as(token).player.discordStatus()",
         "x-routes": [
           "token.player.discordStatus"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst discordStatus = await krunker.as(token).player.discordStatus();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst discordStatus = await krunker.as(token).player.discordStatus();\n"
           }
         ],
         "security": [
@@ -7787,15 +7787,15 @@
         "tags": [
           "token/ranked"
         ],
-        "x-krapi": "krunker.as(token).ranked.leaderboard()",
+        "x-krapio": "krunker.as(token).ranked.leaderboard()",
         "x-routes": [
           "token.ranked.leaderboard"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst leaderboard = await krunker.as(token).ranked.leaderboard(season, { region, limit, offset });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst leaderboard = await krunker.as(token).ranked.leaderboard(season, { region, limit, offset });\n"
           }
         ],
         "security": [
@@ -7880,15 +7880,15 @@
         "tags": [
           "token/ranked"
         ],
-        "x-krapi": "krunker.as(token).ranked.leaderboard()",
+        "x-krapio": "krunker.as(token).ranked.leaderboard()",
         "x-routes": [
           "token.ranked.leaderboard"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst leaderboard = await krunker.as(token).ranked.leaderboard(season, { region, limit, offset });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst leaderboard = await krunker.as(token).ranked.leaderboard(season, { region, limit, offset });\n"
           }
         ],
         "security": [
@@ -7982,15 +7982,15 @@
         "tags": [
           "token/ranked"
         ],
-        "x-krapi": "krunker.as(token).ranked.profile()",
+        "x-krapio": "krunker.as(token).ranked.profile()",
         "x-routes": [
           "token.ranked.profile"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst profile = await krunker.as(token).ranked.profile(season, region);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst profile = await krunker.as(token).ranked.profile(season, region);\n"
           }
         ],
         "security": [
@@ -8054,15 +8054,15 @@
         "tags": [
           "token/ranked"
         ],
-        "x-krapi": "krunker.as(token).ranked.profile()",
+        "x-krapio": "krunker.as(token).ranked.profile()",
         "x-routes": [
           "token.ranked.profile"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst profile = await krunker.as(token).ranked.profile(season, region);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst profile = await krunker.as(token).ranked.profile(season, region);\n"
           }
         ],
         "security": [
@@ -8135,15 +8135,15 @@
         "tags": [
           "token/ranked"
         ],
-        "x-krapi": "krunker.as(token).ranked.matchHistory()",
+        "x-krapio": "krunker.as(token).ranked.matchHistory()",
         "x-routes": [
           "token.ranked.matchHistory"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst matchHistory = await krunker.as(token).ranked.matchHistory(season, { gameMode, isRanked, region, limit, offset });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst matchHistory = await krunker.as(token).ranked.matchHistory(season, { gameMode, isRanked, region, limit, offset });\n"
           }
         ],
         "security": [
@@ -8263,15 +8263,15 @@
         "tags": [
           "token/ranked"
         ],
-        "x-krapi": "krunker.as(token).ranked.matchHistory()",
+        "x-krapio": "krunker.as(token).ranked.matchHistory()",
         "x-routes": [
           "token.ranked.matchHistory"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst matchHistory = await krunker.as(token).ranked.matchHistory(season, { gameMode, isRanked, region, limit, offset });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst matchHistory = await krunker.as(token).ranked.matchHistory(season, { gameMode, isRanked, region, limit, offset });\n"
           }
         ],
         "security": [
@@ -8400,15 +8400,15 @@
         "tags": [
           "token/ranked"
         ],
-        "x-krapi": "krunker.as(token).ranked.connection()",
+        "x-krapio": "krunker.as(token).ranked.connection()",
         "x-routes": [
           "token.ranked.connection"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst connection = await krunker.as(token).ranked.connection();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst connection = await krunker.as(token).ranked.connection();\n"
           }
         ],
         "security": [
@@ -8462,15 +8462,15 @@
         "tags": [
           "token/ranked"
         ],
-        "x-krapi": "krunker.as(token).ranked.dailySpin()",
+        "x-krapio": "krunker.as(token).ranked.dailySpin()",
         "x-routes": [
           "token.ranked.dailySpin"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst dailySpin = await krunker.as(token).ranked.dailySpin();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst dailySpin = await krunker.as(token).ranked.dailySpin();\n"
           }
         ],
         "security": [
@@ -8524,15 +8524,15 @@
         "tags": [
           "token/shop"
         ],
-        "x-krapi": "krunker.as(token).shop.ranked()",
+        "x-krapio": "krunker.as(token).shop.ranked()",
         "x-routes": [
           "token.shop.ranked"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst ranked = await krunker.as(token).shop.ranked();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst ranked = await krunker.as(token).shop.ranked();\n"
           }
         ],
         "security": [
@@ -8582,19 +8582,19 @@
       "get": {
         "operationId": "token.shop.wildOffer",
         "summary": "Wild Offer",
-        "description": "`me.shop.wildOffer()`\n\nA 200 with `{error: \"Wild offer is not available\"}` inside `data` when there is none. krapi returns that object as is, check for an `error` key.",
+        "description": "`me.shop.wildOffer()`\n\nA 200 with `{error: \"Wild offer is not available\"}` inside `data` when there is none. krapio returns that object as is, check for an `error` key.",
         "tags": [
           "token/shop"
         ],
-        "x-krapi": "krunker.as(token).shop.wildOffer()",
+        "x-krapio": "krunker.as(token).shop.wildOffer()",
         "x-routes": [
           "token.shop.wildOffer"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst wildOffer = await krunker.as(token).shop.wildOffer();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst wildOffer = await krunker.as(token).shop.wildOffer();\n"
           }
         ],
         "security": [
@@ -8648,15 +8648,15 @@
         "tags": [
           "token/shop"
         ],
-        "x-krapi": "krunker.as(token).shop.wristband()",
+        "x-krapio": "krunker.as(token).shop.wristband()",
         "x-routes": [
           "token.shop.wristband"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst wristband = await krunker.as(token).shop.wristband();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst wristband = await krunker.as(token).shop.wristband();\n"
           }
         ],
         "security": [
@@ -8710,15 +8710,15 @@
         "tags": [
           "token/shop"
         ],
-        "x-krapi": "krunker.as(token).shop.customSkins()",
+        "x-krapio": "krunker.as(token).shop.customSkins()",
         "x-routes": [
           "token.shop.customSkins"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst customSkins = await krunker.as(token).shop.customSkins({ page, page_size, type, weapon, search });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst customSkins = await krunker.as(token).shop.customSkins({ page, page_size, type, weapon, search });\n"
           }
         ],
         "security": [
@@ -8819,15 +8819,15 @@
         "tags": [
           "token/shop"
         ],
-        "x-krapi": "krunker.as(token).shop.customSkin()",
+        "x-krapio": "krunker.as(token).shop.customSkin()",
         "x-routes": [
           "token.shop.customSkin"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst customSkin = await krunker.as(token).shop.customSkin(skinId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst customSkin = await krunker.as(token).shop.customSkin(skinId);\n"
           }
         ],
         "security": [
@@ -8891,15 +8891,15 @@
         "tags": [
           "token/staff"
         ],
-        "x-krapi": "krunker.as(token).staff.chatBan()",
+        "x-krapio": "krunker.as(token).staff.chatBan()",
         "x-routes": [
           "token.staff.chatBan"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst chatBan = await krunker.as(token).staff.chatBan(playerName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst chatBan = await krunker.as(token).staff.chatBan(playerName);\n"
           }
         ],
         "security": [
@@ -8962,15 +8962,15 @@
         "tags": [
           "token/staff"
         ],
-        "x-krapi": "krunker.as(token).staff.reports()",
+        "x-krapio": "krunker.as(token).staff.reports()",
         "x-routes": [
           "token.staff.reports"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst reports = await krunker.as(token).staff.reports(playerName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst reports = await krunker.as(token).staff.reports(playerName);\n"
           }
         ],
         "security": [
@@ -9033,15 +9033,15 @@
         "tags": [
           "token/staff"
         ],
-        "x-krapi": "krunker.as(token).staff.kpdDemos()",
+        "x-krapio": "krunker.as(token).staff.kpdDemos()",
         "x-routes": [
           "token.staff.kpdDemos"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst kpdDemos = await krunker.as(token).staff.kpdDemos({ off, q });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst kpdDemos = await krunker.as(token).staff.kpdDemos({ off, q });\n"
           }
         ],
         "security": [
@@ -9111,15 +9111,15 @@
         "tags": [
           "token/staff"
         ],
-        "x-krapi": "krunker.as(token).staff.kpdDemo()",
+        "x-krapio": "krunker.as(token).staff.kpdDemo()",
         "x-routes": [
           "token.staff.kpdDemo"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst kpdDemo = await krunker.as(token).staff.kpdDemo(demoId, ct);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst kpdDemo = await krunker.as(token).staff.kpdDemo(demoId, ct);\n"
           }
         ],
         "security": [
@@ -9189,15 +9189,15 @@
         "tags": [
           "token/staff"
         ],
-        "x-krapi": "krunker.as(token).staff.kpdReviewers()",
+        "x-krapio": "krunker.as(token).staff.kpdReviewers()",
         "x-routes": [
           "token.staff.kpdReviewers"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst kpdReviewers = await krunker.as(token).staff.kpdReviewers();\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst kpdReviewers = await krunker.as(token).staff.kpdReviewers();\n"
           }
         ],
         "security": [
@@ -9245,19 +9245,19 @@
       "get": {
         "operationId": "token.trades.history",
         "summary": "History",
-        "description": "`me.trades.history({ offset, limit, includeOpen })`\n\nOpen and completed trades of the player, `limit` 1 to 100. krapi sends `include_open=0` only when `includeOpen` is `false`.\n\n```ts\ntype TradeHistory = {\n    open: Trade[];\n    completed: Trade[];\n};\n\ntype Trade = {\n    trid: number;\n    sksell: { ind: number }[];         // items offered\n    skbuy: { ind: number }[];          // items asked for\n    csell: { cid: number; amt: number }[];\n    cbuy: { cid: number; amt: number }[];\n    pl: number;                        // the other player's id\n    buy: number;                       // the buyer's id\n    buyer: string;\n    player: string;\n    message: string;\n    dte: string;                       // \"YYYY-MM-DD HH:MM:SS\"\n};\n```",
+        "description": "`me.trades.history({ offset, limit, includeOpen })`\n\nOpen and completed trades of the player, `limit` 1 to 100. krapio sends `include_open=0` only when `includeOpen` is `false`.\n\n```ts\ntype TradeHistory = {\n    open: Trade[];\n    completed: Trade[];\n};\n\ntype Trade = {\n    trid: number;\n    sksell: { ind: number }[];         // items offered\n    skbuy: { ind: number }[];          // items asked for\n    csell: { cid: number; amt: number }[];\n    cbuy: { cid: number; amt: number }[];\n    pl: number;                        // the other player's id\n    buy: number;                       // the buyer's id\n    buyer: string;\n    player: string;\n    message: string;\n    dte: string;                       // \"YYYY-MM-DD HH:MM:SS\"\n};\n```",
         "tags": [
           "token/trades"
         ],
-        "x-krapi": "krunker.as(token).trades.history()",
+        "x-krapio": "krunker.as(token).trades.history()",
         "x-routes": [
           "token.trades.history"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst history = await krunker.as(token).trades.history({ offset, limit, includeOpen });\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst history = await krunker.as(token).trades.history({ offset, limit, includeOpen });\n"
           }
         ],
         "security": [
@@ -9341,15 +9341,15 @@
         "tags": [
           "token/trades"
         ],
-        "x-krapi": "krunker.as(token).trades.inventory()",
+        "x-krapio": "krunker.as(token).trades.inventory()",
         "x-routes": [
           "token.trades.inventory"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst inventory = await krunker.as(token).trades.inventory(playerId);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst inventory = await krunker.as(token).trades.inventory(playerId);\n"
           }
         ],
         "security": [
@@ -9413,15 +9413,15 @@
         "tags": [
           "token/trades"
         ],
-        "x-krapi": "krunker.as(token).trades.playerSearch()",
+        "x-krapio": "krunker.as(token).trades.playerSearch()",
         "x-routes": [
           "token.trades.playerSearch"
         ],
         "x-codeSamples": [
           {
             "lang": "ts",
-            "label": "krapi",
-            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst playerSearch = await krunker.as(token).trades.playerSearch(playerName);\n"
+            "label": "krapio",
+            "source": "import { Krunker } from \"krapio\";\n\nconst krunker = new Krunker();\nconst playerSearch = await krunker.as(token).trades.playerSearch(playerName);\n"
           }
         ],
         "security": [

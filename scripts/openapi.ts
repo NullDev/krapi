@@ -554,7 +554,7 @@ function exampleOf(body: string): unknown {
 
 /**
  * a section as the description of its operation, tables and shapes included; only the path line, the example reply
- * (shown as the response example) and the library call (shown as the krapi code sample) are taken out
+ * (shown as the response example) and the library call (shown as the krapio code sample) are taken out
  */
 function proseOf(body: string): string {
     return body
@@ -717,8 +717,8 @@ export function buildSpec(): { spec: Json; warnings: string[] } {
             const setup = op.tier === "developer" ? "new Krunker({ apiKey: process.env.KRUNKER_API_KEY })" : "new Krunker()";
             const sample = {
                 lang: "ts",
-                label: "krapi",
-                source: `import { Krunker } from "krapi";\n\nconst krunker = ${setup};\nconst ${op.method} = await ${tier.accessor}.${accessor}.${op.call};\n`,
+                label: "krapio",
+                source: `import { Krunker } from "krapio";\n\nconst krunker = ${setup};\nconst ${op.method} = await ${tier.accessor}.${accessor}.${op.call};\n`,
             };
             const description = section?.prose || op.description.replace(/^(GET|POST) \S+,?\s*/, "");
             const item = (paths[variant.text] ??= {}) as Json;
@@ -732,11 +732,11 @@ export function buildSpec(): { spec: Json; warnings: string[] } {
                     else known.push({ ...param, required: false });
                 }
                 if (!(existing.tags as string[]).includes(tag)) (existing.tags as string[]).push(tag);
-                existing["x-krapi"] = [existing["x-krapi"], library].flat();
+                existing["x-krapio"] = [existing["x-krapio"], library].flat();
                 existing["x-routes"] = [existing["x-routes"], op.route].flat();
                 const samples = existing["x-codeSamples"] as { label: string }[];
-                samples[0]!.label = `krapi: ${(existing["x-krapi"] as string[])[0]!.split(".").slice(-2).join(".").replace("()", "")}`;
-                samples.push({ ...sample, label: `krapi: ${accessor}.${op.method}` });
+                samples[0]!.label = `krapio: ${(existing["x-krapio"] as string[])[0]!.split(".").slice(-2).join(".").replace("()", "")}`;
+                samples.push({ ...sample, label: `krapio: ${accessor}.${op.method}` });
                 if (description) existing.description = `${existing.description as string}\n\n${description}`;
                 continue;
             }
@@ -745,7 +745,7 @@ export function buildSpec(): { spec: Json; warnings: string[] } {
                 summary: section?.title || op.summary || `${accessor}.${op.method}`,
                 description,
                 tags: [tag],
-                "x-krapi": library,
+                "x-krapio": library,
                 "x-routes": [op.route],
                 "x-codeSamples": [sample],
                 security: tier.security,
@@ -787,8 +787,8 @@ export function buildSpec(): { spec: Json; warnings: string[] } {
         info: {
             title: "Krunker API",
             version: pkg.version,
-            summary: "The Krunker.io developer API, the game's public endpoints and the token bound ones, as krapi wraps them",
-            description: `Generated from the krapi source and docs. The developer API is the official one from FRVR and needs an API key; the game and token tiers are the endpoints the game itself reads, documented from observation. Full docs: ${pkg.homepage.replace(/#.*/, "")}`,
+            summary: "The Krunker.io developer API, the game's public endpoints and the token bound ones, as krapio wraps them",
+            description: `Generated from the krapio source and docs. The developer API is the official one from FRVR and needs an API key; the game and token tiers are the endpoints the game itself reads, documented from observation. Full docs: ${pkg.homepage.replace(/#.*/, "")}`,
             license: { name: "MIT", identifier: "MIT" },
         },
         servers: [

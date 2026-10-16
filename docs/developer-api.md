@@ -7,7 +7,7 @@ Base URL: https://gapi.svc.krunker.io
 
 This is the developer API documentation as provided by Krunker (FRVR), with corrections from using it. Rows marked *undocumented* and notes marked *observed* were found by calling the endpoints in October 2026 and are not part of the original document; they may change without notice. The KPD, Events and Webhooks sections at the end were added later from a second document by Krunker; they are reproduced as documented and not verified, the key this document was checked with holds neither the `kpd` nor an events scope.
 
-In krapi every endpoint below lives on the root of `Krunker` (`krunker.player.profile(...)`, `krunker.market.skin(...)`). The endpoints the game reads without a key are in [game-api.md](game-api.md) and the ones bound to a player token in [token-api.md](token-api.md).
+In krapio every endpoint below lives on the root of `Krunker` (`krunker.player.profile(...)`, `krunker.market.skin(...)`). The endpoints the game reads without a key are in [game-api.md](game-api.md) and the ones bound to a player token in [token-api.md](token-api.md).
 
 ## Developer APIs
 
@@ -1329,7 +1329,7 @@ The first wrong answer, error or timeout fails the check, and the page says whic
 
 Endpoints must use `https` and resolve to a public address.
 
-In krapi, `verifyWebhook(rawBody, request.headers.get("Krunker-Signature"), secret)` does the whole check above on WebCrypto, and `signWebhook` produces the header for your own tests.
+In krapio, `verifyWebhook(rawBody, request.headers.get("Krunker-Signature"), secret)` does the whole check above on WebCrypto, and `signWebhook` produces the header for your own tests.
 
 ---
 

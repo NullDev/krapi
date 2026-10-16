@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help krapi improve
+about: Create a report to help krapio improve
 title: "[BUG] "
 labels: bug
 assignees: ''

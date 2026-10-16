@@ -5,13 +5,13 @@ description: The endpoints the Krunker client reads with the player's own access
 
 These are the reads the game makes with the player's FRVR access token: the wallet, inventory, trades, custom skins, the live market listings, and the ranked system's own API on `api.krunker.io`. Nothing here is documented by Krunker. Every endpoint below was taken from the game's client code and confirmed once with a real token in October 2026, read only. All of it can change without notice.
 
-In krapi these live under `krunker.as(token).*`. The token is sent as a bearer header and nothing else: never stored, never logged, never used for a write. Every write the game makes with it (purchases, listings, trades, follows, posts, studio and map management) is left out on purpose.
+In krapio these live under `krunker.as(token).*`. The token is sent as a bearer header and nothing else: never stored, never logged, never used for a write. Every write the game makes with it (purchases, listings, trades, follows, posts, studio and map management) is left out on purpose.
 
 ## The token
 
 The game gets it from `FRVR.auth.getFreshAccessToken()`: an RS256 JWT with the claims `sub` (the player's FRVR user id), `iss`, `iat`, `exp` and `extra`, valid for about 24 hours.
 
-krapi decodes the claims without verifying the signature (Krunker does that) so a malformed or expired token throws `KrunkerTokenError` before any request, and exposes them as `session.claims`. `claims.sub` is the only stable key to cache anything read here under, never the token itself.
+krapio decodes the claims without verifying the signature (Krunker does that) so a malformed or expired token throws `KrunkerTokenError` before any request, and exposes them as `session.claims`. `claims.sub` is the only stable key to cache anything read here under, never the token itself.
 
 ```ts
 const me = krunker.as(token);
@@ -23,8 +23,8 @@ await me.player.wallet();
 
 | Host | Used by | Reply shape |
 | --- | --- | --- |
-| `https://gapi.svc.krunker.io` | everything unless noted | `{"data": ..., "error": null}`, unwrapped by krapi |
-| `https://api.krunker.io` | `ranked.*` | `{"data": ...}` without an error field on success, unwrapped by krapi |
+| `https://gapi.svc.krunker.io` | everything unless noted | `{"data": ..., "error": null}`, unwrapped by krapio |
+| `https://api.krunker.io` | `ranked.*` | `{"data": ...}` without an error field on success, unwrapped by krapio |
 
 | Status | When |
 | --- | --- |
@@ -222,7 +222,7 @@ The skin indices on offer, and `{peak_mmr}` (null without a ranked history), the
 
 ## Trades
 
-Player to player trades. Creating, accepting and cancelling are writes and are not in krapi.
+Player to player trades. Creating, accepting and cancelling are writes and are not in krapio.
 
 ### History
 
@@ -232,7 +232,7 @@ GET /trades/history?offset=&limit=&include_open=
 
 `me.trades.history({ offset, limit, includeOpen })`
 
-Open and completed trades of the player, `limit` 1 to 100. krapi sends `include_open=0` only when `includeOpen` is `false`.
+Open and completed trades of the player, `limit` 1 to 100. krapio sends `include_open=0` only when `includeOpen` is `false`.
 
 ```ts
 type TradeHistory = {
@@ -299,7 +299,7 @@ GET /shop/wild-offer
 
 `me.shop.wildOffer()`
 
-A 200 with `{error: "Wild offer is not available"}` inside `data` when there is none. krapi returns that object as is, check for an `error` key.
+A 200 with `{error: "Wild offer is not available"}` inside `data` when there is none. krapio returns that object as is, check for an `error` key.
 
 ### Wristband
 
@@ -347,7 +347,7 @@ type CustomSkin = {
 
 ## Creator
 
-What a creator sees of their own maps and studios, plus the player's clan applications. The studio replies are untyped in krapi (`unknown`), only their existence was verified.
+What a creator sees of their own maps and studios, plus the player's clan applications. The studio replies are untyped in krapio (`unknown`), only their existence was verified.
 
 ### Clan Applications
 
@@ -396,7 +396,7 @@ GET /studios/:id/skins
 
 ## Staff
 
-Role gated reads for moderators and KPD reviewers. A normal account gets a 403 `insufficient permissions` (or `not authorized` for reports). The replies are untyped in krapi, no account with the role was available to verify them.
+Role gated reads for moderators and KPD reviewers. A normal account gets a 403 `insufficient permissions` (or `not authorized` for reports). The replies are untyped in krapio, no account with the role was available to verify them.
 
 ```http
 GET /moderation/chat/:name

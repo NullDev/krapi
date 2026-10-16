@@ -4,7 +4,7 @@ import { Krunker, KrunkerError, KrunkerHttpError, RAID_MAPS } from "../src/index
 
 const krunker = new Krunker({
     apiKey: process.env.KRUNKER_API_KEY,
-    userAgent: "krapi-live/0.1 (+https://github.com/NullDev/krapi)",
+    userAgent: "krapio-live/0.1 (+https://github.com/NullDev/krapio)",
     logger: { debug: (m): void => console.log("   ", m), warn: (m): void => console.warn("   ", m) },
 });
 

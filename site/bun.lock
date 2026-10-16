@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "krapi-site",
+      "name": "krapio-site",
       "dependencies": {
         "fumadocs-core": "^16.17.5",
         "fumadocs-mdx": "^15.4.7",

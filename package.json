@@ -1,15 +1,15 @@
 {
-    "name": "krapi",
+    "name": "krapio",
     "version": "0.1.0",
     "description": "Typed client for the Krunker.io APIs",
     "keywords": ["krunker", "krunkerio", "krunker-api", "api-client", "typescript"],
-    "homepage": "https://github.com/NullDev/krapi#readme",
+    "homepage": "https://github.com/NullDev/krapio#readme",
     "bugs": {
-        "url": "https://github.com/NullDev/krapi/issues"
+        "url": "https://github.com/NullDev/krapio/issues"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/NullDev/krapi.git"
+        "url": "git+https://github.com/NullDev/krapio.git"
     },
     "license": "MIT",
     "author": "NullDev",

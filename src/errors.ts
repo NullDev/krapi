@@ -3,7 +3,7 @@
 // =     - SPDX: MIT -     = //
 // ========================= //
 
-/** the base of every error krapi throws */
+/** the base of every error krapio throws */
 export class KrunkerError extends Error {
     constructor(message: string, options?: ErrorOptions){
         super(message, options);

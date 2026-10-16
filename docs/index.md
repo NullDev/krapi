@@ -1,9 +1,9 @@
 ---
 title: Overview
-description: What krapi covers and how the three Krunker APIs relate
+description: What krapio covers and how the three Krunker APIs relate
 ---
 
-krapi is a typed client for the Krunker.io APIs with zero dependencies, for Node 20+ and Bun. These pages document the APIs themselves; the [library reference](reference/index.md) is generated from the source, and so is the [OpenAPI document](https://nulldev.github.io/krapi/openapi/) (raw: [openapi.json](https://nulldev.github.io/krapi/openapi.json)) that lists every endpoint of the three tiers.
+krapio is a typed client for the Krunker.io APIs with zero dependencies, for Node 20+ and Bun. These pages document the APIs themselves; the [library reference](reference/index.md) is generated from the source, and so is the [OpenAPI document](https://nulldev.github.io/krapio/openapi/) (raw: [openapi.json](https://nulldev.github.io/krapio/openapi.json)) that lists every endpoint of the three tiers.
 
 | Tier | What | Auth | On the client |
 | --- | --- | --- | --- |
@@ -12,7 +12,7 @@ krapi is a typed client for the Krunker.io APIs with zero dependencies, for Node
 | [Token API](token-api.md) | what the game reads with the player's own FRVR token: wallet, inventory, trades, ranked | `Authorization: Bearer <jwt>` | `krunker.as(token).*` |
 
 ```ts
-import { Krunker } from "krapi";
+import { Krunker } from "krapio";
 
 const krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY, userAgent: "my-bot/1.0" });
 
@@ -24,9 +24,9 @@ await krunker.as(playerToken).player.wallet();         // token api
 Reads only. Every write of the game API (buying, listing, trading, posting) is left out on purpose. The library caches nothing, put your own cache in front of it.
 
 ```sh
-bun add krapi
+bun add krapio
 # or
-npm install krapi
+npm install krapio
 ```
 
 ## How these documents were made

@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for krapi
+about: Suggest an idea for krapio
 title: "[FEATURE] "
 labels: enhancement
 assignees: ''

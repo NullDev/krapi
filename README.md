@@ -1,6 +1,6 @@
-[![License](https://img.shields.io/github/license/NullDev/krapi?label=License&logo=Creative%20Commons)](https://github.com/NullDev/krapi/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/NullDev/krapio?label=License&logo=Creative%20Commons)](https://github.com/NullDev/krapio/blob/master/LICENSE)
 
-# krapi
+# krapio
 
 <p align="center"><img height="250" width="auto" src="https://raw.githubusercontent.com/NullDev/Kute/refs/heads/master/resources/icon.png" /></p>
 <p align="center">Typed client for the READ-ONLY Krunker.io APIs. Zero dependencies, ESM, works on Node 18+ and Bun.<br>Initially made for <a href="https://github.com/NullDev/Kute">Kute Client</a></p>
@@ -8,7 +8,7 @@
 
 ## :sparkles: What is it?
 
-krapi is a typed client for the READ-ONLY Krunker.io APIs. Zero dependencies, ESM, works on Node 18+ and Bun.
+krapio is a typed client for the READ-ONLY Krunker.io APIs. Zero dependencies, ESM, works on Node 18+ and Bun.
 
 It aims for **100%** API coverage.
 
@@ -30,19 +30,19 @@ This project is not affiliated with Krunker.io or FRVR.
 
 ## 🗒️ Documentation
 
-Living Spec: https://nulldev.github.io/krapi/
+Living Spec: https://nulldev.github.io/krapio/
 - Krunker APIs:
-  - https://nulldev.github.io/krapi/docs/developer-api/
-  - https://nulldev.github.io/krapi/docs/game-api/
-  - https://nulldev.github.io/krapi/docs/token-api/
-- krapi library: https://nulldev.github.io/krapi/docs/reference/
-- OpenAPI: https://nulldev.github.io/krapi/openapi/ (the document itself: https://nulldev.github.io/krapi/openapi.json)
+  - https://nulldev.github.io/krapio/docs/developer-api/
+  - https://nulldev.github.io/krapio/docs/game-api/
+  - https://nulldev.github.io/krapio/docs/token-api/
+- krapio library: https://nulldev.github.io/krapio/docs/reference/
+- OpenAPI: https://nulldev.github.io/krapio/openapi/ (the document itself: https://nulldev.github.io/krapio/openapi.json)
 
 Or in the Repo:
 - [Developer API](docs/developer-api.md)
 - [Game API](docs/game-api.md)
 - [Token API](docs/token-api.md)
-- [krapi library](docs/index.md)
+- [krapio library](docs/index.md)
 - [OpenAPI spec](openapi.json)
 
 ---
@@ -50,9 +50,9 @@ Or in the Repo:
 ## :wrench: Install
 
 ```sh
-bun add krapi
+bun add krapio
 # or
-npm install krapi
+npm install krapio
 ```
 
 Bun runs the TypeScript source directly (`bun` export condition), Node gets the compiled ESM in `dist/` with declarations.
@@ -62,7 +62,7 @@ Bun runs the TypeScript source directly (`bun` export condition), Node gets the 
 ## :star: Usage
 
 ```ts
-import { Krunker } from "krapi";
+import { Krunker } from "krapio";
 
 const krunker = new Krunker({
     apiKey: process.env.KRUNKER_API_KEY, // developer tier only, optional
@@ -179,8 +179,10 @@ The documentation site (`site/`, Fumadocs on Next.js, exported statically to Git
 ```sh
 cd site && bun install
 bun run dev   # syncs docs/ and the reference into content/, then next dev
-bun run build # the static export in site/out, served under /krapi (BASE_PATH="" for a domain of its own)
+bun run build # the static export in site/out, served under /krapio (BASE_PATH="" for a domain of its own)
 ```
+
+**Releasing.** Bump `version` in `package.json`, commit, tag it `v<version>` and push the tag. The `release` workflow checks that the tag matches the version, runs the pre-publish gate (lint, typecheck, tests, build) and publishes to npm through trusted publishing with provenance, so no npm token lives in the repository or its secrets.
 
 The site serves the OpenAPI document at `/openapi.json` and offers it for download at `/openapi/`. Under every endpoint of the three API pages it embeds Scalar's rendering of that operation (parameters, responses, request samples, response example) from a slice of the document.
 

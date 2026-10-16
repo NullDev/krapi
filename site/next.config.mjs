@@ -1,7 +1,7 @@
 import { createMDX } from "fumadocs-mdx/next";
 
-// github pages serves the site under /krapi; an empty BASE_PATH is for a domain of its own
-const basePath = process.env.BASE_PATH ?? "/krapi";
+// github pages serves the site under /krapio; an empty BASE_PATH is for a domain of its own
+const basePath = process.env.BASE_PATH ?? "/krapio";
 
 /** @type {import("next").NextConfig} */
 const config = {

@@ -5,7 +5,7 @@ description: The endpoints the Krunker client reads without any authentication
 
 These are the endpoints the game itself calls without a developer key and without a player token: the social popup, the clan window, Turf Wars, the market tab, the shop, the matchmaker and the two legacy browsers. Nothing here is documented by Krunker. Every endpoint, parameter and field below was taken from the game's client code and confirmed with a plain, unauthenticated `GET` in October 2026. All of it can change without notice.
 
-In krapi these live under `krunker.game.*`, grouped by resource. Everything is read only: every write the game makes (follows, posts, purchases, listings, trades, clan management) needs the player's own token and is not part of this library.
+In krapio these live under `krunker.game.*`, grouped by resource. Everything is read only: every write the game makes (follows, posts, purchases, listings, trades, clan management) needs the player's own token and is not part of this library.
 
 ## Hosts and envelopes
 
@@ -15,9 +15,9 @@ In krapi these live under `krunker.game.*`, grouped by resource. Everything is r
 | `https://matchmaker.krunker.io` | `matchmaker.*` | plain JSON, no envelope |
 | `https://api.krunker.io` | `legacy.*` | plain JSON, `streams/top` wraps in `{"data"}` |
 
-krapi unwraps the envelope, you get `data`. A non-null `error` on a 2xx (never seen, but the game checks for it) throws `KrunkerError`.
+krapio unwraps the envelope, you get `data`. A non-null `error` on a 2xx (never seen, but the game checks for it) throws `KrunkerError`.
 
-**Rate limits.** `gapi.svc.krunker.io` sends `X-RateLimit-Limit: 5`, `X-RateLimit-Remaining` and `X-RateLimit-Reset` on every reply: a window of 5 requests per second per endpoint, with `X-RateLimit-Reset` as seconds until the window ends (not a unix timestamp like the developer API). krapi waits out an empty window instead of refusing, since it is over within a second. The matchmaker and `api.krunker.io` send no rate limit headers.
+**Rate limits.** `gapi.svc.krunker.io` sends `X-RateLimit-Limit: 5`, `X-RateLimit-Remaining` and `X-RateLimit-Reset` on every reply: a window of 5 requests per second per endpoint, with `X-RateLimit-Reset` as seconds until the window ends (not a unix timestamp like the developer API). krapio waits out an empty window instead of refusing, since it is over within a second. The matchmaker and `api.krunker.io` send no rate limit headers.
 
 **Names.** Player and clan name lookups are case-insensitive. Names go url-encoded into the path.
 
@@ -102,7 +102,7 @@ GET /players/search?q=:query&limit=:limit
 
 `krunker.game.players.search(query, limit = 5)`
 
-Prefix match on the name, `limit` 1 to 20. Returns `{player_id, player_name, player_score}[]` (krapi unwraps the `results` key).
+Prefix match on the name, `limit` 1 to 20. Returns `{player_id, player_name, player_score}[]` (krapio unwraps the `results` key).
 
 ### Get Player Sales
 
@@ -143,7 +143,7 @@ GET /social/feed?player_id=:id&limit=:limit
 
 `krunker.game.players.feed(playerId, limit = 20)`
 
-A player's posts, `limit` 1 to 50. krapi returns the `posts` array of `FeedPost` (see [Social](#social) for the keys).
+A player's posts, `limit` 1 to 50. krapio returns the `posts` array of `FeedPost` (see [Social](#social) for the keys).
 
 ---
 
@@ -290,7 +290,7 @@ Returns `{posts: RecruitmentPost[], total, page, limit}`.
 
 ## Turf Wars
 
-`https://gapi.svc.krunker.io/territorial-wars/*`. Days are whole UTC days since the season epoch `2026-03-17` (`TURF_EPOCH_UTC`, `turfDay(date)` in krapi). `map_id` is the Turf map: 0 Burg, 2 Sandstorm, 3 Subzero (`TURF_MAPS`). Leaderboards return 100 rows, `kd` is a float.
+`https://gapi.svc.krunker.io/territorial-wars/*`. Days are whole UTC days since the season epoch `2026-03-17` (`TURF_EPOCH_UTC`, `turfDay(date)` in krapio). `map_id` is the Turf map: 0 Burg, 2 Sandstorm, 3 Subzero (`TURF_MAPS`). Leaderboards return 100 rows, `kd` is a float.
 
 ### Get Status
 
@@ -488,7 +488,7 @@ GET /leaderboards/raids/:mapId/monthly?month=YYYY-MM&sort=time|completions
 
 `krunker.game.leaderboards.raidsMonthly(mapId, month, sort?)`
 
-`month` is required, as `YYYY-MM` (what the game sends). A bare number like `8` is also answered, with different rows of unknown meaning, so krapi only accepts `YYYY-MM`. A month without runs answers `{"data": null}`, which krapi returns as `[]`.
+`month` is required, as `YYYY-MM` (what the game sends). A bare number like `8` is also answered, with different rows of unknown meaning, so krapio only accepts `YYYY-MM`. A month without runs answers `{"data": null}`, which krapio returns as `[]`.
 
 ### KrunkCup
 
@@ -526,7 +526,7 @@ GET /maps/:id
 
 `krunker.game.game.mapConfig(mapId)`
 
-The whole map file (120 KB for Burg). krapi names only the keys the client reads (`name`, `modes`, `spawns`, `objects`, `sky`, `skyDome`), the rest is `Record<string, unknown>`.
+The whole map file (120 KB for Burg). krapio names only the keys the client reads (`name`, `modes`, `spawns`, `objects`, `sky`, `skyDome`), the rest is `Record<string, unknown>`.
 
 ### Community Map by Name
 
@@ -681,7 +681,7 @@ GET /social/feed?tab=global&limit=:limit
 
 `krunker.game.social.feed(tab = "global", limit?)`
 
-`global` is the only tab seen; an unknown one is a 400 `SOCIAL_INVALID_TAB`. `limit` 1 to 50. krapi returns the `posts` array.
+`global` is the only tab seen; an unknown one is a 400 `SOCIAL_INVALID_TAB`. `limit` 1 to 50. krapio returns the `posts` array.
 
 ```ts
 type FeedPost = {
@@ -790,7 +790,7 @@ Id 1 is the running one. `{lottery: {id, title, frequency, theme}, player_entrie
 
 ## Matchmaker
 
-`https://matchmaker.krunker.io`, plain JSON without an envelope. The game polls the list every 60 seconds. krapi adds `hostname=krunker.io` to every call.
+`https://matchmaker.krunker.io`, plain JSON without an envelope. The game polls the list every 60 seconds. krapio adds `hostname=krunker.io` to every call.
 
 ### Game List
 
@@ -885,7 +885,7 @@ GET /streams/top?cb=2
 
 `krunker.game.legacy.topStreams()`
 
-The menu's stream box plus the running drop campaigns. krapi unwraps the `data` key.
+The menu's stream box plus the running drop campaigns. krapio unwraps the `data` key.
 
 ```ts
 type TopStreams = {

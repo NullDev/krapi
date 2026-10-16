@@ -8,7 +8,7 @@ const SPEC_URL = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/openapi.json`;
 
 export const metadata: Metadata = {
     title: "OpenAPI",
-    description: "Every endpoint krapi wraps as an OpenAPI document, generated from the source",
+    description: "Every endpoint krapio wraps as an OpenAPI document, generated from the source",
 };
 
 const Badge = ({ children }: { children: string }) => (
