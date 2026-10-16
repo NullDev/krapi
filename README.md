@@ -36,12 +36,14 @@ Living Spec: https://nulldev.github.io/krapi/
   - https://nulldev.github.io/krapi/docs/game-api/
   - https://nulldev.github.io/krapi/docs/token-api/
 - krapi library: https://nulldev.github.io/krapi/docs/reference/
+- OpenAPI: https://nulldev.github.io/krapi/openapi/ (the document itself: https://nulldev.github.io/krapi/openapi.json)
 
 Or in the Repo:
 - [Developer API](docs/developer-api.md)
 - [Game API](docs/game-api.md)
 - [Token API](docs/token-api.md)
 - [krapi library](docs/index.md)
+- [OpenAPI spec](openapi.json)
 
 ---
 
@@ -167,7 +169,10 @@ bun run lint
 bun test      # unit tests against a fake fetch, no network
 bun run build # dist/
 KRUNKER_API_KEY=... bun run live # a dozen reads against the real api, KRUNKER_TOKEN optional
+bun run openapi # regenerates openapi.json, every endpoint of the three tiers as an OpenAPI 3.1 document
 ```
+
+The OpenAPI document is generated from the resource classes (paths, parameters, response types) and the exported types, with field descriptions filled in from `docs/`. It is never edited by hand: run `bun run openapi` after changing a resource, the test suite fails when the checked in file is stale, and the `pages` workflow publishes it with the site.
 
 The documentation site (`site/`, Fumadocs on Next.js, exported statically to GitHub Pages by the `pages` workflow) renders `docs/` plus a library reference TypeDoc generates from `src/`:
 
@@ -176,5 +181,7 @@ cd site && bun install
 bun run dev   # syncs docs/ and the reference into content/, then next dev
 bun run build # the static export in site/out, served under /krapi (BASE_PATH="" for a domain of its own)
 ```
+
+The site also serves the OpenAPI document at `/openapi.json` and renders it with Scalar at `/openapi/`.
 
 ---

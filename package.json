@@ -40,6 +40,7 @@
         "lint:fix": "eslint . --fix",
         "test": "bun test",
         "live": "bun scripts/live.ts",
+        "openapi": "bun scripts/openapi.ts",
         "prepublishOnly": "bun run lint && bun run typecheck && bun run test && bun run clean && bun run build"
     },
     "devDependencies": {
@@ -47,6 +48,7 @@
         "@typescript-eslint/eslint-plugin": "^8.70.0",
         "@typescript-eslint/parser": "^8.70.0",
         "eslint": "^10.10.0",
+        "ts-json-schema-generator": "^2.9.0",
         "typedoc": "^0.28.20",
         "typedoc-plugin-markdown": "^4.14.0",
         "typescript": "^5.9.0"

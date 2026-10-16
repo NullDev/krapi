@@ -3,5 +3,6 @@ node_modules/
 out/
 .source/
 content/
+public/openapi.json
 next-env.d.ts
 *.tsbuildinfo

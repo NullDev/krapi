@@ -3,7 +3,7 @@ title: Overview
 description: What krapi covers and how the three Krunker APIs relate
 ---
 
-krapi is a typed client for the Krunker.io APIs with zero dependencies, for Node 20+ and Bun. These pages document the APIs themselves; the [library reference](reference/index.md) is generated from the source.
+krapi is a typed client for the Krunker.io APIs with zero dependencies, for Node 20+ and Bun. These pages document the APIs themselves; the [library reference](reference/index.md) is generated from the source, and so is the [OpenAPI document](https://nulldev.github.io/krapi/openapi/) (raw: [openapi.json](https://nulldev.github.io/krapi/openapi.json)) that lists every endpoint of the three tiers.
 
 | Tier | What | Auth | On the client |
 | --- | --- | --- | --- |
