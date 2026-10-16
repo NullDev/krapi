@@ -21,7 +21,7 @@ It covers three things that live behind different doors:
 > [!WARNING]
 > Read only. Every write of the game API (buying, listing, trading, posting) is left out on purpose.
 
-### Documentation
+### 🗒️ Documentation
 
 Living Spec: https://nulldev.github.io/krapi/
 - Krunker APIs:
@@ -93,7 +93,7 @@ Response types are exported under the names the API uses (`PlayerProfile`, `Mark
 
 ---
 
-## Options
+## ⚙️ Options
 
 ```ts
 new Krunker({
@@ -111,7 +111,7 @@ new Krunker({
 
 ---
 
-## Errors
+## ⚠️ Errors
 
 Every failure is a `KrunkerError` subclass, nothing else is thrown:
 
@@ -133,7 +133,7 @@ Every failure is a `KrunkerError` subclass, nothing else is thrown:
 
 ---
 
-## Rate limits
+## 🌐 Rate limits
 
 The developer key has 240 requests a minute. `gapi` also sends per route windows of 5 requests a second. The client mirrors the `X-RateLimit-*` headers of every reply:
 
@@ -145,13 +145,7 @@ One `Krunker` instance per key: the tracker lives on the instance, two instances
 
 ---
 
-## No caching
-
-The library caches nothing. What changes rarely (skins, maps, mods) and what changes every second (market, matchmaker) need different policies, and the right store depends on where you run. Put your own cache in front of it. For the token tier, key it by `session.claims.sub`, never by the token.
-
----
-
-## Tokens
+## 🔒 Tokens
 
 A player token is sent as a bearer header and nothing else: never stored, never logged, never used for a write. The claims are decoded without verifying the signature (Krunker verifies it), only to refuse an expired token locally and to give you `sub`.
 
