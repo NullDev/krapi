@@ -127,3 +127,11 @@ bun test                  # unit tests against a fake fetch, no network
 bun run build             # dist/
 KRUNKER_API_KEY=... bun run live   # a dozen reads against the real api, KRUNKER_TOKEN optional
 ```
+
+The documentation site (`site/`, Fumadocs on Next.js, exported statically to GitHub Pages by the `pages` workflow) renders `docs/` plus a library reference TypeDoc generates from `src/`:
+
+```sh
+cd site && bun install
+bun run dev               # syncs docs/ and the reference into content/, then next dev
+bun run build             # the static export in site/out, served under /krapi (BASE_PATH="" for a domain of its own)
+```

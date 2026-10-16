@@ -102,7 +102,7 @@ const rules = {
 };
 
 export default [{
-    ignores: ["dist", "**/node_modules"],
+    ignores: ["dist", "**/node_modules", "site"],
 }, {
     files: ["**/*.js", "**/*.mjs"],
     languageOptions: {
