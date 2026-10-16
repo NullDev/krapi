@@ -7,6 +7,7 @@ import type { MatchDetails } from "../types.js";
 // =     - SPDX: MIT -     = //
 // ========================= //
 
+/** GET /api/match/*: one ranked match with its participants */
 export class MatchApi {
     readonly #client: KrunkerClient;
 

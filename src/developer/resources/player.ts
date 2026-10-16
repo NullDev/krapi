@@ -7,11 +7,13 @@ import type { InventoryItem, Page, PlayerListings, PlayerMatches, PlayerPosts, P
 // =     - SPDX: MIT -     = //
 // ========================= //
 
+/** page and season of a player's ranked matches */
 export type MatchesQuery = Page & {
     /** ranked season, all seasons when omitted */
     season?: number;
 };
 
+/** GET /api/player/*: profile, inventory, listings, ranked matches and posts of a player */
 export class PlayerApi {
     readonly #client: KrunkerClient;
 

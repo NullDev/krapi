@@ -14,8 +14,10 @@ import { TokenTradesApi } from "./resources/trades.js";
 // =     - SPDX: MIT -     = //
 // ========================= //
 
-export type TokenOptions = Omit<ClientOptions, "apiKey" | "baseUrl">;
+/** options of the token tier: everything of ClientOptions but the key, the token replaces it */
+export type TokenApiOptions = Omit<ClientOptions, "apiKey" | "baseUrl">;
 
+/** the token bound resources plus the token's claims; made by Krunker.as(token) */
 export class TokenSession {
     /** who the token belongs to, the key to cache anything read here under */
     readonly claims: TokenClaims;
@@ -46,7 +48,7 @@ export class KrunkerTokenApi {
     readonly #gapi: KrunkerClient;
     readonly #legacy: KrunkerClient;
 
-    constructor(options: TokenOptions = {}){
+    constructor(options: TokenApiOptions = {}){
         this.#gapi = new KrunkerClient({ ...options, baseUrl: GAPI_URL });
         this.#legacy = new KrunkerClient({ ...options, baseUrl: LEGACY_API_URL });
     }

@@ -7,11 +7,13 @@ import type { Page, RankedLeaderboard, RegionId } from "../types.js";
 // =     - SPDX: MIT -     = //
 // ========================= //
 
+/** page and season of the ranked leaderboard */
 export type RankedQuery = Page & {
     /** season number, current season when omitted or 0 */
     season?: number;
 };
 
+/** GET /api/leaderboard/*: the ranked leaderboard per region */
 export class LeaderboardApi {
     readonly #client: KrunkerClient;
 

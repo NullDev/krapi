@@ -8,9 +8,12 @@ import type { EventsPage, EventType } from "../types.js";
 // =     - SPDX: MIT -     = //
 // ========================= //
 
+/** target ids one events call may filter by */
 export const MAX_EVENT_TARGETS = 100;
+/** the largest page the events endpoint serves */
 export const MAX_EVENTS_PER_PAGE = 100;
 
+/** filters of GET /api/events; keep them the same between calls when paging with `after` */
 export type EventsQuery = {
     /** event id cursor, the `next` of the previous page; 0 when omitted */
     after?: number;

@@ -7,6 +7,7 @@ import type { ClanMembers, ClanProfile, Page } from "../types.js";
 // =     - SPDX: MIT -     = //
 // ========================= //
 
+/** GET /api/clan/*: a clan's profile and members */
 export class ClanApi {
     readonly #client: KrunkerClient;
 

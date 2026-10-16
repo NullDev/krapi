@@ -7,13 +7,16 @@ import type { MarketSkin, Page } from "../types.js";
 // =     - SPDX: MIT -     = //
 // ========================= //
 
+/** days of price history GET /api/market/skin/:skinindex can return */
 export const MAX_HISTORY_DAYS = 120;
 
+/** page of listings and days of price history for a market skin */
 export type MarketSkinQuery = Page & {
     /** days of price history, 30 by default, 120 at most */
     days?: number;
 };
 
+/** GET /api/market/*: listings, owners and price history per skin */
 export class MarketApi {
     readonly #client: KrunkerClient;
 

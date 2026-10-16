@@ -9,6 +9,7 @@ export const GLOBAL_LIMIT = 240;
 /** a reset value under this is a duration in seconds, above it a unix timestamp (2001 and later) */
 const RELATIVE_RESET_BELOW = 1_000_000_000;
 
+/** one rate limit window as the last reply described it */
 export type RateLimitWindow = {
     limit: number;
     remaining: number;
@@ -16,6 +17,7 @@ export type RateLimitWindow = {
     resetAt: number;
 };
 
+/** what the tracker knows: the key's window and the routes with a window of their own */
 export type RateLimitState = {
     global: RateLimitWindow | null;
     /** endpoints with a limit of their own, keyed by route name */

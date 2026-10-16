@@ -27,10 +27,13 @@ export const TURF_EPOCH_UTC = Date.UTC(2026, 2, 17);
 /** 0 Burg, 2 Sandstorm, 3 Subzero */
 export const TURF_MAPS = { BURG: 0, SANDSTORM: 2, SUBZERO: 3 } as const;
 
+/** the turf day of a date: whole utc days since TURF_EPOCH_UTC */
 export const turfDay = (date = new Date()): number => Math.floor((date.getTime() - TURF_EPOCH_UTC) / 86400000);
 
+/** turf day and map filter; today and every map when omitted */
 export type DayMapQuery = { day?: number; map_id?: number };
 
+/** GET /territorial-wars/*: Turf Wars status, clans, players and leaderboards */
 export class PublicTurfApi {
     readonly #gapi: KrunkerClient;
 

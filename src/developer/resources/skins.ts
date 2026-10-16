@@ -7,8 +7,10 @@ import type { Page, SkinDefinition, Skins } from "../types.js";
 // =     - SPDX: MIT -     = //
 // ========================= //
 
+/** the largest page GET /api/skins serves */
 export const MAX_SKINS_PER_PAGE = 10000;
 
+/** page, page size and season filter of the skin definitions */
 export type SkinsQuery = Page & {
     /** 100 by default, 10000 at most */
     per_page?: number;
@@ -16,6 +18,7 @@ export type SkinsQuery = Page & {
     season?: number;
 };
 
+/** GET /api/skins/*: the skin definitions */
 export class SkinsApi {
     readonly #client: KrunkerClient;
 

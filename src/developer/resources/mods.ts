@@ -7,6 +7,7 @@ import type { Mod, Mods, Page } from "../types.js";
 // =     - SPDX: MIT -     = //
 // ========================= //
 
+/** GET /api/mods/*: the mod list and single mods */
 export class ModsApi {
     readonly #client: KrunkerClient;
 

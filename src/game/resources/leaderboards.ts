@@ -33,8 +33,10 @@ function raidSort(sort: RaidSort | undefined): RaidSort | undefined {
     return sort;
 }
 
+/** sort and season of a player leaderboard */
 export type PlayerLeaderboardQuery = { sort?: string; season?: number };
 
+/** GET /leaderboards/*: player, clan, raid and KrunkCup boards */
 export class PublicLeaderboardsApi {
     readonly #gapi: KrunkerClient;
 

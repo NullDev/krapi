@@ -10,6 +10,7 @@ export type MePlayer = {
     player: { id: string; name: string; data: unknown[] };
 };
 
+/** one currency in the wallet, kr or a studio currency */
 export type WalletCurrency = {
     id: number;
     name: string;
@@ -35,11 +36,13 @@ export type Usernames = {
     cooldown_secs: number;
 };
 
+/** GET /email/preferences */
 export type EmailPreferences = {
     chosen: boolean;
     promotional: boolean;
 };
 
+/** GET /discord/status, the optional fields only while linked */
 export type DiscordStatus = {
     configured: boolean;
     linked: boolean;
@@ -60,6 +63,7 @@ export type RankedShop = {
 /** a reply that carries its refusal inside data (wild offer: "Wild offer is not available") */
 export type SoftError = { error: string };
 
+/** GET /shop/wild-offer, a SoftError when there is none */
 export type WildOffer = SoftError | Record<string, unknown>;
 
 /** a custom skin of the token's player (the skin editor) */
@@ -75,6 +79,7 @@ export type CustomSkin = {
     updatedAt: string;
 };
 
+/** GET /skins, the player's custom skins paged */
 export type CustomSkinsPage = {
     skins: CustomSkin[];
     total: number;
@@ -82,6 +87,7 @@ export type CustomSkinsPage = {
     pageSize: number;
 };
 
+/** page, page size and filters of the player's custom skins */
 export type CustomSkinsQuery = {
     page?: number;
     page_size?: number;
@@ -95,6 +101,7 @@ export type MyApplications = {
     clan_ids: number[] | null;
 };
 
+/** one active listing on the live market */
 export type LiveListing = {
     uid: number;
     marketid: number;
@@ -111,12 +118,15 @@ export type LiveListing = {
     listing_count: number;
 };
 
+/** GET /market/listings */
 export type MarketListings = {
     listings: LiveListing[];
 } & Record<string, unknown>;
 
+/** sort of the live market listings */
 export type MarketListingsSort = "latest" | "price_asc" | "price_desc" | "popular";
 
+/** filters, sort and cursor of GET /market/listings */
 export type MarketListingsQuery = {
     item_id?: number;
     items?: number[];
@@ -140,8 +150,10 @@ export type InventoryStack = {
     st: number;
 };
 
+/** sort of the player's market history */
 export type MarketHistorySort = "date_asc" | "date_desc" | "amount_asc" | "amount_desc" | "item_asc" | "item_desc";
 
+/** one completed buy or sell of the player */
 export type MarketHistoryEntry = {
     marketid: number;
     type: "sell" | "buy" | string;
@@ -153,10 +165,12 @@ export type MarketHistoryEntry = {
     status: string;
 };
 
+/** GET /market/history */
 export type MarketHistory = {
     history: MarketHistoryEntry[];
 } & Record<string, unknown>;
 
+/** sort, cursor and limit of GET /market/history */
 export type MarketHistoryQuery = {
     sort?: MarketHistorySort;
     cursor?: number;
@@ -166,13 +180,17 @@ export type MarketHistoryQuery = {
 /** GET /market/black-market, the skin indices on offer */
 export type BlackMarket = number[];
 
+/** GET /market/black-market/rank, null without a ranked history */
 export type BlackMarketRank = {
     peak_mmr: number | null;
 };
 
+/** one item in a trade, by skin index */
 export type TradeItem = { ind: number } & Record<string, unknown>;
+/** one currency amount in a trade */
 export type TradeCurrency = { cid: number; amt: number };
 
+/** one trade, short keys as the game sends them */
 export type Trade = {
     trid: number;
     sksell: TradeItem[];
@@ -190,28 +208,33 @@ export type Trade = {
     dte: string;
 };
 
+/** GET /trades/history */
 export type TradeHistory = {
     open: Trade[];
     completed: Trade[];
 };
 
+/** offset, limit and whether open trades are included */
 export type TradeHistoryQuery = {
     offset?: number;
     limit?: number;
     includeOpen?: boolean;
 };
 
+/** GET /trades/inventory/:playerId, both sides */
 export type TradeInventories = {
     my_inventory: InventoryStack[];
     their_inventory: InventoryStack[];
 };
 
+/** GET /trades/player-search, one player by exact name */
 export type TradePlayer = {
     player_id: number;
     player_name: string;
     player_score: number;
 };
 
+/** GET /krunkcup/wristband */
 export type Wristband = {
     skin_index: number;
     claimed: boolean;
@@ -219,11 +242,13 @@ export type Wristband = {
     instance_id: number;
 };
 
+/** offset and search of the kpd demo queue */
 export type KpdDemosQuery = {
     off?: number;
     q?: string;
 };
 
+/** a player's ranked card in the season rankings */
 export type RankedProfileEntry = {
     player_name: string;
     conservative_rating: number;
@@ -237,6 +262,7 @@ export type SeasonRankings = {
     totalPages: number;
 };
 
+/** limit, offset and region of the season rankings */
 export type SeasonRankingsQuery = {
     limit?: number;
     offset?: number;
@@ -273,10 +299,12 @@ export type RankedProfile = {
     milestones: { id: number; matches: number; reward: number }[];
 };
 
+/** GET api.krunker.io/match-history/me/..., paged */
 export type RankedMatchHistory = {
     matchHistory: { matches: unknown[]; totalPages: number };
 };
 
+/** limit, offset, mode, ranked flag and region of the ranked match history */
 export type RankedMatchHistoryQuery = {
     limit?: number;
     offset?: number;
@@ -286,10 +314,12 @@ export type RankedMatchHistoryQuery = {
     region?: number;
 };
 
+/** GET api.krunker.io/ranked/me/connection */
 export type RankedConnection = {
     serverUrl: string | null;
 };
 
+/** GET api.krunker.io/daily-spin/progress */
 export type DailySpinProgress = {
     score: number;
     maxScore: number;

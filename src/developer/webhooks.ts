@@ -18,6 +18,7 @@ export const WEBHOOK_HEADERS = {
 /** requests whose timestamp is further off than this are rejected, as the docs ask */
 export const WEBHOOK_TOLERANCE_S = 5 * 60;
 
+/** the parsed Krunker-Signature header */
 export type WebhookSignature = {
     /** unix seconds */
     timestamp: number;
@@ -55,6 +56,7 @@ const payloadOf = (timestamp: number, rawBody: string | Uint8Array): Uint8Array<
 const hmacKey = (secret: string, usage: "sign" | "verify"): Promise<CryptoKey> =>
     crypto.subtle.importKey("raw", encoder.encode(secret), { name: "HMAC", hash: "SHA-256" }, false, [usage]);
 
+/** knobs of verifyWebhook, for tests and for clocks that drift */
 export type VerifyWebhookOptions = {
     /** seconds the timestamp may be off, 300 when omitted */
     toleranceS?: number;

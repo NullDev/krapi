@@ -11,6 +11,7 @@ import type { Envelope, FeedPost, PlayerFollow, PlayerSale, PlayerSearchResult, 
 const MAX_SEARCH = 20;
 const MAX_FEED = 50;
 
+/** GET /players/*: the social profile, search, sales, followers and feed */
 export class PublicPlayersApi {
     readonly #gapi: KrunkerClient;
 

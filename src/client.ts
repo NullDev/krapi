@@ -17,6 +17,7 @@ import type { ApiErrorBody } from "./developer/types.js";
 // =     - SPDX: MIT -     = //
 // ========================= //
 
+/** gapi.svc.krunker.io, the host of the developer api and of most game endpoints */
 export const DEFAULT_BASE_URL = "https://gapi.svc.krunker.io";
 // market/skin can take over 10 s on a cold cache, everything else answers well under a second
 const DEFAULT_TIMEOUT_MS = 20 * 1000;
@@ -38,6 +39,7 @@ export type Logger = {
 /** only the call signature, so a wrapper or a mock needs none of fetch's statics */
 export type FetchLike = (input: string, init?: RequestInit) => Promise<Response>;
 
+/** options shared by every tier; apiKey only matters for the developer api */
 export type ClientOptions = {
     /** omitted for the keyless endpoints, empty means not configured */
     apiKey?: string;
@@ -50,8 +52,10 @@ export type ClientOptions = {
     logger?: Logger;
 };
 
+/** a query string value; undefined leaves the parameter out */
 export type QueryValue = string | number | undefined;
 
+/** what a resource passes to KrunkerClient.get for one request */
 export type RequestOptions = {
     /** stable name of the endpoint, the key for its own rate limit window */
     route: string;
@@ -85,6 +89,7 @@ const errorMessage = (body: unknown): string | null => {
     return null;
 };
 
+/** the http layer under every tier: one base url, one rate limit tracker, typed errors, one retry on a 5xx or a network error */
 export class KrunkerClient {
     readonly rateLimit = new RateLimitTracker();
     readonly #apiKey: string | undefined;

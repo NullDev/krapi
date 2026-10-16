@@ -7,6 +7,7 @@ import type { ItemPrices, LegacyMapList, LegacyModList, TopStreams } from "../ty
 // =     - SPDX: MIT -     = //
 // ========================= //
 
+/** category tab (index) and page (pos) of the legacy map and mod browsers, 0 based */
 export type BrowserQuery = { index?: number; pos?: number };
 
 /** api.krunker.io, the old rest api; only the paths the page calls without a token */

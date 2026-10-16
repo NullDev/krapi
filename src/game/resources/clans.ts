@@ -10,6 +10,7 @@ import type { ClanLootConfig, ClanMotd, ClanPublicProfile, Envelope, Recruitment
 
 const MAX_BOARD_LIMIT = 50;
 
+/** page, limit, region and language of the recruitment board */
 export type RecruitmentQuery = {
     page?: number;
     /** 20 in the game */
@@ -18,6 +19,7 @@ export type RecruitmentQuery = {
     language?: string;
 };
 
+/** GET /clans/*: clan profiles, loot config, motd and the recruitment board */
 export class PublicClansApi {
     readonly #gapi: KrunkerClient;
 

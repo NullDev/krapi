@@ -6,8 +6,11 @@ import type { Envelope } from "./types.js";
 // =     - SPDX: MIT -     = //
 // ========================= //
 
+/** gapi.svc.krunker.io, the game api and the developer api */
 export const GAPI_URL = "https://gapi.svc.krunker.io";
+/** matchmaker.krunker.io, the lobby list */
 export const MATCHMAKER_URL = "https://matchmaker.krunker.io";
+/** api.krunker.io, the old rest api and the ranked api */
 export const LEGACY_API_URL = "https://api.krunker.io";
 
 /** gapi wraps every reply in {data, error}; the game code checks error on a 2xx too */

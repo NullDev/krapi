@@ -3,6 +3,7 @@
 // =     - SPDX: MIT -     = //
 // ========================= //
 
+/** the base of every error krapi throws */
 export class KrunkerError extends Error {
     constructor(message: string, options?: ErrorOptions){
         super(message, options);
@@ -29,6 +30,7 @@ export class KrunkerNetworkError extends KrunkerError {
     }
 }
 
+/** a reply with a non 2xx status; the subclasses cover the common ones */
 export class KrunkerHttpError extends KrunkerError {
     readonly status: number;
     readonly url: string;
@@ -43,6 +45,7 @@ export class KrunkerHttpError extends KrunkerError {
     }
 }
 
+/** 400, the api rejected a parameter the local checks did not catch */
 export class KrunkerBadRequestError extends KrunkerHttpError {}
 
 /** a token endpoint without a valid token: missing, expired or rejected */
@@ -51,8 +54,10 @@ export class KrunkerUnauthorizedError extends KrunkerHttpError {}
 /** the api key is invalid or revoked; on a token endpoint the player lacks the role (moderator, kpd reviewer) */
 export class KrunkerForbiddenError extends KrunkerHttpError {}
 
+/** 404, no such player, clan, map, mod or match */
 export class KrunkerNotFoundError extends KrunkerHttpError {}
 
+/** 429, or a request refused locally because the window is known to be empty */
 export class KrunkerRateLimitError extends KrunkerHttpError {
     /** seconds until the window resets */
     readonly retryAfter: number;
@@ -66,9 +71,12 @@ export class KrunkerRateLimitError extends KrunkerHttpError {
     }
 }
 
+/** a 5xx; retried once before it is thrown */
 export class KrunkerServerError extends KrunkerHttpError {}
 
+/** type guard for KrunkerNotFoundError */
 export const isNotFound = (err: unknown): err is KrunkerNotFoundError => err instanceof KrunkerNotFoundError;
+/** type guard for KrunkerRateLimitError */
 export const isRateLimited = (err: unknown): err is KrunkerRateLimitError => err instanceof KrunkerRateLimitError;
 
 /** retrying makes sense for these, the request itself was fine */

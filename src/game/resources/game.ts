@@ -9,6 +9,7 @@ import type { CommunityMap, CommunityMapLeaderboard, CreatorEvents, Envelope, Ma
 // =     - SPDX: MIT -     = //
 // ========================= //
 
+/** page, board type and order of a community map leaderboard */
 export type CommunityLeaderboardQuery = { page?: number; type?: LeaderboardType; order?: LeaderboardOrder };
 
 /** the static game data the page loads at start plus the community map and mod records */

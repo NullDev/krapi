@@ -24,7 +24,8 @@ export type { CommunityLeaderboardQuery } from "./resources/game.js";
 export type { BrowserQuery } from "./resources/legacy.js";
 export { RAID_MAPS, type PlayerLeaderboardQuery } from "./resources/leaderboards.js";
 
-export type GameOptions = Omit<ClientOptions, "apiKey" | "baseUrl">;
+/** options of the game tier: everything of ClientOptions but the key, no endpoint here takes one */
+export type GameApiOptions = Omit<ClientOptions, "apiKey" | "baseUrl">;
 
 /** what the game reads without any auth: no key, no documented limits, shapes from live replies; reads only */
 export class KrunkerGameApi {
@@ -40,7 +41,7 @@ export class KrunkerGameApi {
     readonly matchmaker: PublicMatchmakerApi;
     readonly legacy: PublicLegacyApi;
 
-    constructor(options: GameOptions = {}){
+    constructor(options: GameApiOptions = {}){
         const gapi = new KrunkerClient({ ...options, baseUrl: GAPI_URL });
         this.players = new PublicPlayersApi(gapi);
         this.clans = new PublicClansApi(gapi);

@@ -7,6 +7,7 @@ import type { FeaturedMaps, LeaderboardOrder, LeaderboardType, MapInfo, MapLeade
 // =     - SPDX: MIT -     = //
 // ========================= //
 
+/** which of a map's boards to read and in which order */
 export type MapLeaderboardQuery = {
     /** which built-in board, the map's configured one when omitted */
     type?: LeaderboardType;
@@ -14,6 +15,7 @@ export type MapLeaderboardQuery = {
     order?: LeaderboardOrder;
 };
 
+/** GET /api/map/* and /api/maps/*: map details, featured maps and map leaderboards */
 export class MapApi {
     readonly #client: KrunkerClient;
 

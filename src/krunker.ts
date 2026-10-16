@@ -8,6 +8,7 @@ import { KrunkerTokenApi, type TokenSession } from "./token/index.js";
 // =     - SPDX: MIT -     = //
 // ========================= //
 
+/** options of Krunker: ClientOptions without baseUrl, every tier picks its own host */
 export type KrunkerOptions = Omit<ClientOptions, "baseUrl">;
 
 /**

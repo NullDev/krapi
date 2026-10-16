@@ -64,6 +64,7 @@ export type PlayerStats = {
     c15?: number;
 } & Record<string, number | string | undefined>;
 
+/** one player's line in a match of a social profile's match_history */
 export type MatchHistoryEntry = {
     player_name: string;
     accuracy: number;
@@ -79,6 +80,7 @@ export type MatchHistoryEntry = {
     mmr_change: number;
 };
 
+/** one match in a social profile's match_history */
 export type MatchHistoryGame = {
     date: string;
     map: number;
@@ -94,6 +96,7 @@ export type MatchHistoryGame = {
     score_bravo: number;
 };
 
+/** a player's raid stats on one map */
 export type RaidStats = {
     map_id: number;
     completions: number;
@@ -154,6 +157,7 @@ export type PlayerSocialProfile = {
     raid_stats: RaidStats[];
 };
 
+/** one hit of GET /players/search */
 export type PlayerSearchResult = {
     player_id: number;
     player_name: string;
@@ -168,6 +172,7 @@ export type PlayerSale = {
     d: string;
 };
 
+/** one row of GET /players/:name/followers and /following */
 export type PlayerFollow = {
     player_id: number;
     player_name: string;
@@ -175,6 +180,7 @@ export type PlayerFollow = {
     follow_state: number;
 };
 
+/** one post of the social feed, short keys as the game sends them */
 export type FeedPost = {
     /** post id */
     pid: number;
@@ -200,6 +206,7 @@ export type FeedPost = {
     fds: number;
 };
 
+/** one member in a public clan profile, short keys as the game sends them */
 export type ClanPublicMember = {
     /** name */
     p: string;
@@ -235,8 +242,10 @@ export type ClanPublicProfile = {
     members: ClanPublicMember[];
 };
 
+/** how a clan splits its turf earnings */
 export type LootDistributionMode = "clan_bank" | "even" | "top_weighted" | "performance" | "top_performance";
 
+/** GET /clans/:id/loot-config */
 export type ClanLootConfig = {
     clan_id: number;
     distribution_mode: LootDistributionMode;
@@ -250,6 +259,7 @@ export type ClanLootConfig = {
     updated_by_name: string;
 };
 
+/** GET /clans/:id/motd */
 export type ClanMotd = {
     message: string;
     set_by: number;
@@ -257,6 +267,7 @@ export type ClanMotd = {
     set_at: string;
 };
 
+/** a clan's post on the recruitment board */
 export type RecruitmentPost = {
     recruitment_id: number;
     clan_id: number;
@@ -280,6 +291,7 @@ export type RecruitmentPost = {
     loot_min_games: number | null;
 };
 
+/** GET /clans/recruitment, paged */
 export type RecruitmentBoard = {
     posts: RecruitmentPost[];
     total: number;
@@ -287,6 +299,7 @@ export type RecruitmentBoard = {
     limit: number;
 };
 
+/** one of the top 5 clans of a turf map */
 export type TurfStatusEntry = {
     position: number;
     clan_id: number;
@@ -313,6 +326,7 @@ export type TurfStatus = {
     estimated_reward: number;
 };
 
+/** a clan's standing on one turf map for one day */
 export type TurfClanMap = {
     map_id: number;
     map_name: string;
@@ -329,6 +343,7 @@ export type TurfClanMap = {
     comparison_position: number;
 };
 
+/** GET /territorial-wars/clan/:id */
 export type TurfClan = {
     clan_id: number;
     clan_name: string;
@@ -338,6 +353,7 @@ export type TurfClan = {
     historical_days: Omit<TurfClanMap, "games">[];
 };
 
+/** one row of GET /territorial-wars/clan/:id/players */
 export type TurfPlayerRow = {
     player_id: number;
     player_name: string;
@@ -347,6 +363,7 @@ export type TurfPlayerRow = {
     kd: number;
 };
 
+/** one day's reward of a clan on one map */
 export type TurfClanEarning = {
     day: number;
     map_id: number;
@@ -354,11 +371,13 @@ export type TurfClanEarning = {
     reward: number;
 };
 
+/** GET /territorial-wars/clan/:id/payouts */
 export type TurfPayouts = {
     payouts: { player_id: number; player_name: string; total_kr: number }[];
     total: number;
 };
 
+/** one row of the top performing clans board */
 export type TurfTopClan = {
     position: number;
     clan_id: number;
@@ -370,6 +389,7 @@ export type TurfTopClan = {
     kd: number;
 };
 
+/** one row of the top grossing clans board */
 export type TurfTopGrossingClan = {
     position: number;
     clan_id: number;
@@ -380,6 +400,7 @@ export type TurfTopGrossingClan = {
     bank: number;
 };
 
+/** one row of the top performing players board */
 export type TurfTopPlayer = {
     position: number;
     player_id: number;
@@ -393,6 +414,7 @@ export type TurfTopPlayer = {
     earnings: number;
 };
 
+/** GET /territorial-wars/player/:id */
 export type TurfPlayer = {
     player_id: number;
     player_name: string;
@@ -408,6 +430,7 @@ export type TurfPlayer = {
     last_day: number;
 };
 
+/** one day and map of a player's turf contributions */
 export type TurfContribution = {
     day: number;
     clan_id: number;
@@ -420,6 +443,7 @@ export type TurfContribution = {
     kd: number;
 };
 
+/** one payout to a player */
 export type TurfPlayerEarning = {
     day: number;
     map_id: number;
@@ -429,10 +453,12 @@ export type TurfPlayerEarning = {
     amount: number;
 };
 
+/** the player boards GET /leaderboards/:type knows */
 export type PlayerLeaderboardType =
     | "player_score" | "player_kills" | "player_wins" | "player_timeplayed" | "player_funds" | "player_followed"
     | "player_nukes" | "player_skinvalue" | "player_eventcount" | "player_ranked_matches";
 
+/** one row of a player leaderboard */
 export type PlayerLeaderboardRow = {
     position: number;
     player_name: string;
@@ -441,8 +467,10 @@ export type PlayerLeaderboardRow = {
     value: number;
 };
 
+/** sort of the clan leaderboard */
 export type ClanLeaderboardSort = "score" | "members";
 
+/** one row of GET /leaderboards/player_clan */
 export type ClanLeaderboardRow = {
     position: number;
     clan_name: string;
@@ -451,6 +479,7 @@ export type ClanLeaderboardRow = {
     hack_count: number;
 };
 
+/** sort of a raid leaderboard */
 export type RaidSort = "time" | "completions";
 
 /** GET /leaderboards/raids/:mapId, 100 rows; map 31 is a raid map, 0 is not ("invalid raid map ID") */
@@ -463,6 +492,7 @@ export type RaidLeaderboardRow = {
     completions: number;
 };
 
+/** one row of GET /leaderboards/krunkcup/teams */
 export type KrunkCupTeam = {
     id: number;
     total_kills: number;
@@ -496,6 +526,7 @@ export type MapConfig = {
     skyDome?: unknown;
 } & Record<string, unknown>;
 
+/** one player title of GET /titles */
 export type Title = {
     id: number;
     name: string;
@@ -523,6 +554,7 @@ export type GameOptions = {
 /** [game id, region key, players, max players, options, seconds left] */
 export type GameListEntry = [string, string, number, number, GameOptions, number];
 
+/** GET /game-list, every public lobby */
 export type GameList = {
     games: GameListEntry[];
     totalPlayerCount: number;
@@ -531,6 +563,7 @@ export type GameList = {
 /** region key (as in a game entry) -> lobby host:port to ping */
 export type PingList = Record<string, string>;
 
+/** one row of the legacy map browser */
 export type LegacyMapRow = {
     map_id: number;
     map_name: string;
@@ -547,11 +580,13 @@ export type LegacyMapRow = {
     map_date: string;
 };
 
+/** GET api.krunker.io/webhooks/general/maps/list */
 export type LegacyMapList = {
     index: string;
     data: LegacyMapRow[];
 };
 
+/** one live stream in the menu's stream box */
 export type Stream = {
     id: string;
     username: string;
@@ -564,6 +599,7 @@ export type Stream = {
     languageCode: string;
 };
 
+/** a running drop campaign */
 export type DropCampaign = {
     name: string;
     startDate: number;
@@ -573,6 +609,7 @@ export type DropCampaign = {
     endDateISO: string;
 };
 
+/** GET api.krunker.io/streams/top */
 export type TopStreams = {
     streams: Stream[];
     promo: boolean;
@@ -589,6 +626,7 @@ export type MarketStatRow = {
     low?: number;
 };
 
+/** GET /market/stats, paged by cursor */
 export type MarketStats = {
     stats: MarketStatRow[];
     has_more: boolean;
@@ -598,6 +636,7 @@ export type MarketStats = {
 /** sort of GET /market/stats; "rarity" is what the market tab sends, an unknown value is answered with the default order */
 export type MarketStatsSort = "rarity" | string;
 
+/** filters, sort and cursor of GET /market/stats */
 export type MarketStatsQuery = {
     cursor?: number;
     limit?: number;
@@ -612,6 +651,7 @@ export type MarketStatsQuery = {
 /** one day of sales of an item: kr, count, date; GET /items/:id/sales and /market/items/:id/sales-statistics */
 export type ItemSale = PlayerSale;
 
+/** one of an item's top owners, short keys as the game sends them */
 export type ItemOwner = {
     /** name */
     nm: string;
@@ -634,6 +674,7 @@ export type ItemView = {
     wearable: boolean;
 };
 
+/** tab of GET /social/feed; only global has been seen */
 export type FeedTab = "global" | string;
 
 /** GET /social/post/:id */
@@ -642,10 +683,12 @@ export type SocialPost = {
     comments: unknown[];
 };
 
+/** GET /social/news */
 export type SocialNews = {
     news: unknown[];
 };
 
+/** a running survey of GET /creators/events */
 export type CreatorPoll = {
     id: number;
     title: string;
@@ -700,6 +743,7 @@ export type ModInfo = {
     updated_at: string;
 };
 
+/** one price of a shop product, real money or recurring */
 export type ShopPrice = {
     id: number;
     price_ref: string;
@@ -709,6 +753,7 @@ export type ShopPrice = {
     available: boolean;
 };
 
+/** one product in a shop display */
 export type ShopProduct = {
     id: number;
     name: string;
@@ -731,6 +776,7 @@ export type ShopDisplay = {
     products: Record<string, ShopProduct>;
 };
 
+/** one item pool of a spin wheel */
 export type SpinPool = {
     id: string;
     name: string;
@@ -763,6 +809,7 @@ export type Lottery = {
 /** GET api.krunker.io/webhooks/general/items/prices: index = skin index, null = no price */
 export type ItemPrices = (number | null)[];
 
+/** one row of the legacy mod browser */
 export type LegacyModRow = {
     mod_id: number;
     mod_name: string;
@@ -775,6 +822,7 @@ export type LegacyModRow = {
     mod_updatecounter: number;
 };
 
+/** GET api.krunker.io/webhooks/general/mods/list */
 export type LegacyModList = {
     index: string;
     data: LegacyModRow[];

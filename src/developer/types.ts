@@ -10,16 +10,20 @@ export const Region = {
     EUROPE: 3,
     NORTH_AMERICA: 4,
 } as const;
+/** a ranked region id, one of Region or a number the api knows */
 export type RegionId = typeof Region[keyof typeof Region] | number;
 
+/** which built in board a map has: score or time */
 export type LeaderboardType = "score" | "time";
 /** 0 = ascending (lower is better), 1 = descending */
 export type LeaderboardOrder = 0 | 1;
 /** 1 = win, 0 = loss, -1 = draw */
 export type MatchResult = 1 | 0 | -1;
 
+/** the page query every paged developer endpoint takes, 1 based */
 export type Page = { page?: number };
 
+/** a player's ranked stats in one region this season */
 export type PlayerRanked = {
     region: number;
     mmr: number;
@@ -33,6 +37,7 @@ export type PlayerRanked = {
     time_played: number;
 };
 
+/** GET /api/player/:name */
 export type PlayerProfile = {
     player_id: number;
     player_name: string;
@@ -92,6 +97,7 @@ export type PlayerProfile = {
     mods: unknown[];
 };
 
+/** one entry of GET /api/player/:name/inventory */
 export type InventoryItem = {
     skin_index: number;
     /** undocumented: id of the owned item, not the definition */
@@ -104,18 +110,21 @@ export type InventoryItem = {
     stackable: boolean;
 };
 
+/** one of a player's active market listings */
 export type PlayerListing = {
     skin_index: number;
     price: number;
     listed_at: string;
 };
 
+/** GET /api/player/:name/listings, 10 per page */
 export type PlayerListings = {
     page: number;
     per_page: number;
     listings: PlayerListing[];
 };
 
+/** one ranked match from a player's point of view */
 export type PlayerMatch = {
     match_id: number;
     date: string;
@@ -141,12 +150,14 @@ export type PlayerMatch = {
     mmr: number;
 };
 
+/** GET /api/player/:name/matches, 10 per page */
 export type PlayerMatches = {
     page: number;
     per_page: number;
     matches: PlayerMatch[];
 };
 
+/** one social post of a player */
 export type PlayerPost = {
     date: string;
     text: string;
@@ -154,12 +165,14 @@ export type PlayerPost = {
     comment_count: number;
 };
 
+/** GET /api/player/:name/posts, 10 per page */
 export type PlayerPosts = {
     page: number;
     per_page: number;
     posts: PlayerPost[];
 };
 
+/** one player of a ranked match */
 export type MatchParticipant = {
     player_name: string;
     kills: number;
@@ -176,6 +189,7 @@ export type MatchParticipant = {
     play_time: number;
 };
 
+/** GET /api/match/:id */
 export type MatchDetails = {
     match_id: number;
     date: string;
@@ -187,6 +201,7 @@ export type MatchDetails = {
     participants: MatchParticipant[];
 };
 
+/** GET /api/clan/:name */
 export type ClanProfile = {
     name: string;
     owner_name: string;
@@ -198,6 +213,7 @@ export type ClanProfile = {
     discord: string;
 };
 
+/** one row of a clan's member list */
 export type ClanMember = {
     player_name: string;
     role: number;
@@ -206,12 +222,14 @@ export type ClanMember = {
     score: number;
 };
 
+/** GET /api/clan/:name/members, 10 per page */
 export type ClanMembers = {
     page: number;
     per_page: number;
     members: ClanMember[];
 };
 
+/** one row of the ranked leaderboard */
 export type LeaderboardEntry = {
     position: number;
     player_name: string;
@@ -225,6 +243,7 @@ export type LeaderboardEntry = {
     damage_done: number;
 };
 
+/** GET /api/leaderboard/:region, 10 per page */
 export type RankedLeaderboard = {
     page: number;
     per_page: number;
@@ -233,6 +252,7 @@ export type RankedLeaderboard = {
     entries: LeaderboardEntry[];
 };
 
+/** GET /api/map/:name */
 export type MapInfo = {
     map_id: number;
     name: string;
@@ -253,6 +273,7 @@ export type MapInfo = {
     featured: boolean;
 };
 
+/** one featured map */
 export type FeaturedMap = {
     map_id: number;
     name: string;
@@ -260,11 +281,13 @@ export type FeaturedMap = {
     creator_name: string;
 };
 
+/** GET /api/maps/featured */
 export type FeaturedMaps = {
     maps: FeaturedMap[];
     count: number;
 };
 
+/** one row of a map leaderboard */
 export type MapLeaderboardEntry = {
     position: number;
     player_name: string;
@@ -272,6 +295,7 @@ export type MapLeaderboardEntry = {
     date: string;
 };
 
+/** GET /api/map/:name/leaderboard, 25 per page */
 export type MapLeaderboard = {
     page: number;
     per_page: number;
@@ -281,6 +305,7 @@ export type MapLeaderboard = {
     entries: MapLeaderboardEntry[];
 };
 
+/** GET /api/map/:name/leaderboard/player/:player, one player's entry */
 export type MapLeaderboardPlayer = {
     map_name: string;
     leaderboard_type: LeaderboardType;
@@ -291,6 +316,7 @@ export type MapLeaderboardPlayer = {
     date: string;
 };
 
+/** GET /api/mods/:name */
 export type Mod = {
     mod_id: number;
     name: string;
@@ -304,23 +330,27 @@ export type Mod = {
     updated_at: string;
 };
 
+/** GET /api/mods, 10 per page */
 export type Mods = {
     page: number;
     per_page: number;
     mods: Mod[];
 };
 
+/** one active listing of a skin on the market */
 export type MarketListing = {
     price: number;
     seller_name: string;
     listed_at: string;
 };
 
+/** one owner in a skin's top owners */
 export type MarketOwner = {
     player_name: string;
     count: number;
 };
 
+/** one day of a skin's price history */
 export type PricePoint = {
     /** YYYY-MM-DD */
     date: string;
@@ -328,6 +358,7 @@ export type PricePoint = {
     sales: number;
 };
 
+/** GET /api/market/skin/:skinindex */
 export type MarketSkin = {
     skin_index: number;
     total_listings: number;
@@ -362,6 +393,7 @@ export type SkinDefinition = {
     tradable?: boolean;
 } & Record<string, unknown>;
 
+/** GET /api/skins, paged skin definitions */
 export type Skins = {
     page: number;
     per_page: number;
@@ -382,6 +414,7 @@ export type KpdCallStatus = 1 | 2 | 3;
 /** 0 pending, 1 banned, 2 rejected */
 export type KpdCallRating = 0 | 1 | 2;
 
+/** one row of GET /api/kpd/latest-calls */
 export type KpdCall = {
     id: number;
     /** rfc3339 utc */
@@ -417,17 +450,20 @@ export type KpdCall = {
 /** the types documented so far; a key only sees the types of the event scopes it holds */
 export type EventType = "map.featured" | "map.unfeatured" | (string & {});
 
+/** what an event is about, e.g. type "map" and the map id */
 export type EventTarget = {
     type: string;
     id: number | string;
 };
 
+/** data of map.featured and map.unfeatured */
 export type MapEventData = {
     map_id: number;
     map_name: string;
     creator: string;
 };
 
+/** one event of GET /api/events or of a webhook delivery */
 export type ApiEvent = {
     /** only ever increases, gaps are normal */
     id: number;
@@ -438,6 +474,7 @@ export type ApiEvent = {
     data: MapEventData | Record<string, unknown>;
 };
 
+/** GET /api/events */
 export type EventsPage = {
     /** oldest first */
     events: ApiEvent[];
