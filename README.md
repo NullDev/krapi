@@ -53,13 +53,15 @@ Every tier is also its own class when you only need one: `KrunkerDeveloperApi`, 
 
 ### Resources
 
-Developer (root): `player` (profile, inventory, listings, matches, posts), `match`, `clan` (profile, members), `leaderboard` (ranked), `map` (get, featured, leaderboard, leaderboardPlayer), `mods` (list, get), `market` (skin), `skins` (list, get).
+Developer (root): `player` (profile, inventory, listings, matches, posts), `match`, `clan` (profile, members), `leaderboard` (ranked), `map` (get, featured, leaderboard, leaderboardPlayer), `mods` (list, get), `market` (skin), `skins` (list, get), `kpd` (latestCalls, needs the `kpd` scope), `events` (list, needs an events scope).
+
+Webhooks: `verifyWebhook(rawBody, signatureHeader, secret)` checks a delivery's `Krunker-Signature` (HMAC-SHA256 on WebCrypto, 5 minute tolerance) and `signWebhook` produces one for your own tests. Answer 401 when it returns false, Krunker's signature check sends deliberately bad signatures and expects that.
 
 Game (`krunker.game`): `players`, `clans`, `turf`, `leaderboards`, `game` (maps, mods, titles, creator events), `shop`, `market`, `items`, `social`, `matchmaker`, `legacy`.
 
 Token (`krunker.as(token)`): `player`, `market`, `trades`, `shop`, `creator`, `staff` (moderator and KPD roles only), `ranked`.
 
-Response types are exported under the names the API uses (`PlayerProfile`, `MarketStats`, `Wallet`, ...), and every method documents its endpoint in its JSDoc.
+Response types are exported under the names the API uses (`PlayerProfile`, `MarketStats`, `Wallet`, ...), and every method documents its endpoint in its JSDoc. The APIs themselves are documented in `docs/`: [developer-api.md](docs/developer-api.md) (Krunker's document, corrected), [game-api.md](docs/game-api.md) and [token-api.md](docs/token-api.md) (the undocumented tiers, from the game code and live replies).
 
 ## Options
 
