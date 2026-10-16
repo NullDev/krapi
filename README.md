@@ -10,6 +10,8 @@
 
 krapi is a typed client for the READ-ONLY Krunker.io APIs. Zero dependencies, ESM, works on Node 18+ and Bun.
 
+It aims for **100%** API coverage.
+
 It covers three things that live behind different doors:
 
 | tier | what | auth | on the client |
