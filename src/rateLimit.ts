@@ -40,7 +40,7 @@ export class RateLimitTracker {
         const reset = headerInt(headers, "X-RateLimit-Reset");
         if (limit === null || remaining === null || reset === null) return null;
 
-        // the developer api sends a unix timestamp, gapi (5 per second per route, seen 2026-10-15) seconds until the window ends
+        // the developer api sends a unix timestamp, gapi's per route windows the seconds until the window ends
         const resetAt = reset < RELATIVE_RESET_BELOW ? Date.now() + reset * 1000 : reset * 1000;
         const window = { limit, remaining, resetAt };
         if (limit >= GLOBAL_LIMIT) this.#global = window;

@@ -5,7 +5,7 @@ import { KrunkerTokenError } from "./errors.js";
 // =     - SPDX: MIT -     = //
 // ========================= //
 
-/** the claims of a frvr access token (RS256, about 24 h, seen 2026-10-15); nothing here is verified, krunker does that */
+/** the claims of a frvr access token (RS256, about 24 h); nothing here is verified, krunker does that */
 export type TokenClaims = {
     /** the player's frvr user id, the only stable key for caching anything read with this token */
     sub: string;
