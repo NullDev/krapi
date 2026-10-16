@@ -3,7 +3,7 @@
 # krapi
 
 <p align="center"><img height="250" width="auto" src="https://raw.githubusercontent.com/NullDev/Kute/refs/heads/master/resources/icon.png" /></p>
-<p align="center">Typed client for the READ-ONLY Krunker.io APIs. Zero dependencies, ESM, works on Node 18+ and Bun.</p>
+<p align="center">Typed client for the READ-ONLY Krunker.io APIs. Zero dependencies, ESM, works on Node 18+ and Bun.<br>Initially made for <a href="https://github.com/NullDev/Kute">Kute Client</a></p>
 <hr>
 
 ## :sparkles: What is it?
@@ -19,9 +19,14 @@ It covers three things that live behind different doors:
 | token | what the game reads with the player's own FRVR token (wallet, inventory, trades, ranked profile, ...) | `Authorization: Bearer <jwt>` | `krunker.as(token).*` |
 
 > [!WARNING]
-> Read only. Every write of the game API (buying, listing, trading, posting) is left out on purpose.
+> Read only. Every write of the game API (buying, listing, trading, posting) is left out on purpose. <br>
+> Also: `game` and `token` API are unofficial. They can break at _any time_.
 
-### 🗒️ Documentation
+This project is not affiliated with Krunker.io or FRVR. 
+
+---
+
+## 🗒️ Documentation
 
 Living Spec: https://nulldev.github.io/krapi/
 - Krunker APIs:
