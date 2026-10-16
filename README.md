@@ -1,6 +1,6 @@
 # krapi
 
-Typed client for the Krunker.io APIs. Zero dependencies, ESM, works on Node 18+ and Bun.
+Typed client for the READ-ONLY Krunker.io APIs. Zero dependencies, ESM, works on Node 18+ and Bun.
 
 It covers three things that live behind different doors:
 
@@ -67,14 +67,14 @@ Response types are exported under the names the API uses (`PlayerProfile`, `Mark
 
 ```ts
 new Krunker({
-    apiKey?: string;        // developer tier; without it those calls throw KrunkerConfigError before any request
-    userAgent?: string;     // please set one
-    timeoutMs?: number;     // 20000 (market/skin alone can take seconds on a cold cache)
-    retries?: number;       // 1: extra attempts after a network error or a 5xx, never after a 4xx
-    fetch?: FetchLike;      // your own fetch (proxy, mock)
-    logger?: {              // nothing is logged without one
-        debug?: (message: string) => void;   // one line per reply and retry
-        warn?: (message: string) => void;    // a rate limit window running low
+    apiKey?: string;    // developer tier; without it those calls throw KrunkerConfigError before any request
+    userAgent?: string; // please set one
+    timeoutMs?: number; // 20000 (market/skin alone can take seconds on a cold cache)
+    retries?: number;   // 1: extra attempts after a network error or a 5xx, never after a 4xx
+    fetch?: FetchLike;  // your own fetch (proxy, mock)
+    logger?: {          // nothing is logged without one
+        debug?: (message: string) => void; // one line per reply and retry
+        warn?: (message: string) => void;  // a rate limit window running low
     };
 });
 ```
@@ -123,15 +123,15 @@ A player token is sent as a bearer header and nothing else: never stored, never 
 bun install
 bun run typecheck
 bun run lint
-bun test                  # unit tests against a fake fetch, no network
-bun run build             # dist/
-KRUNKER_API_KEY=... bun run live   # a dozen reads against the real api, KRUNKER_TOKEN optional
+bun test      # unit tests against a fake fetch, no network
+bun run build # dist/
+KRUNKER_API_KEY=... bun run live # a dozen reads against the real api, KRUNKER_TOKEN optional
 ```
 
 The documentation site (`site/`, Fumadocs on Next.js, exported statically to GitHub Pages by the `pages` workflow) renders `docs/` plus a library reference TypeDoc generates from `src/`:
 
 ```sh
 cd site && bun install
-bun run dev               # syncs docs/ and the reference into content/, then next dev
-bun run build             # the static export in site/out, served under /krapi (BASE_PATH="" for a domain of its own)
+bun run dev   # syncs docs/ and the reference into content/, then next dev
+bun run build # the static export in site/out, served under /krapi (BASE_PATH="" for a domain of its own)
 ```
