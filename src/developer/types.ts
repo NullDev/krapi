@@ -91,10 +91,30 @@ export type PlayerProfile = {
     /** empty when not premium */
     profile_picture: string;
     created_at: string;
-    /** undocumented, only seen empty so far */
-    maps: unknown[];
-    /** undocumented, only seen empty so far */
-    mods: unknown[];
+    /** undocumented: maps the player voted on, only seen empty so far */
+    maps: VotedItem[];
+    /** undocumented: mods the player voted on, only seen empty so far */
+    mods: VotedItem[];
+};
+
+/** undocumented: a map or mod the player voted on, shape from the community wrapper */
+export type VotedItem = {
+    id: number;
+    name: string;
+    votes: number;
+};
+
+/** undocumented: kounter stats and float data of one owned skin, every field optional; shape from the community wrapper */
+export type InventoryItemMetadata = {
+    wear?: number;
+    style?: number;
+    serial?: number;
+    kills?: number;
+    hskills?: number;
+    headshots?: number;
+    hits?: number;
+    shots?: number;
+    jumps?: number;
 };
 
 /** one entry of GET /api/player/:name/inventory */
@@ -104,8 +124,8 @@ export type InventoryItem = {
     skin_id: number;
     /** excludes market listings */
     count: number;
-    /** undocumented */
-    metadata: unknown | null;
+    /** undocumented, null without any */
+    metadata: InventoryItemMetadata | null;
     /** undocumented */
     stackable: boolean;
 };
@@ -154,7 +174,8 @@ export type PlayerMatch = {
 export type PlayerMatches = {
     page: number;
     per_page: number;
-    matches: PlayerMatch[];
+    /** null when the page is past the end */
+    matches: PlayerMatch[] | null;
 };
 
 /** one social post of a player */

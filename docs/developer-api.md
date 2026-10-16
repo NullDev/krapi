@@ -208,8 +208,8 @@ GET /api/player/:playername
 | twitch_name | string | *undocumented* - linked Twitch name, empty string if none |
 | profile_picture | string | Profile picture URL (empty string if not premium) |
 | created_at | string | Account creation date (RFC3339 format) |
-| maps | array | *undocumented* - only seen as `[]` so far, shape unknown |
-| mods | array | *undocumented* - only seen as `[]` so far, shape unknown |
+| maps | array | *undocumented* - maps the player voted on as `{id, name, votes}`, only seen as `[]` so far |
+| mods | array | *undocumented* - mods the player voted on as `{id, name, votes}`, only seen as `[]` so far |
 
 ---
 
@@ -245,7 +245,7 @@ GET /api/player/:playername/inventory
 | skin_index | int | Identifier for the skin |
 | skin_id | int | *undocumented* - id of the owned item instance (not the definition) |
 | count | int | Number owned (excludes market listings) |
-| metadata | any | *undocumented* - only seen as `null` so far |
+| metadata | object | *undocumented* - `null` or kounter stats and float data, every field optional: `wear`, `style`, `serial`, `kills`, `hskills`, `headshots`, `hits`, `shots`, `jumps` |
 | stackable | bool | *undocumented* |
 
 ---
@@ -376,6 +376,7 @@ GET /api/player/:playername/matches
 - Only ranked matches are returned
 - Page size is fixed at 10 records
 - Matches are ordered by date descending
+- *observed*: `matches` is `null` instead of `[]` when the page is past the end
 - The `mmr` field shows the player's rating after each match, allowing you to calculate MMR changes between matches
 
 ---
