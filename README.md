@@ -3,7 +3,7 @@
 # krapi
 
 <p align="center"><img height="250" width="auto" src="https://raw.githubusercontent.com/NullDev/Kute/refs/heads/master/resources/icon.png" /></p>
-<p align="center"><b>Typed client for the READ-ONLY Krunker.io APIs. Zero dependencies, ESM, works on Node 18+ and Bun.</p>
+<p align="center">Typed client for the READ-ONLY Krunker.io APIs. Zero dependencies, ESM, works on Node 18+ and Bun.</p>
 <hr>
 
 ## :sparkles: What is it?
