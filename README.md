@@ -1,4 +1,5 @@
-[![License](https://img.shields.io/github/license/NullDev/krapio?label=License&logo=Creative%20Commons)](https://github.com/NullDev/krapio/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/NullDev/krapio?label=License&logo=Creative%20Commons)](https://github.com/NullDev/krapio/blob/master/LICENSE) [![pages](https://github.com/NullDev/krapio/actions/workflows/pages.yml/badge.svg)](https://github.com/NullDev/krapio/actions/workflows/pages.yml) [![ci](https://github.com/NullDev/krapio/actions/workflows/ci.yml/badge.svg)](https://github.com/NullDev/krapio/actions/workflows/ci.yml) [![release](https://github.com/NullDev/krapio/actions/workflows/release.yml/badge.svg)](https://github.com/NullDev/krapio/actions/workflows/release.yml) [![NPM Version](https://img.shields.io/npm/v/krapio)](https://www.npmjs.com/package/krapio)
+
 
 # krapio
 
@@ -56,6 +57,10 @@ npm install krapio
 ```
 
 Bun runs the TypeScript source directly (`bun` export condition), Node gets the compiled ESM in `dist/` with declarations.
+
+### :postbox: NPM
+
+[![NPM](https://nodei.co/npm/krapio.svg?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/krapio)
 
 ---
 
