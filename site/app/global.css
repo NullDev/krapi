@@ -1,3 +1,98 @@
 @import "tailwindcss";
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
+
+/* the API pages lay every endpoint out in two columns, so they get the width the screen has; plain pages keep
+   their reading width */
+:root {
+    --fd-layout-width: 2400px;
+}
+article#nd-page:has(.api-endpoint) {
+    max-width: 1600px;
+}
+
+/* an endpoint section of the docs: the markdown on the left, followed by Scalar's parameter and response lists, and
+   Scalar's request and response examples on the right. Scalar renders one operation into each .scalar-embed; once it
+   is rendered (.scalar-ready) every wrapper of its DOM becomes `display: contents`, so this grid places the operation's
+   parts. no containment here on purpose: Scalar's request dialog is position: fixed inside the embed */
+.api-endpoint {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 2rem;
+    margin-block: 1.5rem;
+}
+.api-endpoint-prose {
+    grid-column: 1;
+    min-width: 0;
+}
+.scalar-embed {
+    grid-column: 1;
+    min-width: 0;
+}
+/* about the height of the rendered lists, so the page does not jump when an embed mounts above the viewport */
+.scalar-embed:not(.scalar-ready) {
+    min-height: 24rem;
+}
+.scalar-embed section.introduction-section,
+.scalar-embed .section-flare,
+.scalar-embed .tag-section-container > section.section,
+.scalar-embed .operation-title,
+.scalar-embed .t-doc__header,
+.scalar-embed .section-content > div.flex {
+    display: none !important;
+}
+.scalar-embed .section {
+    padding-block: 0 !important;
+}
+.scalar-embed.scalar-ready,
+.scalar-embed.scalar-ready > div,
+.scalar-embed.scalar-ready .scalar-app,
+.scalar-embed.scalar-ready .references-rendered,
+.scalar-embed.scalar-ready .references-container,
+.scalar-embed.scalar-ready .references-container > div,
+.scalar-embed.scalar-ready .section-container,
+.scalar-embed.scalar-ready section.section:not(.introduction-section),
+.scalar-embed.scalar-ready .section-content,
+.scalar-embed.scalar-ready .operation-layout {
+    display: contents !important;
+}
+/* Scalar places the parts of an operation in named areas of its own grid (heading, badge, description, details,
+   examples); in this grid those names would open stray columns, so every part is placed explicitly */
+.scalar-embed.scalar-ready .operation-layout > * {
+    grid-area: auto !important;
+    grid-column: 1 !important;
+    min-width: 0;
+}
+.scalar-embed.scalar-ready .operation-auth {
+    margin-top: 1rem;
+}
+.scalar-embed.scalar-ready .operation-details {
+    margin-block: 0.75rem 2rem;
+}
+.scalar-embed.scalar-ready .examples {
+    margin-block: 1rem 2rem;
+}
+
+@media (min-width: 1100px) {
+    .api-endpoint {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 26rem);
+    }
+    .scalar-embed.scalar-ready .examples {
+        grid-column: 2 !important;
+        margin-block: 0 2rem;
+    }
+    /* one endpoint: the examples sit beside the whole section and follow it */
+    .api-endpoint-single .scalar-embed.scalar-ready .examples {
+        grid-row: 1 / span 60 !important;
+        align-self: start;
+        position: sticky;
+        top: calc(var(--fd-nav-height, 3.5rem) + 1rem);
+        max-height: calc(100vh - var(--fd-nav-height, 3.5rem) - 2rem);
+        overflow-y: auto;
+        margin-block: 0;
+    }
+    /* several endpoints: each one's examples sit beside its lists */
+    .api-endpoint-multi .scalar-embed.scalar-ready .examples {
+        margin-top: 0.75rem;
+    }
+}

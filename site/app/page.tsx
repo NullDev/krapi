@@ -18,6 +18,9 @@ export default function HomePage() {
                     <Link href="/docs/reference" className="rounded-md border px-4 py-2 text-sm font-medium">
                         Library reference
                     </Link>
+                    <Link href="/openapi" className="rounded-md border px-4 py-2 text-sm font-medium">
+                        OpenAPI
+                    </Link>
                 </div>
             </main>
         </HomeLayout>

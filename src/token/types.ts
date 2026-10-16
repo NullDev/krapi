@@ -193,7 +193,9 @@ export type TradeCurrency = { cid: number; amt: number };
 /** one trade, short keys as the game sends them */
 export type Trade = {
     trid: number;
+    /** items offered */
     sksell: TradeItem[];
+    /** items asked for */
     skbuy: TradeItem[];
     csell: TradeCurrency[];
     cbuy: TradeCurrency[];

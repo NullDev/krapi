@@ -1,8 +1,10 @@
-// fills content/docs: the hand written pages from ../docs, then the library reference typedoc generates from ../src
+// fills content/docs: the hand written pages from ../docs and the library reference typedoc generates from ../src.
+// also writes one slice of openapi.json per operation, the Scalar block under every endpoint of the API docs renders from it
 import { execFileSync } from "node:child_process";
 import { cpSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, posix, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { endpointLines, loadSpec, SPEC_FILE } from "../lib/openapi-paths.mjs";
 
 const site = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const root = resolve(site, "..");
@@ -14,6 +16,8 @@ mkdirSync(content, { recursive: true });
 cpSync(join(root, "docs"), content, { recursive: true });
 
 execFileSync("npx", ["typedoc"], { cwd: root, stdio: "inherit", shell: process.platform === "win32" });
+// the OpenAPI document behind the endpoint blocks of the API docs and the /openapi download, generated from the same source and docs
+execFileSync("bun", ["scripts/openapi.ts", SPEC_FILE], { cwd: root, stdio: "inherit", shell: process.platform === "win32" });
 
 // "Class: Krunker" is redundant inside the Classes group of the sidebar
 const titleOf = (text) => text.match(/^#+ (.+)$/m)?.[1]?.replace(/\\/g, "").replace(/^(Class|Function|Type Alias|Variable|Interface|Enumeration): /, "") ?? "Reference";
@@ -59,6 +63,52 @@ function rewriteLinks(dir){
     }
 }
 rewriteLinks(content);
+
+/**
+ * public/openapi/<operationId>.json: one operation with the schemas it reaches, the servers and the auth of the document.
+ * its description stays out, the markdown around the block carries the prose; its tags too, the block has no tag header
+ */
+const { spec, operationFor } = loadSpec();
+const slices = join(site, "public", "openapi");
+rmSync(slices, { recursive: true, force: true });
+mkdirSync(slices, { recursive: true });
+for (const [path, item] of Object.entries(spec.paths)){
+    for (const [method, operation] of Object.entries(item)){
+        const { description, tags, ...rest } = operation;
+        const paths = { [path]: { [method]: rest } };
+        const schemas = new Set();
+        const visit = (node) => {
+            if (Array.isArray(node)) node.forEach(visit);
+            else if (node && typeof node === "object"){
+                for (const [key, value] of Object.entries(node)){
+                    const name = key === "$ref" && typeof value === "string" ? value.split("/").pop() : undefined;
+                    if (name === undefined) visit(value);
+                    else if (!schemas.has(name)){
+                        schemas.add(name);
+                        visit(spec.components.schemas[name]);
+                    }
+                }
+            }
+        };
+        visit(paths);
+        writeFileSync(join(slices, `${operation.operationId}.json`), JSON.stringify({
+            openapi: spec.openapi,
+            info: { title: operation.summary, version: spec.info.version },
+            servers: operation.servers ?? spec.servers.slice(0, 1),
+            paths,
+            components: { securitySchemes: spec.components.securitySchemes, schemas: Object.fromEntries([...schemas].map((name) => [name, spec.components.schemas[name]])) },
+        }));
+    }
+}
+
+/** every endpoint the docs name must be an operation of the document, or its section would miss the block */
+const missing = [];
+for (const file of readdirSync(content).filter((f) => f.endsWith("-api.md"))){
+    for (const block of readFileSync(join(content, file), "utf8").matchAll(/^```http\n([\s\S]*?)^```/gm)){
+        for (const line of endpointLines(block[1])) if (!operationFor(line)) missing.push(`${file}: ${line.method.toUpperCase()} ${line.path}`);
+    }
+}
+if (missing.length) throw new Error(`endpoints of the docs without an operation in openapi.json:\n${missing.join("\n")}`);
 
 // typedoc folder names become the sidebar groups
 const groups = { classes: "Classes", functions: "Functions", "type-aliases": "Types", variables: "Constants", interfaces: "Interfaces", enumerations: "Enums" };

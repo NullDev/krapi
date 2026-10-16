@@ -4,5 +4,6 @@ out/
 .source/
 content/
 public/openapi.json
+public/openapi/
 next-env.d.ts
 *.tsbuildinfo

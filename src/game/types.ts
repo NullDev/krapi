@@ -47,20 +47,35 @@ export type PlayerStats = {
     hds: number;
     /** score per class, c0 to c15 */
     c0?: number;
+    /** score with class 1 */
     c1?: number;
+    /** score with class 2 */
     c2?: number;
+    /** score with class 3 */
     c3?: number;
+    /** score with class 4 */
     c4?: number;
+    /** score with class 5 */
     c5?: number;
+    /** score with class 6 */
     c6?: number;
+    /** score with class 7 */
     c7?: number;
+    /** score with class 8 */
     c8?: number;
+    /** score with class 9 */
     c9?: number;
+    /** score with class 10 */
     c10?: number;
+    /** score with class 11 */
     c11?: number;
+    /** score with class 12 */
     c12?: number;
+    /** score with class 13 */
     c13?: number;
+    /** score with class 14 */
     c14?: number;
+    /** score with class 15 */
     c15?: number;
 } & Record<string, number | string | undefined>;
 
@@ -186,6 +201,7 @@ export type FeedPost = {
     pid: number;
     /** poster name and id */
     pln: string;
+    /** poster id */
     pli: number;
     tim: number;
     lnk: string;
@@ -249,8 +265,10 @@ export type LootDistributionMode = "clan_bank" | "even" | "top_weighted" | "perf
 export type ClanLootConfig = {
     clan_id: number;
     distribution_mode: LootDistributionMode;
+    /** the treasury cut */
     clan_pct: number;
     top_player_count: number;
+    /** top_player_pct + remainder_pct = 100 */
     top_player_pct: number;
     remainder_pct: number;
     min_games_required: number;
@@ -313,6 +331,7 @@ export type TurfStatusEntry = {
 export type TurfStatus = {
     map_id: number;
     map_name: string;
+    /** the owner */
     clan_id: number;
     clan_name: string;
     clan_logo: number | null;
@@ -335,6 +354,7 @@ export type TurfClanMap = {
     deaths: number;
     games: number;
     position: number;
+    /** the clan one position up */
     comparison_kills: number;
     comparison_deaths: number;
     comparison_clan_name: string;
@@ -667,6 +687,7 @@ export type ItemOwner = {
 /** GET /items/:id/view, the item page of the social market */
 export type ItemView = {
     stats: { onS: number; high: number; low: number; inC: number };
+    /** name, count owned, staff, featured, cr */
     owners: ItemOwner[];
     sales: unknown[];
     listings: unknown[];

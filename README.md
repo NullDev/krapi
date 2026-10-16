@@ -182,6 +182,6 @@ bun run dev   # syncs docs/ and the reference into content/, then next dev
 bun run build # the static export in site/out, served under /krapi (BASE_PATH="" for a domain of its own)
 ```
 
-The site also serves the OpenAPI document at `/openapi.json` and renders it with Scalar at `/openapi/`.
+The site serves the OpenAPI document at `/openapi.json` and offers it for download at `/openapi/`. Under every endpoint of the three API pages it embeds Scalar's rendering of that operation (parameters, responses, request samples, response example) from a slice of the document.
 
 ---

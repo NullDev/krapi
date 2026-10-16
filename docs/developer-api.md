@@ -9,16 +9,11 @@ This is the developer API documentation as provided by Krunker (FRVR), with corr
 
 In krapi every endpoint below lives on the root of `Krunker` (`krunker.player.profile(...)`, `krunker.market.skin(...)`). The endpoints the game reads without a key are in [game-api.md](game-api.md) and the ones bound to a player token in [token-api.md](token-api.md).
 
-> **Observed:**
->
-> - 404 replies carry the plain text body `Not Found`, not the `{"error": ...}` json documented below.
-> - Player, clan and map name lookups are case-insensitive (`Burg` and `burg` return the same map, named `burg`).
-> - `GET /api/market/skin/:skinindex` is the slow endpoint: over 10 s cold, 2.7 s warm for skin 1. Everything else answered in 0.2 to 0.7 s.
-> - Rate limit window observed: 240 per key, `X-RateLimit-Reset` a unix timestamp about 60 s ahead. The keyless gapi paths send their own headers: limit 5 per route per second with a *relative* `X-RateLimit-Reset` (seconds). krapi tells the two apart by the value's size.
-
 ## Developer APIs
 
 The Developer APIs provide read-only access to public game data for third-party integrations.
+
+*observed*: player, clan and map name lookups are case-insensitive (`Burg` and `burg` return the same map, named `burg`).
 
 ## Authentication
 
@@ -38,7 +33,7 @@ X-Developer-API-Key: <your-api-key>
 
 ## Rate Limiting
 
-All endpoints are rate-limited to **240 requests per minute** per API key. Some endpoints have a lower limit of their own on top (`GET /api/events`: 6 per minute).
+All endpoints are rate-limited to **240 requests per minute** per API key (*observed*: `X-RateLimit-Reset` is a unix timestamp about 60 s ahead; the keyless gapi paths send their own headers, 5 per route per second with a relative reset in seconds). Some endpoints have a lower limit of their own on top (`GET /api/events`: 6 per minute).
 
 **Rate Limit Headers:**
 
@@ -1036,6 +1031,7 @@ GET /api/market/skin/:skinindex
 - Owners list shows up to 100 players, sorted by quantity owned (highest first)
 - Banned users are excluded from the owners list
 - `price_history` contains daily averages for days with sales within the specified `days` parameter (default 30, max 120 days / 4 months)
+- *observed*: this is the slow endpoint, over 10 s cold and about 3 s warm; every other endpoint answers in under a second
 
 ---
 
@@ -1348,6 +1344,8 @@ All endpoints return standard error responses:
 | 404 | Resource not found |
 | 429 | Rate limit exceeded |
 | 500 | Internal server error |
+
+*observed*: 404 replies carry the plain text body `Not Found`, not the json below.
 
 **Error Response Format:**
 

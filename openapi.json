@@ -26,160 +26,188 @@
   ],
   "tags": [
     {
+      "name": "developer/player",
+      "x-displayName": "Player Endpoints",
+      "description": "GET /api/player/*: profile, inventory, listings, ranked matches and posts of a player"
+    },
+    {
+      "name": "developer/match",
+      "x-displayName": "Match Endpoints",
+      "description": "GET /api/match/*: one ranked match with its participants"
+    },
+    {
       "name": "developer/clan",
+      "x-displayName": "Clan Endpoints",
       "description": "GET /api/clan/*: a clan's profile and members"
     },
     {
-      "name": "developer/events",
-      "description": "events the key's scopes allow, kept for 30 days; own limit of 6 requests a minute on top of the key's"
-    },
-    {
-      "name": "developer/kpd",
-      "description": "player hacker reports; needs the `kpd` scope on the key"
-    },
-    {
       "name": "developer/leaderboard",
+      "x-displayName": "Leaderboard Endpoints",
       "description": "GET /api/leaderboard/*: the ranked leaderboard per region"
     },
     {
       "name": "developer/map",
+      "x-displayName": "Map Endpoints",
       "description": "GET /api/map/* and /api/maps/*: map details, featured maps and map leaderboards"
     },
     {
-      "name": "developer/market",
-      "description": "GET /api/market/*: listings, owners and price history per skin"
-    },
-    {
-      "name": "developer/match",
-      "description": "GET /api/match/*: one ranked match with its participants"
-    },
-    {
       "name": "developer/mods",
+      "x-displayName": "Mod Endpoints",
       "description": "GET /api/mods/*: the mod list and single mods"
     },
     {
-      "name": "developer/player",
-      "description": "GET /api/player/*: profile, inventory, listings, ranked matches and posts of a player"
+      "name": "developer/market",
+      "x-displayName": "Market Endpoints",
+      "description": "GET /api/market/*: listings, owners and price history per skin"
     },
     {
       "name": "developer/skins",
+      "x-displayName": "Skin Definitions",
       "description": "GET /api/skins/*: the skin definitions"
     },
     {
-      "name": "game/clans",
-      "description": "GET /clans/*: clan profiles, loot config, motd and the recruitment board"
+      "name": "developer/kpd",
+      "x-displayName": "KPD Endpoints",
+      "description": "player hacker reports; needs the `kpd` scope on the key"
     },
     {
-      "name": "game/game",
-      "description": "the static game data the page loads at start plus the community map and mod records"
-    },
-    {
-      "name": "game/items",
-      "description": "the item page of the social market, by skin index"
-    },
-    {
-      "name": "game/leaderboards",
-      "description": "GET /leaderboards/*: player, clan, raid and KrunkCup boards"
-    },
-    {
-      "name": "game/legacy",
-      "description": "api.krunker.io, the old rest api; only the paths the page calls without a token"
-    },
-    {
-      "name": "game/market",
-      "description": "the market reads that answer without a token; listings, inventory and history need one (token wrapper)"
-    },
-    {
-      "name": "game/matchmaker",
-      "description": "matchmaker.krunker.io, plain json without an envelope; the game polls the list every 60 s"
+      "name": "developer/events",
+      "x-displayName": "Events",
+      "description": "Events tell you when something happens on Krunker, such as a map being featured. You can poll for them, or have them pushed to a webhook (below). Both use the same events.\n\nEach event type belongs to one **events scope**. A key only sees the types whose scope it holds; ask for a scope from the partner portal.\n\n| Type | Scope | Sent when |\n| --- | --- | --- |\n| `map.featured` | `events.maps` | A map was featured |\n| `map.unfeatured` | `events.maps` | A map is no longer featured |\n\nEvery key with the scope gets the event. Events are kept for 30 days."
     },
     {
       "name": "game/players",
-      "description": "GET /players/*: the social profile, search, sales, followers and feed"
+      "x-displayName": "Players",
+      "description": "The social profile popup and its tabs."
     },
     {
-      "name": "game/shop",
-      "description": "the shop's catalogue data; the wild offer and every purchase need the player's token"
-    },
-    {
-      "name": "game/social",
-      "description": "the social feed; a player's own posts are players.feed"
+      "name": "game/clans",
+      "x-displayName": "Clans",
+      "description": "The in-game clan window and the recruitment board."
     },
     {
       "name": "game/turf",
-      "description": "GET /territorial-wars/*: Turf Wars status, clans, players and leaderboards"
+      "x-displayName": "Turf Wars",
+      "description": "`https://gapi.svc.krunker.io/territorial-wars/*`. Days are whole UTC days since the season epoch `2026-03-17` (`TURF_EPOCH_UTC`, `turfDay(date)` in krapi). `map_id` is the Turf map: 0 Burg, 2 Sandstorm, 3 Subzero (`TURF_MAPS`). Leaderboards return 100 rows, `kd` is a float."
     },
     {
-      "name": "token/creator",
-      "description": "what a creator sees of their own maps and studios, plus the clan applications of the player"
+      "name": "game/leaderboards",
+      "x-displayName": "Leaderboards",
+      "description": "GET /leaderboards/*: player, clan, raid and KrunkCup boards"
     },
     {
-      "name": "token/market",
-      "description": "the market behind a login: listings, the player's inventory, sales and history, the black market"
+      "name": "game/game",
+      "x-displayName": "Game",
+      "description": "Static data the page loads at start, and the community map and mod records."
+    },
+    {
+      "name": "game/market",
+      "x-displayName": "Market",
+      "description": "The reads of the market tab that answer without a token. Listings, the player's inventory and history need one, see the [token API](token-api.md)."
+    },
+    {
+      "name": "game/items",
+      "x-displayName": "Items",
+      "description": "The item page of the social market, by skin index."
+    },
+    {
+      "name": "game/social",
+      "x-displayName": "Social",
+      "description": "the social feed; a player's own posts are players.feed"
+    },
+    {
+      "name": "game/shop",
+      "x-displayName": "Shop",
+      "description": "The shop's catalogue. The wild offer and every purchase need the player's token."
+    },
+    {
+      "name": "game/matchmaker",
+      "x-displayName": "Matchmaker",
+      "description": "`https://matchmaker.krunker.io`, plain JSON without an envelope. The game polls the list every 60 seconds. krapi adds `hostname=krunker.io` to every call."
+    },
+    {
+      "name": "game/legacy",
+      "x-displayName": "Legacy",
+      "description": "`https://api.krunker.io`, the old REST API. Only the paths the page calls without a token."
     },
     {
       "name": "token/player",
-      "description": "the token's own account: /player, /account, /email, /discord, /guest"
+      "x-displayName": "Player",
+      "description": "The token's own account."
     },
     {
-      "name": "token/ranked",
-      "description": "api.krunker.io behind a token: the ranked system's own api, plain {data} without an error field on success"
-    },
-    {
-      "name": "token/shop",
-      "description": "per player shop state and the player's own custom skins (the editor's /skins)"
-    },
-    {
-      "name": "token/staff",
-      "description": "role gated reads: moderators and kpd reviewers; a normal token gets 403 \"insufficient permissions\""
+      "name": "token/market",
+      "x-displayName": "Market",
+      "description": "The market behind a login. Market stats and item pages answer without a token, see the [game API](game-api.md#market)."
     },
     {
       "name": "token/trades",
-      "description": "player to player trades; creating, accepting and cancelling are writes and stay out"
+      "x-displayName": "Trades",
+      "description": "Player to player trades. Creating, accepting and cancelling are writes and are not in krapi."
+    },
+    {
+      "name": "token/shop",
+      "x-displayName": "Shop",
+      "description": "Per player shop state and the player's own custom skins."
+    },
+    {
+      "name": "token/creator",
+      "x-displayName": "Creator",
+      "description": "What a creator sees of their own maps and studios, plus the player's clan applications. The studio replies are untyped in krapi (`unknown`), only their existence was verified."
+    },
+    {
+      "name": "token/staff",
+      "x-displayName": "Staff",
+      "description": "Role gated reads for moderators and KPD reviewers. A normal account gets a 403 `insufficient permissions` (or `not authorized` for reports). The replies are untyped in krapi, no account with the role was available to verify them.\n\n`me.staff.chatBan(playerName)`, `.reports(playerName)`, `.kpdDemos({ off, q })`, `.kpdDemo(demoId, ct?)`, `.kpdReviewers()`\n\n`chatBan` is a player's chat ban, `kpdDemos` the demo review queue (`off` is the offset, `q` a search), `kpdDemo` one demo where `ct` is the review ticket the game passes along."
+    },
+    {
+      "name": "token/ranked",
+      "x-displayName": "Ranked",
+      "description": "`https://api.krunker.io`, the ranked system's own API. Every call answers 401 `Access token required` without a token, including the public leaderboard."
     }
   ],
   "x-tagGroups": [
     {
       "name": "Developer API",
       "tags": [
+        "developer/player",
+        "developer/match",
         "developer/clan",
-        "developer/events",
-        "developer/kpd",
         "developer/leaderboard",
         "developer/map",
-        "developer/market",
-        "developer/match",
         "developer/mods",
-        "developer/player",
-        "developer/skins"
+        "developer/market",
+        "developer/skins",
+        "developer/kpd",
+        "developer/events"
       ]
     },
     {
       "name": "Game API",
       "tags": [
-        "game/clans",
-        "game/game",
-        "game/items",
-        "game/leaderboards",
-        "game/legacy",
-        "game/market",
-        "game/matchmaker",
         "game/players",
-        "game/shop",
+        "game/clans",
+        "game/turf",
+        "game/leaderboards",
+        "game/game",
+        "game/market",
+        "game/items",
         "game/social",
-        "game/turf"
+        "game/shop",
+        "game/matchmaker",
+        "game/legacy"
       ]
     },
     {
       "name": "Token API",
       "tags": [
-        "token/creator",
-        "token/market",
         "token/player",
-        "token/ranked",
+        "token/market",
+        "token/trades",
         "token/shop",
+        "token/creator",
         "token/staff",
-        "token/trades"
+        "token/ranked"
       ]
     }
   ],
@@ -188,13 +216,20 @@
       "get": {
         "operationId": "clan.profile",
         "summary": "Get Clan Profile",
-        "description": "GET /api/clan/:clanname\n\nLibrary: `krunker.clan.profile()`",
+        "description": "Retrieve a clan's public information.\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| clanname | string | path | yes | The clan's name |\n\n**Response Fields:**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| name | string | Clan name |\n| owner_name | string | Name of the clan owner |\n| score | int64 | Clan's total score |\n| rank | int | Clan's leaderboard rank |\n| member_count | int | Number of members in the clan |\n| created_at | string | Clan creation date |\n| discord | string | Discord invite code (empty string if not set) |",
         "tags": [
           "developer/clan"
         ],
         "x-krapi": "krunker.clan.profile()",
         "x-routes": [
           "clan.profile"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst profile = await krunker.clan.profile(clanName);\n"
+          }
         ],
         "security": [
           {
@@ -220,6 +255,15 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ClanProfile"
+                },
+                "example": {
+                  "name": "Elite Squad",
+                  "owner_name": "ClanLeader",
+                  "score": 5000000,
+                  "rank": 15,
+                  "member_count": 25,
+                  "created_at": "2023-06-01T00:00:00Z",
+                  "discord": "abc123xyz"
                 }
               }
             }
@@ -241,13 +285,20 @@
       "get": {
         "operationId": "clan.members",
         "summary": "Get Clan Members",
-        "description": "GET /api/clan/:clanname/members, 10 per page, role then score descending\n\nLibrary: `krunker.clan.members()`",
+        "description": "Retrieve a clan's member list (paginated).\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| clanname | string | path | yes | The clan's name |\n| page | int | query | no | Page number (default: 1) |\n\n**Response Fields:**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| player_name | string | Member's username |\n| role | int | Member's role in the clan |\n| verified | bool | Whether the player is verified |\n| score | int | *undocumented* - the member's total score |\n\n**Notes:**\n\n- Page size is fixed at 10 records\n- Members are sorted by role (descending), then by score (descending)",
         "tags": [
           "developer/clan"
         ],
         "x-krapi": "krunker.clan.members()",
         "x-routes": [
           "clan.members"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst members = await krunker.clan.members(clanName, { page });\n"
+          }
         ],
         "security": [
           {
@@ -284,6 +335,22 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ClanMembers"
+                },
+                "example": {
+                  "page": 1,
+                  "per_page": 10,
+                  "members": [
+                    {
+                      "player_name": "ClanLeader",
+                      "role": 3,
+                      "verified": true
+                    },
+                    {
+                      "player_name": "Member1",
+                      "role": 1,
+                      "verified": false
+                    }
+                  ]
                 }
               }
             }
@@ -305,13 +372,20 @@
       "get": {
         "operationId": "events.list",
         "summary": "List Events",
-        "description": "GET /api/events, oldest first; keep the same filters between calls, `next` also moves past events the filters skipped\n\nLibrary: `krunker.events.list()`",
+        "description": "Returns events newer than `after`, oldest first. Store `next` and pass it as `after` on your next call. Start with `after=0`. Keep the same filters between calls; `next` also moves past events your filters skipped, so changing filters later does not bring those back.\n\n**Rate limit:** 6 requests per minute per key, on top of the general limit. The `X-RateLimit-*` headers on this endpoint describe this 6-per-minute limit. Poll every 20 to 60 seconds; if `has_more` is `true`, fetch the next page right away.\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| after | int | query | no | Event id cursor (default 0) |\n| types | string | query | no | Comma-separated event types to return (default: all your scopes allow) |\n| target_type | string | query | no | Only events about this kind of target, e.g. `map` |\n| target_id | string | query | no | Comma-separated target ids, up to 100 (needs `target_type`), e.g. `target_type=map&target_id=8497,8500` |\n| limit | int | query | no | 1 to 100 (default 100) |\n\nEvents appear a few seconds after they happen. Ids only increase; gaps are normal.\n\n**Event data:**\n\n| Type | `data` fields |\n| --- | --- |\n| `map.featured`, `map.unfeatured` | `map_id`, `map_name`, `creator` |",
         "tags": [
           "developer/events"
         ],
         "x-krapi": "krunker.events.list()",
         "x-routes": [
           "events.list"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst list = await krunker.events.list({ after, types, target_type, target_id, limit });\n"
+          }
         ],
         "security": [
           {
@@ -387,6 +461,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/EventsPage"
+                },
+                "example": {
+                  "events": [
+                    {
+                      "id": 1042,
+                      "type": "map.featured",
+                      "created_at": "2026-10-10T19:30:12Z",
+                      "target": {
+                        "type": "map",
+                        "id": 8497
+                      },
+                      "data": {
+                        "map_id": 8497,
+                        "map_name": "Bhop_Ravine",
+                        "creator": "someone"
+                      }
+                    }
+                  ],
+                  "next": 1042,
+                  "has_more": false
                 }
               }
             }
@@ -408,13 +502,20 @@
       "get": {
         "operationId": "kpd.latestCalls",
         "summary": "Get Latest KPD Calls",
-        "description": "GET /api/kpd/latest-calls, the 50 most recent calls newest first, no pagination\n\nLibrary: `krunker.kpd.latestCalls()`",
+        "description": "List the 50 most recent KPD (player hacker-report) calls, newest first, across all statuses so officer verdicts are visible. Requires the `kpd` scope.\n\n**Parameters:**\n\nNone.\n\n**Response Fields:**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| id | int | Report id |\n| date | string | Call time (RFC 3339, UTC) |\n| caller_id | int | Reporter player id |\n| caller_name | string | Reporter name |\n| caller_score | int | Reporter score |\n| caller_job_rating | int | Reporter's total KPD job rating |\n| caller_job_rating_positive | int | Reporter's correct (positive) call count |\n| called_id | int | Reported player id |\n| called_name | string | Reported player name (`guest` if unregistered) |\n| called_score | int | Reported player score |\n| kdf_type | int | Call context: 0=public, 1=ranked, 2=comp, 3=custom |\n| kdf_type_label | string | Readable kdf_type |\n| status | int | 1=not responded, 2=responded, 3=reviewed |\n| status_label | string | Readable status |\n| rating | int | Officer verdict: 0=pending, 1=banned, 2=rejected |\n| rating_label | string | Readable rating |\n| officer_id | int | Officer who handled the call (0 if none) |\n| officer_name | string | Officer name |\n| status_date | string | Last status change (RFC 3339, UTC) |\n| game_code | string | Game instance code |\n| host | string | Game server host |\n| port | string | Game server port |\n| token | string | Internal call token |\n\n**Notes:**\n\n- Player IP addresses are not exposed.\n- A fixed window of the 50 most recent calls; there is no pagination.",
         "tags": [
           "developer/kpd"
         ],
         "x-krapi": "krunker.kpd.latestCalls()",
         "x-routes": [
           "kpd.latestCalls"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst latestCalls = await krunker.kpd.latestCalls();\n"
+          }
         ],
         "security": [
           {
@@ -432,7 +533,34 @@
                   "items": {
                     "$ref": "#/components/schemas/KpdCall"
                   }
-                }
+                },
+                "example": [
+                  {
+                    "id": 3314982,
+                    "date": "2026-06-30T09:41:12Z",
+                    "caller_id": 2,
+                    "caller_name": "player",
+                    "caller_score": 184320,
+                    "caller_job_rating": 12,
+                    "caller_job_rating_positive": 9,
+                    "called_id": 81234,
+                    "called_name": "suspect",
+                    "called_score": 4521,
+                    "kdf_type": 0,
+                    "kdf_type_label": "public",
+                    "status": 3,
+                    "status_label": "reviewed",
+                    "rating": 1,
+                    "rating_label": "banned",
+                    "officer_id": 47707163,
+                    "officer_name": "Officer",
+                    "status_date": "2026-06-30T09:45:03Z",
+                    "game_code": "ab12cd",
+                    "host": "ny.krunker.io",
+                    "port": "5000",
+                    "token": "a1b2c3d4e5f6g7h"
+                  }
+                ]
               }
             }
           },
@@ -453,13 +581,20 @@
       "get": {
         "operationId": "leaderboard.ranked",
         "summary": "Get Ranked Leaderboard",
-        "description": "GET /api/leaderboard/:region, 10 per page, mmr descending, players with 6+ placements only\n\nLibrary: `krunker.leaderboard.ranked()`",
+        "description": "Retrieve the ranked leaderboard for a specific region.\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| region | int | path | yes | The region ID (2 = Asia, 3 = Europe, 4 = North America) |\n| page | int | query | no | Page number (default: 1) |\n| season | int | query | no | Season number (default: current season) |\n\n**Response Fields:**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| page | int | Current page number |\n| per_page | int | Number of entries per page (10) |\n| season | int | Current ranked season |\n| region | int | Region ID |\n| entries | object\\[\\] | Array of leaderboard entries |\n| entries\\[\\].position | int | Leaderboard position |\n| entries\\[\\].player_name | string | Player's username |\n| entries\\[\\].mmr | int | Matchmaking rating |\n| entries\\[\\].wins | int | Total ranked wins |\n| entries\\[\\].losses | int | Total ranked losses |\n| entries\\[\\].kills | int | Total kills in ranked matches |\n| entries\\[\\].deaths | int | Total deaths in ranked matches |\n| entries\\[\\].assists | int | Total assists in ranked matches |\n| entries\\[\\].score | int | Total score in ranked matches |\n| entries\\[\\].damage_done | int | Total damage dealt in ranked matches |\n\n**Notes:**\n\n- Only players with 6+ completed placement matches appear on the leaderboard\n- Page size is fixed at 10 records\n- Entries are sorted by MMR descending\n- Use the `season` parameter to query historical seasons (omit or set to 0 for current season)",
         "tags": [
           "developer/leaderboard"
         ],
         "x-krapi": "krunker.leaderboard.ranked()",
         "x-routes": [
           "leaderboard.ranked"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst ranked = await krunker.leaderboard.ranked(region, { page, season });\n"
+          }
         ],
         "security": [
           {
@@ -506,6 +641,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/RankedLeaderboard"
+                },
+                "example": {
+                  "page": 1,
+                  "per_page": 10,
+                  "season": 5,
+                  "region": 0,
+                  "entries": [
+                    {
+                      "position": 1,
+                      "player_name": "TopPlayer",
+                      "mmr": 2500,
+                      "wins": 150,
+                      "losses": 50,
+                      "kills": 3000,
+                      "deaths": 1500,
+                      "assists": 800,
+                      "score": 50000,
+                      "damage_done": 450000
+                    }
+                  ]
                 }
               }
             }
@@ -527,13 +682,20 @@
       "get": {
         "operationId": "map.get",
         "summary": "Get Map by Name",
-        "description": "GET /api/map/:mapname, case-insensitive, 404 for restricted or deleted maps\n\nLibrary: `krunker.map.get()`",
+        "description": "Retrieve map information by its name.\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| mapname | string | path | yes | The map's name (URL encoded) |\n\n**Response Fields:**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| map_id | int | Unique map identifier |\n| name | string | Map name |\n| description | string | Map description |\n| creator_name | string | Username of the map creator |\n| votes | int | Total upvotes |\n| gameplays | int | Number of times the map has been played |\n| playtime | int64 | Total playtime in milliseconds |\n| category | int | Map category ID |\n| created_at | string | When the map was created |\n| updated_at | string | When the map was last updated |\n| leaderboard_type | string | Type of leaderboard (e.g., \"time\", \"score\", empty if none) |\n| leaderboard_order | int | Sort order for leaderboard (0 = ascending/lower is better, 1 = descending/higher is better) |\n| featured | bool | *undocumented* - whether the map is currently featured |\n\n**Notes:**\n\n- Returns 404 if map not found or is restricted/deleted\n- Map name is case-sensitive (*observed*: it is not, `burg` finds `Burg`)\n- *observed*: `created_at` and `updated_at` come as `YYYY-MM-DD HH:MM:SS`, not RFC3339",
         "tags": [
           "developer/map"
         ],
         "x-krapi": "krunker.map.get()",
         "x-routes": [
           "map.get"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst get = await krunker.map.get(mapName);\n"
+          }
         ],
         "security": [
           {
@@ -559,6 +721,20 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/MapInfo"
+                },
+                "example": {
+                  "map_id": 12345,
+                  "name": "MyAwesomeMap",
+                  "description": "A fun parkour map",
+                  "creator_name": "MapMaker",
+                  "votes": 500,
+                  "gameplays": 10000,
+                  "playtime": 3600000,
+                  "category": 5,
+                  "created_at": "2023-01-15T10:30:00Z",
+                  "updated_at": "2023-06-20T14:00:00Z",
+                  "leaderboard_type": "time",
+                  "leaderboard_order": 0
                 }
               }
             }
@@ -580,13 +756,20 @@
       "get": {
         "operationId": "map.featured",
         "summary": "Get Featured Maps",
-        "description": "GET /api/maps/featured, newest first\n\nLibrary: `krunker.map.featured()`",
+        "description": "List every map that is currently featured, newest first. Use [Get Map by Name](#get-map-by-name) for a map's details. To be told when a map is featured or unfeatured, use [Events](#events).\n\n**Response Fields:**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| maps\\[\\].map_id | int | Unique map identifier |\n| maps\\[\\].name | string | Map name |\n| maps\\[\\].creator_id | int | Player id of the map creator |\n| maps\\[\\].creator_name | string | Username of the map creator |\n| count | int | Number of maps returned |",
         "tags": [
           "developer/map"
         ],
         "x-krapi": "krunker.map.featured()",
         "x-routes": [
           "map.featured"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst featured = await krunker.map.featured();\n"
+          }
         ],
         "security": [
           {
@@ -601,6 +784,17 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/FeaturedMaps"
+                },
+                "example": {
+                  "maps": [
+                    {
+                      "map_id": 12345,
+                      "name": "MyAwesomeMap",
+                      "creator_id": 11443974,
+                      "creator_name": "MapMaker"
+                    }
+                  ],
+                  "count": 1
                 }
               }
             }
@@ -622,13 +816,20 @@
       "get": {
         "operationId": "map.leaderboard",
         "summary": "Get Map Leaderboard",
-        "description": "GET /api/map/:mapname/leaderboard, 25 per page, empty entries when the map has no board\n\nLibrary: `krunker.map.leaderboard()`",
+        "description": "Retrieve the leaderboard for a specific map (paginated).\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| mapname | string | path | yes | The map's name (URL encoded) |\n| page | int | query | no | Page number (default: 1) |\n| type | string | query | no | Built-in leaderboard to rank on: `score` or `time`. Defaults to the map's configured leaderboard |\n| order | int | query | no | 0 = ascending, 1 = descending. Defaults to the map's order for its configured leaderboard; otherwise ascending for `time`, descending for `score` |\n\n**Response Fields:**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| page | int | Current page number |\n| per_page | int | Number of entries per page (25) |\n| map_name | string | The map name queried |\n| leaderboard_type | string | Type of leaderboard (e.g., \"time\", \"score\") |\n| leaderboard_order | int | Sort order (0 = ascending, 1 = descending) |\n| entries | object\\[\\] | Array of leaderboard entries |\n| entries\\[\\].position | int | Leaderboard position |\n| entries\\[\\].player_name | string | Player's username |\n| entries\\[\\].value | int | Score or time value |\n| entries\\[\\].date | string | When the entry was recorded |\n\n**Notes:**\n\n- Returns empty entries array if the map has no leaderboard configured\n- Maps can show both a score and a time leaderboard in-game; use `type` (and `order`) to fetch either. Invalid values return 400\n- Page size is fixed at 25 records\n- Entries are sorted by value according to leaderboard_order",
         "tags": [
           "developer/map"
         ],
         "x-krapi": "krunker.map.leaderboard()",
         "x-routes": [
           "map.leaderboard"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst leaderboard = await krunker.map.leaderboard(mapName, { page, type, order });\n"
+          }
         ],
         "security": [
           {
@@ -691,6 +892,21 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/MapLeaderboard"
+                },
+                "example": {
+                  "page": 1,
+                  "per_page": 25,
+                  "map_name": "MyAwesomeMap",
+                  "leaderboard_type": "time",
+                  "leaderboard_order": 0,
+                  "entries": [
+                    {
+                      "position": 1,
+                      "player_name": "SpeedRunner",
+                      "value": 12345,
+                      "date": "2024-01-15T10:30:00Z"
+                    }
+                  ]
                 }
               }
             }
@@ -712,13 +928,20 @@
       "get": {
         "operationId": "map.leaderboardPlayer",
         "summary": "Get Map Leaderboard Player",
-        "description": "GET /api/map/:mapname/leaderboard/player/:playername, 404 when the player has no entry\n\nLibrary: `krunker.map.leaderboardPlayer()`",
+        "description": "Look up a specific player's position on a map leaderboard.\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| mapname | string | path | yes | The map's name (URL encoded) |\n| playername | string | path | yes | The player's username (URL encoded) |\n| type | string | query | no | Built-in leaderboard to rank on: `score` or `time`. Defaults to the map's configured leaderboard |\n| order | int | query | no | 0 = ascending, 1 = descending. Defaults to the map's order for its configured leaderboard; otherwise ascending for `time`, descending for `score` |\n\n**Response Fields:**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| map_name | string | The map name queried |\n| leaderboard_type | string | Type of leaderboard (e.g., \"time\", \"score\") |\n| leaderboard_order | int | Sort order (0 = ascending, 1 = descending) |\n| player_name | string | Player's username |\n| position | int | Player's position on the leaderboard |\n| value | int | Player's score or time value |\n| date | string | When the entry was recorded |\n\n**Notes:**\n\n- Returns 404 if the map has no leaderboard (and no `type` is given) or the player has no entry\n- Position is calculated dynamically based on current leaderboard standings",
         "tags": [
           "developer/map"
         ],
         "x-krapi": "krunker.map.leaderboardPlayer()",
         "x-routes": [
           "map.leaderboardPlayer"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst leaderboardPlayer = await krunker.map.leaderboardPlayer(mapName, playerName, { type, order });\n"
+          }
         ],
         "security": [
           {
@@ -742,7 +965,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "example": "NulPing"
             },
             "description": "The player's username (URL encoded)"
           },
@@ -780,6 +1004,15 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/MapLeaderboardPlayer"
+                },
+                "example": {
+                  "map_name": "MyAwesomeMap",
+                  "leaderboard_type": "time",
+                  "leaderboard_order": 0,
+                  "player_name": "SpeedRunner",
+                  "position": 42,
+                  "value": 15234,
+                  "date": "2024-01-15T10:30:00Z"
                 }
               }
             }
@@ -801,13 +1034,20 @@
       "get": {
         "operationId": "market.skin",
         "summary": "Get Market Listings by Skin Index",
-        "description": "GET /api/market/skin/:skinindex, listings 10 per page cheapest first\n\nLibrary: `krunker.market.skin()`",
+        "description": "Retrieve market information and active listings for a specific skin.\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| skinindex | int | path | yes | The skin index (item type ID) |\n| page | int | query | no | Page number for listings (default: 1) |\n| days | int | query | no | Number of days for price history (default: 30, max: 120) |\n\n**Response Fields:**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| skin_index | int | The skin index queried |\n| total_listings | int | Total number of active listings |\n| lowest_price | int | Lowest listed price (0 if no listings) |\n| average_price | float | Average sale price from last 7 days |\n| total_circulating | int | Total quantity of this skin in circulation |\n| listings | object\\[\\] | Paginated list of active listings (sorted by price ascending) |\n| listings\\[\\].price | int | Listing price in KR |\n| listings\\[\\].seller_name | string | Seller's username |\n| listings\\[\\].listed_at | string | When the listing was created |\n| owners | object\\[\\] | First 100 owners sorted by quantity owned (descending) |\n| owners\\[\\].player_name | string | Owner's username |\n| owners\\[\\].count | int | Number of this skin the player owns |\n| price_history | object\\[\\] | Daily average sale prices for the specified time period |\n| price_history\\[\\].date | string | Date (YYYY-MM-DD format) |\n| price_history\\[\\].average_price | float | Average sale price on that day |\n| price_history\\[\\].sales | int | Number of sales on that day |\n\n**Notes:**\n\n- Listings are sorted by price (lowest first)\n- Page size is fixed at 10 records for listings\n- `average_price` is calculated from sales in the last 7 days\n- Owners list shows up to 100 players, sorted by quantity owned (highest first)\n- Banned users are excluded from the owners list\n- `price_history` contains daily averages for days with sales within the specified `days` parameter (default 30, max 120 days / 4 months)\n- *observed*: this is the slow endpoint, over 10 s cold and about 3 s warm; every other endpoint answers in under a second",
         "tags": [
           "developer/market"
         ],
         "x-krapi": "krunker.market.skin()",
         "x-routes": [
           "market.skin"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst skin = await krunker.market.skin(skinIndex, { page, days });\n"
+          }
         ],
         "security": [
           {
@@ -855,6 +1095,42 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/MarketSkin"
+                },
+                "example": {
+                  "skin_index": 123,
+                  "total_listings": 45,
+                  "lowest_price": 500,
+                  "average_price": 750.5,
+                  "total_circulating": 3500,
+                  "listings": [
+                    {
+                      "price": 500,
+                      "seller_name": "Player1",
+                      "listed_at": "2025-01-15T10:30:00Z"
+                    }
+                  ],
+                  "owners": [
+                    {
+                      "player_name": "Collector1",
+                      "count": 50
+                    },
+                    {
+                      "player_name": "Collector2",
+                      "count": 25
+                    }
+                  ],
+                  "price_history": [
+                    {
+                      "date": "2025-12-01",
+                      "average_price": 32500.5,
+                      "sales": 12
+                    },
+                    {
+                      "date": "2025-12-02",
+                      "average_price": 33000,
+                      "sales": 8
+                    }
+                  ]
                 }
               }
             }
@@ -876,13 +1152,20 @@
       "get": {
         "operationId": "match.get",
         "summary": "Get Match Details",
-        "description": "GET /api/match/:id, ranked matches only\n\nLibrary: `krunker.match.get()`",
+        "description": "Retrieve detailed information about a specific ranked match.\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| id | int64 | path | yes | The match ID |\n\n**Notes:**\n\n- Only ranked matches are returned\n- Participants are ordered by team, then by score descending",
         "tags": [
           "developer/match"
         ],
         "x-krapi": "krunker.match.get()",
         "x-routes": [
           "match.get"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst get = await krunker.match.get(matchId);\n"
+          }
         ],
         "security": [
           {
@@ -908,6 +1191,31 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/MatchDetails"
+                },
+                "example": {
+                  "match_id": 123456789,
+                  "date": "2024-01-15T10:30:00Z",
+                  "map": 5,
+                  "duration": 600,
+                  "season": 12,
+                  "region": 1,
+                  "participants": [
+                    {
+                      "player_name": "Player1",
+                      "kills": 15,
+                      "deaths": 8,
+                      "assists": 3,
+                      "score": 1500,
+                      "damage_done": 2500,
+                      "headshots": 5,
+                      "accuracy": 35,
+                      "objective_score": 200,
+                      "victory": 1,
+                      "rounds_won": 6,
+                      "team": 1,
+                      "play_time": 580
+                    }
+                  ]
                 }
               }
             }
@@ -929,13 +1237,20 @@
       "get": {
         "operationId": "mods.list",
         "summary": "Get Mods",
-        "description": "GET /api/mods, 10 per page, most votes first\n\nLibrary: `krunker.mods.list()`",
+        "description": "Retrieve a paginated list of mods, sorted by votes (most popular first).\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| page | int | query | no | Page number (default: 1) |\n\n**Response Fields:**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| page | int | Current page number |\n| per_page | int | Number of mods per page (10) |\n| mods | object\\[\\] | Array of mod objects |\n| mods\\[\\].mod_id | int | Unique mod identifier |\n| mods\\[\\].name | string | Mod name |\n| mods\\[\\].description | string | Mod description |\n| mods\\[\\].creator_name | string | Username of the mod creator |\n| mods\\[\\].votes | int | Number of upvotes |\n| mods\\[\\].featured | bool | Whether the mod is featured |\n| mods\\[\\].version | int | Mod version number |\n| mods\\[\\].created_at | string | When the mod was first published (*observed*: `YYYY-MM-DD HH:MM:SS`, not RFC3339) |\n| mods\\[\\].updated_at | string | When the mod was last updated (same format) |\n\n**Notes:**\n\n- Mods are sorted by votes (most popular first)\n- Only active mods are returned (deleted mods are excluded)\n- Mods from banned users are excluded",
         "tags": [
           "developer/mods"
         ],
         "x-krapi": "krunker.mods.list()",
         "x-routes": [
           "mods.list"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst list = await krunker.mods.list({ page });\n"
+          }
         ],
         "security": [
           {
@@ -962,6 +1277,23 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Mods"
+                },
+                "example": {
+                  "page": 1,
+                  "per_page": 10,
+                  "mods": [
+                    {
+                      "mod_id": 12345,
+                      "name": "AwesomeMod",
+                      "description": "A cool mod that changes textures",
+                      "creator_name": "ModCreator",
+                      "votes": 5000,
+                      "featured": true,
+                      "version": 15,
+                      "created_at": "2023-01-15T10:30:00Z",
+                      "updated_at": "2024-06-20T14:00:00Z"
+                    }
+                  ]
                 }
               }
             }
@@ -983,13 +1315,20 @@
       "get": {
         "operationId": "mods.get",
         "summary": "Get Mod by Name",
-        "description": "GET /api/mods/:modname\n\nLibrary: `krunker.mods.get()`",
+        "description": "Retrieve detailed information about a specific mod.\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| modname | string | path | yes | The mod's name (URL encoded) |\n\n**Response Fields:**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| mod_id | int | Unique mod identifier |\n| name | string | Mod name |\n| description | string | Mod description |\n| creator_name | string | Username of the mod creator |\n| votes | int | Number of upvotes |\n| featured | bool | Whether the mod is featured |\n| version | int | Mod version number |\n| created_at | string | When the mod was first published |\n| updated_at | string | When the mod was last updated |",
         "tags": [
           "developer/mods"
         ],
         "x-krapi": "krunker.mods.get()",
         "x-routes": [
           "mods.get"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst get = await krunker.mods.get(modName);\n"
+          }
         ],
         "security": [
           {
@@ -1015,6 +1354,17 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Mod"
+                },
+                "example": {
+                  "mod_id": 12345,
+                  "name": "AwesomeMod",
+                  "description": "A cool mod that changes textures",
+                  "creator_name": "ModCreator",
+                  "votes": 5000,
+                  "featured": true,
+                  "version": 15,
+                  "created_at": "2023-01-15T10:30:00Z",
+                  "updated_at": "2024-06-20T14:00:00Z"
                 }
               }
             }
@@ -1036,13 +1386,20 @@
       "get": {
         "operationId": "player.profile",
         "summary": "Get Player Profile",
-        "description": "GET /api/player/:playername\n\nLibrary: `krunker.player.profile()`",
+        "description": "Retrieve comprehensive player statistics and profile information.\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| playername | string | path | yes | The player's in-game username |\n\n**Response Fields:**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| player_id | int | Unique player identifier |\n| player_name | string | Player's username |\n| clan | string | Player's clan name (empty string if not in a clan) |\n| verified | bool | Whether the player is verified |\n| flag | int | Player's country flag index |\n| badges | int\\[\\] | Array of badge IDs the player has earned |\n| following | int | Number of players this player is following |\n| followers | int | Number of players following this player |\n| ranked | object\\[\\] | Array of ranked profiles for the current season, one per region (only includes regions where player has completed 6+ placement matches) |\n| ranked\\[\\].region | int | Region ID |\n| ranked\\[\\].mmr | int | Matchmaking rating |\n| ranked\\[\\].wins | int | Ranked wins in this region |\n| ranked\\[\\].losses | int | Ranked losses in this region |\n| ranked\\[\\].kills | int | Total kills in ranked matches |\n| ranked\\[\\].deaths | int | Total deaths in ranked matches |\n| ranked\\[\\].assists | int | Total assists in ranked matches |\n| ranked\\[\\].score | int | Total score in ranked matches |\n| ranked\\[\\].damage_done | int | Total damage dealt in ranked matches |\n| ranked\\[\\].time_played | int | Total time played in ranked matches (seconds) |\n| kr | int | Currency balance |\n| level | int | Calculated from score (0.03 × √score, min 1) |\n| junk | float | ELO/Junk rating |\n| inventory | int | Total skin value |\n| score | int | Total score |\n| spk | float | Score per kill |\n| kills | int | Total kills |\n| deaths | int | Total deaths |\n| kdr | float | Kill/Death ratio |\n| kpg | float | Kills per game |\n| games | int | Games played |\n| wins | int | Games won |\n| losses | int | Games lost (games - wins) |\n| assists | int | Total assists |\n| melees | int | Melee kills |\n| beatdowns | int | Fist kills |\n| bullseyes | int | Thrown weapon kills |\n| headshots | int | Headshot kills |\n| legshots | int | Leg shot kills |\n| wallbangs | int | Wallbang kills |\n| shots | int | Total shots fired |\n| hits | int | Shots that connected |\n| misses | int | Shots missed (shots - hits) |\n| time_played | int64 | Seconds played |\n| nukes | int | Nukes called in |\n| airdrops | int | Airdrops called in |\n| airdrops_stolen | int | Airdrops stolen from enemies |\n| slimes | int | Slimes called in |\n| juggernauts | int | Juggernaut killstreaks earned |\n| juggernauts_killed | int | Enemy juggernauts killed |\n| warmachines | int | Warmachines called in |\n| class_stats | object | *undocumented* - class id (string) to score with that class, e.g. `{\"0\": 236755, \"1\": 20644276}` |\n| hacker_tagged | bool | Whether the player has been flagged as a cheater |\n| kpd | bool | Whether the player is a KPD moderator |\n| premium | bool | Whether the player has an active premium subscription |\n| twitch_name | string | *undocumented* - linked Twitch name, empty string if none |\n| profile_picture | string | Profile picture URL (empty string if not premium) |\n| created_at | string | Account creation date (RFC3339 format) |\n| maps | array | *undocumented* - maps the player voted on as `{id, name, votes}`, only seen as `[]` so far |\n| mods | array | *undocumented* - mods the player voted on as `{id, name, votes}`, only seen as `[]` so far |",
         "tags": [
           "developer/player"
         ],
         "x-krapi": "krunker.player.profile()",
         "x-routes": [
           "player.profile"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst profile = await krunker.player.profile(playerName);\n"
+          }
         ],
         "security": [
           {
@@ -1056,7 +1413,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "example": "NulPing"
             },
             "description": "The player's in-game username"
           }
@@ -1068,6 +1426,70 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PlayerProfile"
+                },
+                "example": {
+                  "player_id": 11443974,
+                  "player_name": "string",
+                  "clan": "string",
+                  "verified": true,
+                  "flag": 5,
+                  "badges": [
+                    1,
+                    2,
+                    3
+                  ],
+                  "following": 50,
+                  "followers": 100,
+                  "ranked": [
+                    {
+                      "region": 0,
+                      "mmr": 2250,
+                      "wins": 45,
+                      "losses": 30,
+                      "kills": 800,
+                      "deaths": 500,
+                      "assists": 200,
+                      "score": 15000,
+                      "damage_done": 120000,
+                      "time_played": 36000
+                    }
+                  ],
+                  "kr": 1000,
+                  "level": 50,
+                  "junk": 1500.5,
+                  "inventory": 25000,
+                  "score": 1000000,
+                  "spk": 125.5,
+                  "kills": 8000,
+                  "deaths": 4000,
+                  "kdr": 2,
+                  "kpg": 10.5,
+                  "games": 760,
+                  "wins": 400,
+                  "losses": 360,
+                  "assists": 1200,
+                  "melees": 150,
+                  "beatdowns": 50,
+                  "bullseyes": 30,
+                  "headshots": 3000,
+                  "legshots": 500,
+                  "wallbangs": 200,
+                  "shots": 100000,
+                  "hits": 45000,
+                  "misses": 55000,
+                  "time_played": 360000,
+                  "nukes": 25,
+                  "airdrops": 150,
+                  "airdrops_stolen": 30,
+                  "slimes": 40,
+                  "juggernauts": 20,
+                  "juggernauts_killed": 15,
+                  "warmachines": 10,
+                  "hacker_tagged": false,
+                  "kpd": false,
+                  "premium": true,
+                  "profile_picture": "https://user-assets.krunker.io/p11443974/profile.png",
+                  "created_at": "2021-05-10T14:30:00Z"
                 }
               }
             }
@@ -1089,13 +1511,20 @@
       "get": {
         "operationId": "player.inventory",
         "summary": "Get Player Inventory",
-        "description": "GET /api/player/:playername/inventory\n\nLibrary: `krunker.player.inventory()`",
+        "description": "Retrieve a player's skin inventory.\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| playername | string | path | yes | The player's in-game username |\n\n**Response Fields:**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| skin_index | int | Identifier for the skin |\n| skin_id | int | *undocumented* - id of the owned item instance (not the definition) |\n| count | int | Number owned (excludes market listings) |\n| metadata | object | *undocumented* - `null` or kounter stats and float data, every field optional: `wear`, `style`, `serial`, `kills`, `hskills`, `headshots`, `hits`, `shots`, `jumps` |\n| stackable | bool | *undocumented* |",
         "tags": [
           "developer/player"
         ],
         "x-krapi": "krunker.player.inventory()",
         "x-routes": [
           "player.inventory"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst inventory = await krunker.player.inventory(playerName);\n"
+          }
         ],
         "security": [
           {
@@ -1109,7 +1538,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "example": "NulPing"
             },
             "description": "The player's in-game username"
           }
@@ -1124,7 +1554,13 @@
                   "items": {
                     "$ref": "#/components/schemas/InventoryItem"
                   }
-                }
+                },
+                "example": [
+                  {
+                    "skin_index": 123,
+                    "count": 5
+                  }
+                ]
               }
             }
           },
@@ -1145,13 +1581,20 @@
       "get": {
         "operationId": "player.listings",
         "summary": "Get Player Listings",
-        "description": "GET /api/player/:playername/listings, 10 per page, newest first\n\nLibrary: `krunker.player.listings()`",
+        "description": "Retrieve a player's active market listings (paginated).\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| playername | string | path | yes | The player's in-game username |\n| page | int | query | no | Page number (default: 1) |\n\n**Response Fields:**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| skin_index | int | Identifier for the skin being sold |\n| price | int | Listing price in KR |\n| listed_at | string | When the listing was created |\n\n**Notes:**\n\n- Only active listings are returned\n- Page size is fixed at 10 records\n- Listings are ordered by date listed (newest first)",
         "tags": [
           "developer/player"
         ],
         "x-krapi": "krunker.player.listings()",
         "x-routes": [
           "player.listings"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst listings = await krunker.player.listings(playerName, { page });\n"
+          }
         ],
         "security": [
           {
@@ -1165,7 +1608,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "example": "NulPing"
             },
             "description": "The player's in-game username"
           },
@@ -1188,6 +1632,17 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PlayerListings"
+                },
+                "example": {
+                  "page": 1,
+                  "per_page": 10,
+                  "listings": [
+                    {
+                      "skin_index": 123,
+                      "price": 5000,
+                      "listed_at": "2025-01-15T10:30:00Z"
+                    }
+                  ]
                 }
               }
             }
@@ -1209,13 +1664,20 @@
       "get": {
         "operationId": "player.matches",
         "summary": "Get Player Match History",
-        "description": "GET /api/player/:playername/matches, ranked only, 10 per page, newest first\n\nLibrary: `krunker.player.matches()`",
+        "description": "Retrieve a player's ranked match history (paginated).\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| playername | string | path | yes | The player's in-game username |\n| page | int | query | no | Page number (default: 1) |\n| season | int | query | no | Season filter (default: all seasons) |\n\n**Response Fields:**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| match_id | int64 | Unique match identifier |\n| date | string | Match date (RFC3339 format) |\n| map | int | Map ID |\n| duration | int | Match duration in seconds |\n| season | int | Ranked season number |\n| region | int | Region ID |\n| kills | int | Player's kills in this match |\n| deaths | int | Player's deaths in this match |\n| assists | int | Player's assists in this match |\n| score | int | Player's score in this match |\n| damage_done | int | Player's damage dealt in this match |\n| headshots | int | Player's headshots in this match |\n| accuracy | int | Player's accuracy percentage |\n| objective_score | int | Player's objective score |\n| kr | int | KR earned from this match |\n| victory | int | Match result (1 = win, 0 = loss, -1 = draw) |\n| rounds_won | int | Rounds won by player's team |\n| team | int | Player's team number |\n| play_time | int | Player's active play time in milliseconds |\n| mmr | int | Player's MMR at the time of this match |\n\n**Notes:**\n\n- Only ranked matches are returned\n- Page size is fixed at 10 records\n- Matches are ordered by date descending\n- *observed*: `matches` is `null` instead of `[]` when the page is past the end\n- The `mmr` field shows the player's rating after each match, allowing you to calculate MMR changes between matches",
         "tags": [
           "developer/player"
         ],
         "x-krapi": "krunker.player.matches()",
         "x-routes": [
           "player.matches"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst matches = await krunker.player.matches(playerName, { page, season });\n"
+          }
         ],
         "security": [
           {
@@ -1229,7 +1691,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "example": "NulPing"
             },
             "description": "The player's in-game username"
           },
@@ -1262,6 +1725,34 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PlayerMatches"
+                },
+                "example": {
+                  "page": 1,
+                  "per_page": 10,
+                  "matches": [
+                    {
+                      "match_id": 123456789,
+                      "date": "2024-01-15T10:30:00Z",
+                      "map": 5,
+                      "duration": 600,
+                      "season": 12,
+                      "region": 1,
+                      "kills": 15,
+                      "deaths": 8,
+                      "assists": 3,
+                      "score": 1500,
+                      "damage_done": 2500,
+                      "headshots": 5,
+                      "accuracy": 35,
+                      "objective_score": 200,
+                      "kr": 50,
+                      "victory": 1,
+                      "rounds_won": 6,
+                      "team": 1,
+                      "play_time": 580,
+                      "mmr": 1850
+                    }
+                  ]
                 }
               }
             }
@@ -1283,13 +1774,20 @@
       "get": {
         "operationId": "player.posts",
         "summary": "Get Player Posts",
-        "description": "GET /api/player/:playername/posts, 10 per page\n\nLibrary: `krunker.player.posts()`",
+        "description": "Retrieve a player's social media posts (paginated).\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| playername | string | path | yes | The player's in-game username |\n| page | int | query | no | Page number (default: 1) |",
         "tags": [
           "developer/player"
         ],
         "x-krapi": "krunker.player.posts()",
         "x-routes": [
           "player.posts"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst posts = await krunker.player.posts(playerName, { page });\n"
+          }
         ],
         "security": [
           {
@@ -1303,7 +1801,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "example": "NulPing"
             },
             "description": "The player's in-game username"
           },
@@ -1326,6 +1825,18 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PlayerPosts"
+                },
+                "example": {
+                  "page": 1,
+                  "per_page": 10,
+                  "posts": [
+                    {
+                      "date": "2024-01-15T10:30:00Z",
+                      "text": "Just hit level 100!",
+                      "votes": 42,
+                      "comment_count": 5
+                    }
+                  ]
                 }
               }
             }
@@ -1347,13 +1858,20 @@
       "get": {
         "operationId": "skins.list",
         "summary": "Get Skin Definitions",
-        "description": "GET /api/skins\n\nLibrary: `krunker.skins.list()`",
+        "description": "List all skin definitions with optional filtering.\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| page | int | query | no | Page number (default: 1) |\n| per_page | int | query | no | Items per page (default: 100, max: 10000) |\n| season | int | query | no | Season filter (returns only skins for the specified season) |\n\n**Response Fields:**\n\n| Field | Type | Description |\n| --- | --- | --- |\n| page | int | Current page number |\n| per_page | int | Items per page |\n| total | int | Total number of matching skins |\n| skins | array | Array of skin objects |\n| skins\\[\\].index | int | Skin index (ID) |\n| skins\\[\\].name | string | Skin name |\n| skins\\[\\].type | int | Skin type |\n| skins\\[\\].rarity | int | Skin rarity |\n| skins\\[\\].weapon | int | Weapon index (omitted if null) |\n| skins\\[\\].seas | int | *undocumented* - the skin's season; this is the field name the `season` filter refers to, there is no `season` field in the reply |\n| skins\\[\\].thumbnail | string | *undocumented* - preview image URL |\n| skins\\[\\].tradable | bool | *undocumented* |\n| skins\\[\\].id | int | *undocumented* - equals `index` on `GET /api/skins/:skinid`, absent in the list |\n\n**Notes:**\n\n- Each skin object may contain additional properties from its configuration, merged into the root level (*observed*: `creator`, `glow`, `frames`, `frameT`, `mid`, `midT`, `pulsT`, ...)\n- Use the `season` parameter to retrieve skins for a specific ranked season\n- Skins without a season field are treated as season 1\n\n**Example:**\n\nGet skins from season 12:",
         "tags": [
           "developer/skins"
         ],
         "x-krapi": "krunker.skins.list()",
         "x-routes": [
           "skins.list"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst list = await krunker.skins.list({ page, per_page, season });\n"
+          }
         ],
         "security": [
           {
@@ -1401,6 +1919,20 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Skins"
+                },
+                "example": {
+                  "page": 1,
+                  "per_page": 100,
+                  "total": 8432,
+                  "skins": [
+                    {
+                      "index": 0,
+                      "name": "Arctic Hunt",
+                      "type": 0,
+                      "rarity": 1,
+                      "weapon": 1
+                    }
+                  ]
                 }
               }
             }
@@ -1422,13 +1954,20 @@
       "get": {
         "operationId": "skins.get",
         "summary": "Get Skin Definition",
-        "description": "GET /api/skins/:skinid\n\nLibrary: `krunker.skins.get()`",
+        "description": "Get a single skin definition by its index.\n\n**Parameters:**\n\n| Name | Type | Location | Required | Description |\n| --- | --- | --- | --- | --- |\n| skinid | int | path | yes | The skin index (0-based) |\n\n**Error Responses:**\n\n- 400 if skinid is not a valid integer\n- 404 if skin does not exist",
         "tags": [
           "developer/skins"
         ],
         "x-krapi": "krunker.skins.get()",
         "x-routes": [
           "skins.get"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker({ apiKey: process.env.KRUNKER_API_KEY });\nconst get = await krunker.skins.get(skinIndex);\n"
+          }
         ],
         "security": [
           {
@@ -1453,6 +1992,13 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SkinDefinition"
+                },
+                "example": {
+                  "index": 0,
+                  "name": "Arctic Hunt",
+                  "type": 0,
+                  "rarity": 1,
+                  "weapon": 1
                 }
               }
             }
@@ -1474,13 +2020,20 @@
       "get": {
         "operationId": "game.clans.byName",
         "summary": "Get Clan by Name",
-        "description": "GET /clans/by-name/:name, case-insensitive, the roster has no player ids\n\nLibrary: `krunker.game.clans.byName()`",
+        "description": "Case-insensitive. The roster carries no player ids.\n\n```ts\ntype ClanPublicProfile = {\n    clan_id: number;\n    clan_name: string;\n    clan_score: number;\n    clan_funds: number;\n    clan_rank: number;\n    clan_link4: string;            // discord invite code\n    clan_logo: number | null;      // logo version, 0 or null without one\n    clan_banner_color: string;     // \"s<n>\" = paint shader n, otherwise a color\n    creator_name: string;\n    members: ClanPublicMember[];\n};\n\ntype ClanPublicMember = {\n    p: string;      // name\n    s: number;      // score\n    r: number;      // role: 0 recruit, 1 soldier, 2 captain, 3 commander; the creator is listed with 0\n    h: number;      // hacker flag\n    pr: number;\n    ve: number;     // verified\n    su: number;     // staff\n    s7: number;     // score of the last 7 days\n};\n```\n\nThe clan logo is at `https://user-assets.krunker.io/clans/<clan_id>.png?v=<clan_logo>`.",
         "tags": [
           "game/clans"
         ],
         "x-krapi": "krunker.game.clans.byName()",
         "x-routes": [
           "game.clans.byName"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst byName = await krunker.game.clans.byName(clanName);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -1535,13 +2088,20 @@
       "get": {
         "operationId": "game.clans.profile",
         "summary": "Get Clan by Id",
-        "description": "GET /clans/:id/profile, same reply by id\n\nLibrary: `krunker.game.clans.profile()`",
+        "description": "The same reply as by name.",
         "tags": [
           "game/clans"
         ],
         "x-krapi": "krunker.game.clans.profile()",
         "x-routes": [
           "game.clans.profile"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst profile = await krunker.game.clans.profile(clanId);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -1596,13 +2156,20 @@
       "get": {
         "operationId": "game.clans.lootConfig",
         "summary": "Get Loot Config",
-        "description": "GET /clans/:id/loot-config, the turf payout rule\n\nLibrary: `krunker.game.clans.lootConfig()`",
+        "description": "The clan's Turf Wars payout rule.\n\n```ts\ntype ClanLootConfig = {\n    clan_id: number;\n    distribution_mode: \"clan_bank\" | \"even\" | \"top_weighted\" | \"performance\" | \"top_performance\";\n    clan_pct: number;              // the treasury cut\n    top_player_count: number;\n    top_player_pct: number;        // top_player_pct + remainder_pct = 100\n    remainder_pct: number;\n    min_games_required: number;\n    updated_at: string;\n    updated_by: number;\n    updated_by_name: string;\n};\n```",
         "tags": [
           "game/clans"
         ],
         "x-krapi": "krunker.game.clans.lootConfig()",
         "x-routes": [
           "game.clans.lootConfig"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst lootConfig = await krunker.game.clans.lootConfig(clanId);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -1657,13 +2224,20 @@
       "get": {
         "operationId": "game.clans.motd",
         "summary": "Get Message of the Day",
-        "description": "GET /clans/:id/motd\n\nLibrary: `krunker.game.clans.motd()`",
+        "description": "`{message, set_by, set_by_name, set_at}`.",
         "tags": [
           "game/clans"
         ],
         "x-krapi": "krunker.game.clans.motd()",
         "x-routes": [
           "game.clans.motd"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst motd = await krunker.game.clans.motd(clanId);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -1718,13 +2292,20 @@
       "get": {
         "operationId": "game.clans.recruitment",
         "summary": "Get Recruitment Post",
-        "description": "GET /clans/:id/recruitment, the clan's own board post\n\nLibrary: `krunker.game.clans.recruitment()`",
+        "description": "The clan's own post on the recruitment board.\n\n```ts\ntype RecruitmentPost = {\n    recruitment_id: number;\n    clan_id: number;\n    clan_name: string;\n    clan_logo: number | null;\n    description: string;\n    looking_for: string;\n    min_level: number;\n    min_kd: number;\n    region: string | null;\n    language: string | null;\n    is_active: number;\n    created_at: string;\n    updated_at: string;\n    created_by: number;\n    loot_mode: LootDistributionMode | null;\n    loot_clan_pct: number | null;\n    loot_top_player_count: number | null;\n    loot_top_player_pct: number | null;\n    loot_remainder_pct: number | null;\n    loot_min_games: number | null;\n};\n```",
         "tags": [
           "game/clans"
         ],
         "x-krapi": "krunker.game.clans.recruitment()",
         "x-routes": [
           "game.clans.recruitment"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst recruitment = await krunker.game.clans.recruitment(clanId);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -1779,13 +2360,20 @@
       "get": {
         "operationId": "game.clans.recruitmentBoard",
         "summary": "Get Recruitment Board",
-        "description": "GET /clans/recruitment, the recruitment board\n\nLibrary: `krunker.game.clans.recruitmentBoard()`",
+        "description": "| Name | Type | Required | Description |\n| --- | --- | --- | --- |\n| page | int | no | 1 based |\n| limit | int | no | 1 to 50, the game sends 20 |\n| region | string | no | the board's region select |\n| language | string | no | the board's language select |\n\nReturns `{posts: RecruitmentPost[], total, page, limit}`.",
         "tags": [
           "game/clans"
         ],
         "x-krapi": "krunker.game.clans.recruitmentBoard()",
         "x-routes": [
           "game.clans.recruitmentBoard"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst recruitmentBoard = await krunker.game.clans.recruitmentBoard({ page, limit, region, language });\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -1868,13 +2456,20 @@
       "get": {
         "operationId": "game.game.maps",
         "summary": "Official Maps",
-        "description": "GET /maps, the official map list, index = id = preview image number\n\nLibrary: `krunker.game.game.maps()`",
+        "description": "`{name, id}[]`. The id is also the preview image number at `https://assets.krunker.io/img/maps/map_<id>.png`.",
         "tags": [
           "game/game"
         ],
         "x-krapi": "krunker.game.game.maps()",
         "x-routes": [
           "game.game.maps"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst maps = await krunker.game.game.maps();\n"
+          }
         ],
         "security": [],
         "parameters": [],
@@ -1922,13 +2517,20 @@
       "get": {
         "operationId": "game.game.mapConfig",
         "summary": "Map Config",
-        "description": "GET /maps/:id, the whole map file (120 KB for Burg)\n\nLibrary: `krunker.game.game.mapConfig()`",
+        "description": "The whole map file (120 KB for Burg). krapi names only the keys the client reads (`name`, `modes`, `spawns`, `objects`, `sky`, `skyDome`), the rest is `Record<string, unknown>`.",
         "tags": [
           "game/game"
         ],
         "x-krapi": "krunker.game.game.mapConfig()",
         "x-routes": [
           "game.game.mapConfig"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst mapConfig = await krunker.game.game.mapConfig(mapId);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -1983,13 +2585,20 @@
       "get": {
         "operationId": "game.game.mapByName",
         "summary": "Community Map by Name",
-        "description": "GET /maps/by-name/:name, the community map record; \"Burg\" resolves to a community map of that name, not the official one\n\nLibrary: `krunker.game.game.mapByName()`",
+        "description": "The community map record. Note that `Burg` resolves to a community map of that name, not the official map.\n\n`{map_id, name, description, creator_name, votes, gameplays, playtime, category, created_at, updated_at, leaderboard_type, leaderboard_order, featured}`",
         "tags": [
           "game/game"
         ],
         "x-krapi": "krunker.game.game.mapByName()",
         "x-routes": [
           "game.game.mapByName"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst mapByName = await krunker.game.game.mapByName(mapName);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -2044,13 +2653,20 @@
       "get": {
         "operationId": "game.game.mapLeaderboard",
         "summary": "Community Map Leaderboard",
-        "description": "GET /maps/by-name/:name/leaderboard, 25 per page\n\nLibrary: `krunker.game.game.mapLeaderboard()`",
+        "description": "25 per page. `{page, per_page, map_name, leaderboard_type, leaderboard_order, entries}`.",
         "tags": [
           "game/game"
         ],
         "x-krapi": "krunker.game.game.mapLeaderboard()",
         "x-routes": [
           "game.game.mapLeaderboard"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst mapLeaderboard = await krunker.game.game.mapLeaderboard(mapName, { page, type, order });\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -2139,13 +2755,20 @@
       "get": {
         "operationId": "game.game.modByName",
         "summary": "Mod by Name",
-        "description": "GET /mods/by-name/:name\n\nLibrary: `krunker.game.game.modByName()`",
+        "description": "`{mod_id, name, description, creator_name, votes, featured, version, created_at, updated_at}`",
         "tags": [
           "game/game"
         ],
         "x-krapi": "krunker.game.game.modByName()",
         "x-routes": [
           "game.game.modByName"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst modByName = await krunker.game.game.modByName(modName);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -2200,13 +2823,20 @@
       "get": {
         "operationId": "game.game.titles",
         "summary": "Titles",
-        "description": "GET /titles, every player title with its requirement\n\nLibrary: `krunker.game.game.titles()`",
+        "description": "Every player title with its requirement: `{id, name, desc, rarity, requirements: {kind, text} | null, active}[]`. Kinds seen: `challenge`, `bundle`, `blackmarket`.",
         "tags": [
           "game/game"
         ],
         "x-krapi": "krunker.game.game.titles()",
         "x-routes": [
           "game.game.titles"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst titles = await krunker.game.game.titles();\n"
+          }
         ],
         "security": [],
         "parameters": [],
@@ -2254,13 +2884,20 @@
       "get": {
         "operationId": "game.game.creatorEvents",
         "summary": "Creator Events",
-        "description": "GET /creators/events, upcoming events and the running surveys\n\nLibrary: `krunker.game.game.creatorEvents()`",
+        "description": "The menu's event and survey box: `{events: unknown[], polls: {id, title, description, ends_in}[]}`, `ends_in` in seconds.",
         "tags": [
           "game/game"
         ],
         "x-krapi": "krunker.game.game.creatorEvents()",
         "x-routes": [
           "game.game.creatorEvents"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst creatorEvents = await krunker.game.game.creatorEvents();\n"
+          }
         ],
         "security": [],
         "parameters": [],
@@ -2305,13 +2942,20 @@
       "get": {
         "operationId": "game.items.view",
         "summary": "Item View",
-        "description": "GET /items/:id/view, stats plus the top owners\n\nLibrary: `krunker.game.items.view()`",
+        "description": "```ts\ntype ItemView = {\n    stats: { onS: number; high: number; low: number; inC: number };\n    owners: { nm: string; ct: number; su: number; ft: number; cr: number }[];   // name, count owned, staff, featured, cr\n    sales: unknown[];\n    listings: unknown[];\n    stackable: boolean;\n    wearable: boolean;\n};\n```",
         "tags": [
           "game/items"
         ],
         "x-krapi": "krunker.game.items.view()",
         "x-routes": [
           "game.items.view"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst view = await krunker.game.items.view(skinIndex);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -2366,13 +3010,20 @@
       "get": {
         "operationId": "game.items.sales",
         "summary": "Item Sales",
-        "description": "GET /items/:id/sales, one row per day; range is what the item page sends (6)\n\nLibrary: `krunker.game.items.sales()`",
+        "description": "Same rows as the market's item sales. The item page sends `range=6`.",
         "tags": [
           "game/items"
         ],
         "x-krapi": "krunker.game.items.sales()",
         "x-routes": [
           "game.items.sales"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst sales = await krunker.game.items.sales(skinIndex, range);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -2440,13 +3091,20 @@
       "get": {
         "operationId": "game.items.instances",
         "summary": "Item Instances",
-        "description": "GET /items/:id/instances, only ever seen empty; \"mint\" is the game's default sort\n\nLibrary: `krunker.game.items.instances()`",
+        "description": "Only ever answered `[]`. `mint` is the game's default sort.",
         "tags": [
           "game/items"
         ],
         "x-krapi": "krunker.game.items.instances()",
         "x-routes": [
           "game.items.instances"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst instances = await krunker.game.items.instances(skinIndex, sort);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -2512,13 +3170,20 @@
       "get": {
         "operationId": "game.leaderboards.players",
         "summary": "Player Leaderboards",
-        "description": "GET /leaderboards/:type, 100 rows\n\nLibrary: `krunker.game.leaderboards.players()`",
+        "description": "`type` is one of `player_score`, `player_kills`, `player_wins`, `player_timeplayed`, `player_funds`, `player_followed`, `player_nukes`, `player_skinvalue`, `player_eventcount`, `player_ranked_matches`. 100 rows of `{position, player_name, player_clan, player_featured, value}`.",
         "tags": [
           "game/leaderboards"
         ],
         "x-krapi": "krunker.game.leaderboards.players()",
         "x-routes": [
           "game.leaderboards.players"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst players = await krunker.game.leaderboards.players(type, { sort, season });\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -2604,13 +3269,20 @@
       "get": {
         "operationId": "game.leaderboards.clans",
         "summary": "Clan Leaderboard",
-        "description": "GET /leaderboards/player_clan, 100 rows\n\nLibrary: `krunker.game.leaderboards.clans()`",
+        "description": "100 rows of `{position, clan_name, clan_score, member_count, hack_count}`.",
         "tags": [
           "game/leaderboards"
         ],
         "x-krapi": "krunker.game.leaderboards.clans()",
         "x-routes": [
           "game.leaderboards.clans"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst clans = await krunker.game.leaderboards.clans(sort);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -2672,13 +3344,20 @@
       "get": {
         "operationId": "game.leaderboards.raids",
         "summary": "Raid Leaderboard",
-        "description": "GET /leaderboards/raids/:mapId, 100 rows, 400 \"invalid raid map ID\" for a map without raids\n\nLibrary: `krunker.game.leaderboards.raids()`",
+        "description": "100 rows of `{position, player_name, player_clan, best_time, completions}`, `best_time` in milliseconds. Map ids with a raid board in October 2026: 18, 29, 31, 35 and 43 (`RAID_MAPS`). Any other id is a 400 `invalid raid map ID`.",
         "tags": [
           "game/leaderboards"
         ],
         "x-krapi": "krunker.game.leaderboards.raids()",
         "x-routes": [
           "game.leaderboards.raids"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst raids = await krunker.game.leaderboards.raids(mapId, sort);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -2748,13 +3427,20 @@
       "get": {
         "operationId": "game.leaderboards.raidsMonthly",
         "summary": "Monthly Raid Leaderboard",
-        "description": "GET /leaderboards/raids/:mapId/monthly, month as \"YYYY-MM\" (a bare number answers a different board), null for a month without runs\n\nLibrary: `krunker.game.leaderboards.raidsMonthly()`",
+        "description": "`month` is required, as `YYYY-MM` (what the game sends). A bare number like `8` is also answered, with different rows of unknown meaning, so krapi only accepts `YYYY-MM`. A month without runs answers `{\"data\": null}`, which krapi returns as `[]`.",
         "tags": [
           "game/leaderboards"
         ],
         "x-krapi": "krunker.game.leaderboards.raidsMonthly()",
         "x-routes": [
           "game.leaderboards.raidsMonthly"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst raidsMonthly = await krunker.game.leaderboards.raidsMonthly(mapId, month, sort);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -2841,13 +3527,20 @@
       "get": {
         "operationId": "game.leaderboards.krunkCupTeams",
         "summary": "KrunkCup",
-        "description": "GET /leaderboards/krunkcup/teams\n\nLibrary: `krunker.game.leaderboards.krunkCupTeams()`",
+        "description": "Teams are `{id, total_kills, total_score, total_games}`. Contributors and players are `{position, player_name, player_clan, kills, score, games}`.",
         "tags": [
           "game/leaderboards"
         ],
         "x-krapi": "krunker.game.leaderboards.krunkCupTeams()",
         "x-routes": [
           "game.leaderboards.krunkCupTeams"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst krunkCupTeams = await krunker.game.leaderboards.krunkCupTeams();\n"
+          }
         ],
         "security": [],
         "parameters": [],
@@ -2894,14 +3587,21 @@
     "/leaderboards/krunkcup/teams/{teamId}/contributors": {
       "get": {
         "operationId": "game.leaderboards.krunkCupContributors",
-        "summary": "leaderboards.krunkCupContributors",
-        "description": "GET /leaderboards/krunkcup/teams/:id/contributors\n\nLibrary: `krunker.game.leaderboards.krunkCupContributors()`",
+        "summary": "KrunkCup",
+        "description": "Teams are `{id, total_kills, total_score, total_games}`. Contributors and players are `{position, player_name, player_clan, kills, score, games}`.",
         "tags": [
           "game/leaderboards"
         ],
         "x-krapi": "krunker.game.leaderboards.krunkCupContributors()",
         "x-routes": [
           "game.leaderboards.krunkCupContributors"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst krunkCupContributors = await krunker.game.leaderboards.krunkCupContributors(teamId);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -2958,14 +3658,21 @@
     "/leaderboards/krunkcup/players": {
       "get": {
         "operationId": "game.leaderboards.krunkCupPlayers",
-        "summary": "leaderboards.krunkCupPlayers",
-        "description": "GET /leaderboards/krunkcup/players\n\nLibrary: `krunker.game.leaderboards.krunkCupPlayers()`",
+        "summary": "KrunkCup",
+        "description": "Teams are `{id, total_kills, total_score, total_games}`. Contributors and players are `{position, player_name, player_clan, kills, score, games}`.",
         "tags": [
           "game/leaderboards"
         ],
         "x-krapi": "krunker.game.leaderboards.krunkCupPlayers()",
         "x-routes": [
           "game.leaderboards.krunkCupPlayers"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst krunkCupPlayers = await krunker.game.leaderboards.krunkCupPlayers(limit);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -3023,13 +3730,20 @@
       "get": {
         "operationId": "game.legacy.mapsList",
         "summary": "Map Browser",
-        "description": "GET /webhooks/general/maps/list, the community map browser; index is the category tab, pos the page\n\nLibrary: `krunker.game.legacy.mapsList()`",
+        "description": "`index` is the category tab, `pos` the page, both 0 based. `{index, data: {map_id, map_name, map_votes, creatorname, map_featured, map_info, map_updatecounter, map_pl, fund, category, partner, map_date}[]}`, `map_info` is JSON text.",
         "tags": [
           "game/legacy"
         ],
         "x-krapi": "krunker.game.legacy.mapsList()",
         "x-routes": [
           "game.legacy.mapsList"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst mapsList = await krunker.game.legacy.mapsList({ index, pos });\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -3087,13 +3801,20 @@
       "get": {
         "operationId": "game.legacy.modsList",
         "summary": "Mod Browser",
-        "description": "GET /webhooks/general/mods/list, the mod browser\n\nLibrary: `krunker.game.legacy.modsList()`",
+        "description": "`{index, data: {mod_id, mod_name, mod_votes, creatorname, mod_featured, mod_url, mod_info, mod_updatecounter}[]}`.",
         "tags": [
           "game/legacy"
         ],
         "x-krapi": "krunker.game.legacy.modsList()",
         "x-routes": [
           "game.legacy.modsList"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst modsList = await krunker.game.legacy.modsList({ index, pos });\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -3151,13 +3872,20 @@
       "get": {
         "operationId": "game.legacy.itemPrices",
         "summary": "Item Prices",
-        "description": "GET /webhooks/general/items/prices, the kr value per skin index the inventory shows (38 KB)\n\nLibrary: `krunker.game.legacy.itemPrices()`",
+        "description": "The kr value per skin the inventory shows: an array indexed by skin index, `null` where there is no price. About 8000 entries, 38 KB.",
         "tags": [
           "game/legacy"
         ],
         "x-krapi": "krunker.game.legacy.itemPrices()",
         "x-routes": [
           "game.legacy.itemPrices"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst itemPrices = await krunker.game.legacy.itemPrices();\n"
+          }
         ],
         "security": [],
         "parameters": [],
@@ -3194,13 +3922,20 @@
       "get": {
         "operationId": "game.legacy.topStreams",
         "summary": "Top Streams",
-        "description": "GET /streams/top, the menu's stream box plus the running drop campaigns\n\nLibrary: `krunker.game.legacy.topStreams()`",
+        "description": "The menu's stream box plus the running drop campaigns. krapi unwraps the `data` key.\n\n```ts\ntype TopStreams = {\n    streams: { id: string; username: string; title: string; viewerCount: number; thumbnailUrl: string; startedAt: string; provider: string; featured: boolean; languageCode: string }[];\n    promo: boolean;\n    dropCampaigns: { name: string; startDate: number; endDate: number; drops: { itemId: number }[]; startDateISO: string; endDateISO: string }[];\n};\n```",
         "tags": [
           "game/legacy"
         ],
         "x-krapi": "krunker.game.legacy.topStreams()",
         "x-routes": [
           "game.legacy.topStreams"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst topStreams = await krunker.game.legacy.topStreams();\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -3255,13 +3990,20 @@
       "get": {
         "operationId": "game.market.stats",
         "summary": "Market Stats",
-        "description": "GET /market/stats, 100 skins per page with circulation, on sale count and ask range\n\nLibrary: `krunker.game.market.stats()`",
+        "description": "| Name | Type | Description |\n| --- | --- | --- |\n| cursor | int | `next_cursor` of the previous page |\n| limit | int | 1 to 100 |\n| sort | string | `rarity` is what the market tab sends; an unknown value is answered with the default order |\n| rarities, weapons, types | int list | comma separated filters |\n| season | int | |\n| searchTerm | string | |\n\n```ts\ntype MarketStats = {\n    stats: { ski: number; inC: number; onS: number; high?: number; low?: number }[];\n    has_more: boolean;\n    next_cursor: number | null;\n};\n```\n\n`ski` is the skin index, `inC` the count in circulation, `onS` the count on sale, `high` and `low` the ask range while something is listed.",
         "tags": [
           "game/market"
         ],
         "x-krapi": "krunker.game.market.stats()",
         "x-routes": [
           "game.market.stats"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst stats = await krunker.game.market.stats({ cursor, limit, sort, rarities, weapons, types, season, searchTerm });\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -3390,13 +4132,20 @@
       "get": {
         "operationId": "game.market.itemSales",
         "summary": "Item Sales",
-        "description": "GET /market/items/:id/sales, same rows as items.sales\n\nLibrary: `krunker.game.market.itemSales()`",
+        "description": "One row per day with a sale: `{f, t, d}[]` (kr, count, `YYYY-MM-DD`).",
         "tags": [
           "game/market"
         ],
         "x-krapi": "krunker.game.market.itemSales()",
         "x-routes": [
           "game.market.itemSales"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst itemSales = await krunker.game.market.itemSales(skinIndex);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -3453,14 +4202,21 @@
     "/market/items/{skinIndex}/sales-statistics": {
       "get": {
         "operationId": "game.market.itemSalesStatistics",
-        "summary": "one row per day with a sale",
-        "description": "GET /market/items/:id/sales-statistics, one row per day with a sale\n\nLibrary: `krunker.game.market.itemSalesStatistics()`",
+        "summary": "Item Sales",
+        "description": "One row per day with a sale: `{f, t, d}[]` (kr, count, `YYYY-MM-DD`).",
         "tags": [
           "game/market"
         ],
         "x-krapi": "krunker.game.market.itemSalesStatistics()",
         "x-routes": [
           "game.market.itemSalesStatistics"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst itemSalesStatistics = await krunker.game.market.itemSalesStatistics(skinIndex, daysBack);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -3528,13 +4284,20 @@
       "get": {
         "operationId": "game.matchmaker.gameList",
         "summary": "Game List",
-        "description": "GET /game-list, every public lobby (47 KB)\n\nLibrary: `krunker.game.matchmaker.gameList()`",
+        "description": "Every public lobby, about 47 KB.\n\n```ts\ntype GameList = {\n    games: GameListEntry[];\n    totalPlayerCount: number;\n};\n\n// [game id, region key, players, max players, options, seconds left]\ntype GameListEntry = [string, string, number, number, GameOptions, number];\n\ntype GameOptions = {\n    v: string;      // game version\n    g: number;      // gamemode id\n    c: number;      // custom game\n    cm: number;\n    m: number;      // map index\n    i: string;      // map name\n};\n```",
         "tags": [
           "game/matchmaker"
         ],
         "x-krapi": "krunker.game.matchmaker.gameList()",
         "x-routes": [
           "game.matchmaker.gameList"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst gameList = await krunker.game.matchmaker.gameList();\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -3581,13 +4344,20 @@
       "get": {
         "operationId": "game.matchmaker.pingList",
         "summary": "Ping List",
-        "description": "GET /ping-list, region key -> lobby host to ping\n\nLibrary: `krunker.game.matchmaker.pingList()`",
+        "description": "Region key (as in a game entry) to a lobby `host:port` to ping.",
         "tags": [
           "game/matchmaker"
         ],
         "x-krapi": "krunker.game.matchmaker.pingList()",
         "x-routes": [
           "game.matchmaker.pingList"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst pingList = await krunker.game.matchmaker.pingList();\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -3634,13 +4404,20 @@
       "get": {
         "operationId": "game.matchmaker.gameInfo",
         "summary": "Game Info",
-        "description": "GET /game-info, one lobby as a game list entry\n\nLibrary: `krunker.game.matchmaker.gameInfo()`",
+        "description": "One lobby as a game list entry. Ids look like `FRA:4kpj2`.",
         "tags": [
           "game/matchmaker"
         ],
         "x-krapi": "krunker.game.matchmaker.gameInfo()",
         "x-routes": [
           "game.matchmaker.gameInfo"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst gameInfo = await krunker.game.matchmaker.gameInfo(gameId);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -3686,13 +4463,20 @@
       "get": {
         "operationId": "game.players.get",
         "summary": "Get Player",
-        "description": "GET /players/:name, case-insensitive, 404 \"player not found\"\n\nLibrary: `krunker.game.players.get()`",
+        "description": "The flat legacy profile the social popup renders. 404 `PLAYERS_NOT_FOUND` for an unknown name.\n\n```ts\ntype PlayerSocialProfile = {\n    player_id: number;\n    player_name: string;\n    player_clan?: string;          // absent without a clan\n    clan_id?: number;\n    player_twitchname: string;\n    player_region: number;\n    player_badge: string;          // comma separated badge ids\n    player_titles: string;         // comma separated title ids\n    player_datenew: string;        // \"YYYY-MM-DD HH:MM:SS\"\n    player_featured: number;\n    player_funds: number;          // kr\n    player_skinvalue: number;\n    player_elo: number;\n    player_elo2: number;\n    player_elo4: string;           // junk rating, a decimal as text\n    player_premium: number;\n    player_kills: number;\n    player_deaths: number;\n    player_wins: number;\n    player_games_played: number;\n    player_score: number;\n    player_timeplayed: number;     // seconds\n    player_following: number;\n    player_followed: number;\n    player_chal: number;\n    player_infected: number;\n    player_jobrating: number;\n    player_jobratingpositive: number;\n    player_calls: number;\n    player_taggedaccounts: number;\n    player_stats: PlayerStats;\n    online: number;\n    maps: unknown[];\n    mods: unknown[];\n    assets: unknown[];\n    match_history: MatchHistoryGame[];   // only ever seen empty, shape from the game code\n    ranked_rank: number;\n    raid_stats: RaidStats[];\n};\n```\n\n`player_stats` is a packed blob with short keys. The developer API's player profile has the same numbers under full names.\n\n| Key | Meaning |\n| --- | --- |\n| s, h, hs, ls, wb | shots, hits, headshots, legshots, wallbangs |\n| mk, fk, tmk | melee kills, fist kills (beatdowns), thrown weapon kills (bullseyes) |\n| ast, n, ad, sad | assists, nukes, airdrops, airdrops stolen |\n| sl, wm | slimes, warmachines |\n| flg | country flag index |\n| hds | 1 when the profile hides details |\n| c0 to c15 | score per class |\n\n`raid_stats` rows are `{map_id, completions, attempts, best_time, ai_kills, boss_kills, deaths}`.",
         "tags": [
           "game/players"
         ],
         "x-krapi": "krunker.game.players.get()",
         "x-routes": [
           "game.players.get"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst get = await krunker.game.players.get(playerName);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -3702,7 +4486,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "example": "NulPing"
             }
           }
         ],
@@ -3747,13 +4532,20 @@
       "get": {
         "operationId": "game.players.search",
         "summary": "Search Players",
-        "description": "GET /players/search, prefix match on the name\n\nLibrary: `krunker.game.players.search()`",
+        "description": "Prefix match on the name, `limit` 1 to 20. Returns `{player_id, player_name, player_score}[]` (krapi unwraps the `results` key).",
         "tags": [
           "game/players"
         ],
         "x-krapi": "krunker.game.players.search()",
         "x-routes": [
           "game.players.search"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst search = await krunker.game.players.search(query, limit);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -3830,13 +4622,20 @@
       "get": {
         "operationId": "game.players.sales",
         "summary": "Get Player Sales",
-        "description": "GET /players/:name/sales, one row per day with market sales: f = kr earned, t = items sold, d = date\n\nLibrary: `krunker.game.players.sales()`",
+        "description": "One row per day with market sales: `{f, t, d}[]` where `f` is kr earned, `t` items sold, `d` the day as `YYYY-MM-DD`. The popup sends `range=3`.",
         "tags": [
           "game/players"
         ],
         "x-krapi": "krunker.game.players.sales()",
         "x-routes": [
           "game.players.sales"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst sales = await krunker.game.players.sales(playerName, range);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -3846,7 +4645,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "example": "NulPing"
             }
           },
           {
@@ -3904,13 +4704,20 @@
       "get": {
         "operationId": "game.players.listings",
         "summary": "Get Player Listings",
-        "description": "GET /players/:name/listings, only ever seen empty, the developer api has the real one\n\nLibrary: `krunker.game.players.listings()`",
+        "description": "Only ever answered `[]`. The developer API's player listings endpoint has the real data.",
         "tags": [
           "game/players"
         ],
         "x-krapi": "krunker.game.players.listings()",
         "x-routes": [
           "game.players.listings"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst listings = await krunker.game.players.listings(playerName);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -3920,7 +4727,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "example": "NulPing"
             }
           }
         ],
@@ -3966,13 +4774,20 @@
       "get": {
         "operationId": "game.players.followers",
         "summary": "Get Followers and Following",
-        "description": "GET /players/:name/followers, 100 at most\n\nLibrary: `krunker.game.players.followers()`",
+        "description": "`{player_id, player_name, date, follow_state}[]`, 100 rows at most.",
         "tags": [
           "game/players"
         ],
         "x-krapi": "krunker.game.players.followers()",
         "x-routes": [
           "game.players.followers"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst followers = await krunker.game.players.followers(playerName);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -3982,7 +4797,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "example": "NulPing"
             }
           }
         ],
@@ -4029,14 +4845,21 @@
     "/players/{playerName}/following": {
       "get": {
         "operationId": "game.players.following",
-        "summary": "players.following",
-        "description": "GET /players/:name/following\n\nLibrary: `krunker.game.players.following()`",
+        "summary": "Get Followers and Following",
+        "description": "`{player_id, player_name, date, follow_state}[]`, 100 rows at most.",
         "tags": [
           "game/players"
         ],
         "x-krapi": "krunker.game.players.following()",
         "x-routes": [
           "game.players.following"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst following = await krunker.game.players.following(playerName);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -4046,7 +4869,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "example": "NulPing"
             }
           }
         ],
@@ -4093,10 +4917,11 @@
     "/social/feed": {
       "get": {
         "operationId": "game.players.feed",
-        "summary": "Feed",
-        "description": "GET /social/feed, a player's posts\n\nLibrary: `krunker.game.players.feed()`\n\nAlso `krunker.game.social.feed()`: GET /social/feed?tab=, \"global\" is the only tab seen; an unknown one is a 400 \"invalid feed tab\"",
+        "summary": "Get Player Feed",
+        "description": "A player's posts, `limit` 1 to 50. krapi returns the `posts` array of `FeedPost` (see [Social](#social) for the keys).\n\n`global` is the only tab seen; an unknown one is a 400 `SOCIAL_INVALID_TAB`. `limit` 1 to 50. krapi returns the `posts` array.\n\n```ts\ntype FeedPost = {\n    pid: number;      // post id\n    pln: string;      // poster name\n    pli: number;      // poster id\n    tim: number;\n    lnk: string;\n    txt: string;\n    ftr: number;\n    typ: number;\n    cln: string;\n    flw: number;\n    clr: number;\n    prm: number;\n    lnk2: string;\n    vot: number;      // votes\n    dlk: number;\n    cnt: number;      // comment count\n    exp: number;\n    fds: number;\n};\n```",
         "tags": [
-          "game/players"
+          "game/players",
+          "game/social"
         ],
         "x-krapi": [
           "krunker.game.players.feed()",
@@ -4105,6 +4930,18 @@
         "x-routes": [
           "game.players.feed",
           "game.social.feed"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi: players.feed",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst feed = await krunker.game.players.feed(playerId, limit);\n"
+          },
+          {
+            "lang": "ts",
+            "label": "krapi: social.feed",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst feed = await krunker.game.social.feed(tab, limit);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -4191,13 +5028,20 @@
       "get": {
         "operationId": "game.shop.display",
         "summary": "Display",
-        "description": "GET /shop/displays/:id, display 1 is the front\n\nLibrary: `krunker.game.shop.display()`",
+        "description": "Display 1 is the front page, `tag=premium` is what the menu asks for. `/shop/displays` without a tag answers 400.\n\n```ts\ntype ShopDisplay = {\n    id: number;\n    type: string;\n    order: number;\n    data: Record<string, unknown>;\n    children: { id: number; parent_id: number; order: number; type: string; data: Record<string, unknown>; product_id?: number }[];\n    products: Record<string, ShopProduct>;\n};\n\ntype ShopProduct = {\n    id: number;\n    name: string;\n    description: string;\n    image_url: string;\n    active: boolean;\n    prices: { id: number; price_ref: string; type: string; real?: { price_usd: number }; recurring?: { amount: number; periodicity: string }; available: boolean }[];\n    contents: { id: number; type: string; ref: string; quantity: number }[];\n    available: boolean;\n    display_ids: number[];\n};\n```",
         "tags": [
           "game/shop"
         ],
         "x-krapi": "krunker.game.shop.display()",
         "x-routes": [
           "game.shop.display"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst display = await krunker.game.shop.display(displayId);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -4251,14 +5095,21 @@
     "/shop/displays": {
       "get": {
         "operationId": "game.shop.displayByTag",
-        "summary": "\"premium\" is what the menu asks for",
-        "description": "GET /shop/displays?tag=, \"premium\" is what the menu asks for; without a tag the api answers 400\n\nLibrary: `krunker.game.shop.displayByTag()`",
+        "summary": "Display",
+        "description": "Display 1 is the front page, `tag=premium` is what the menu asks for. `/shop/displays` without a tag answers 400.\n\n```ts\ntype ShopDisplay = {\n    id: number;\n    type: string;\n    order: number;\n    data: Record<string, unknown>;\n    children: { id: number; parent_id: number; order: number; type: string; data: Record<string, unknown>; product_id?: number }[];\n    products: Record<string, ShopProduct>;\n};\n\ntype ShopProduct = {\n    id: number;\n    name: string;\n    description: string;\n    image_url: string;\n    active: boolean;\n    prices: { id: number; price_ref: string; type: string; real?: { price_usd: number }; recurring?: { amount: number; periodicity: string }; available: boolean }[];\n    contents: { id: number; type: string; ref: string; quantity: number }[];\n    available: boolean;\n    display_ids: number[];\n};\n```",
         "tags": [
           "game/shop"
         ],
         "x-krapi": "krunker.game.shop.displayByTag()",
         "x-routes": [
           "game.shop.displayByTag"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst displayByTag = await krunker.game.shop.displayByTag(tag);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -4313,13 +5164,20 @@
       "get": {
         "operationId": "game.shop.spinWheels",
         "summary": "Spin Wheels",
-        "description": "GET /spins/wheels, every wheel with its item pools and weights\n\nLibrary: `krunker.game.shop.spinWheels()`",
+        "description": "Every wheel with its pools and weights: `{index, name, price, ticketIndex, ticketOnly, multi, poolWeights, pools: {id, name, color, weight, items}[]}[]`, `items` are skin indices.",
         "tags": [
           "game/shop"
         ],
         "x-krapi": "krunker.game.shop.spinWheels()",
         "x-routes": [
           "game.shop.spinWheels"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst spinWheels = await krunker.game.shop.spinWheels();\n"
+          }
         ],
         "security": [],
         "parameters": [],
@@ -4367,13 +5225,20 @@
       "get": {
         "operationId": "game.shop.lottery",
         "summary": "Lottery",
-        "description": "GET /lottery/:id, id 1 is the running one; player_entries is 0 without a token\n\nLibrary: `krunker.game.shop.lottery()`",
+        "description": "Id 1 is the running one. `{lottery: {id, title, frequency, theme}, player_entries, total_entries, previous_draws: {id, lottery_id, starts_at, ends_at, drawn_at, prizes}[]}`. `player_entries` is 0 without a token.",
         "tags": [
           "game/shop"
         ],
         "x-krapi": "krunker.game.shop.lottery()",
         "x-routes": [
           "game.shop.lottery"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst lottery = await krunker.game.shop.lottery(lotteryId);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -4428,13 +5293,20 @@
       "get": {
         "operationId": "game.social.post",
         "summary": "Post",
-        "description": "GET /social/post/:id, one post with its comments\n\nLibrary: `krunker.game.social.post()`",
+        "description": "`{post: FeedPost, comments: unknown[]}`.",
         "tags": [
           "game/social"
         ],
         "x-krapi": "krunker.game.social.post()",
         "x-routes": [
           "game.social.post"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst post = await krunker.game.social.post(postId);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -4489,13 +5361,20 @@
       "get": {
         "operationId": "game.social.news",
         "summary": "News",
-        "description": "GET /social/news\n\nLibrary: `krunker.game.social.news()`",
+        "description": "`{news: unknown[]}`, only seen empty.",
         "tags": [
           "game/social"
         ],
         "x-krapi": "krunker.game.social.news()",
         "x-routes": [
           "game.social.news"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst news = await krunker.game.social.news();\n"
+          }
         ],
         "security": [],
         "parameters": [],
@@ -4540,13 +5419,20 @@
       "get": {
         "operationId": "game.turf.status",
         "summary": "Get Status",
-        "description": "GET /territorial-wars/status, every turf map with its owner and top 5\n\nLibrary: `krunker.game.turf.status()`",
+        "description": "Every Turf map with its current owner and the top 5 clans.\n\n```ts\ntype TurfStatus = {\n    map_id: number;\n    map_name: string;\n    clan_id: number;               // the owner\n    clan_name: string;\n    clan_logo: number | null;\n    kills: number;\n    games: number;\n    reward: number | null;\n    leaderboard: { position: number; clan_id: number; clan_name: string; clan_logo: number | null; kills: number; deaths: number }[];\n    total_kills_today: number;\n    guaranteed_reward: number;\n    estimated_reward: number;\n};\n```",
         "tags": [
           "game/turf"
         ],
         "x-krapi": "krunker.game.turf.status()",
         "x-routes": [
           "game.turf.status"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst status = await krunker.game.turf.status();\n"
+          }
         ],
         "security": [],
         "parameters": [],
@@ -4594,13 +5480,20 @@
       "get": {
         "operationId": "game.turf.clan",
         "summary": "Get Clan",
-        "description": "GET /territorial-wars/clan/:id\n\nLibrary: `krunker.game.turf.clan()`",
+        "description": "```ts\ntype TurfClan = {\n    clan_id: number;\n    clan_name: string;\n    clan_logo: number | null;\n    current_day: number;\n    maps: TurfClanMap[];\n    historical_days: Omit<TurfClanMap, \"games\">[];\n};\n\ntype TurfClanMap = {\n    map_id: number;\n    map_name: string;\n    day: number;\n    kills: number;\n    deaths: number;\n    games: number;\n    position: number;\n    comparison_kills: number;      // the clan one position up\n    comparison_deaths: number;\n    comparison_clan_name: string;\n    comparison_clan_id: number;\n    comparison_clan_logo: number | null;\n    comparison_position: number;\n};\n```",
         "tags": [
           "game/turf"
         ],
         "x-krapi": "krunker.game.turf.clan()",
         "x-routes": [
           "game.turf.clan"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst clan = await krunker.game.turf.clan(clanId);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -4655,13 +5548,20 @@
       "get": {
         "operationId": "game.turf.clanPlayers",
         "summary": "Get Clan Players",
-        "description": "GET /territorial-wars/clan/:id/players, today without a day\n\nLibrary: `krunker.game.turf.clanPlayers()`",
+        "description": "Today without `day`. Rows are `{player_id, player_name, kills, deaths, games, kd}`.",
         "tags": [
           "game/turf"
         ],
         "x-krapi": "krunker.game.turf.clanPlayers()",
         "x-routes": [
           "game.turf.clanPlayers"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst clanPlayers = await krunker.game.turf.clanPlayers(clanId, { day, map_id });\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -4737,13 +5637,20 @@
       "get": {
         "operationId": "game.turf.clanEarnings",
         "summary": "Get Clan Earnings",
-        "description": "GET /territorial-wars/clan/:id/earnings\n\nLibrary: `krunker.game.turf.clanEarnings()`",
+        "description": "`{day, map_id, map_name, reward}[]`.",
         "tags": [
           "game/turf"
         ],
         "x-krapi": "krunker.game.turf.clanEarnings()",
         "x-routes": [
           "game.turf.clanEarnings"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst clanEarnings = await krunker.game.turf.clanEarnings(clanId);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -4801,13 +5708,20 @@
       "get": {
         "operationId": "game.turf.clanPayouts",
         "summary": "Get Clan Payouts",
-        "description": "GET /territorial-wars/clan/:id/payouts, season totals without a day\n\nLibrary: `krunker.game.turf.clanPayouts()`",
+        "description": "Season totals without `day`. `{payouts: {player_id, player_name, total_kr}[], total}`.",
         "tags": [
           "game/turf"
         ],
         "x-krapi": "krunker.game.turf.clanPayouts()",
         "x-routes": [
           "game.turf.clanPayouts"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst clanPayouts = await krunker.game.turf.clanPayouts(clanId, day);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -4871,13 +5785,20 @@
       "get": {
         "operationId": "game.turf.topClans",
         "summary": "Top Performing Clans",
-        "description": "GET /territorial-wars/leaderboards/top-performing-clans, 100 rows, clan_name is an exact match filter\n\nLibrary: `krunker.game.turf.topClans()`",
+        "description": "`clan_name` is an exact match filter. Rows: `{position, clan_id, clan_name, clan_logo, kills, deaths, games, kd}`.",
         "tags": [
           "game/turf"
         ],
         "x-krapi": "krunker.game.turf.topClans()",
         "x-routes": [
           "game.turf.topClans"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst topClans = await krunker.game.turf.topClans({ day, map_id, clan_name });\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -4952,13 +5873,20 @@
       "get": {
         "operationId": "game.turf.topGrossing",
         "summary": "Top Grossing Clans",
-        "description": "GET /territorial-wars/leaderboards/top-grossing-clans\n\nLibrary: `krunker.game.turf.topGrossing()`",
+        "description": "Rows: `{position, clan_id, clan_name, clan_logo, total_kr, distributed, bank}`.",
         "tags": [
           "game/turf"
         ],
         "x-krapi": "krunker.game.turf.topGrossing()",
         "x-routes": [
           "game.turf.topGrossing"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst topGrossing = await krunker.game.turf.topGrossing(clanName);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -5015,13 +5943,20 @@
       "get": {
         "operationId": "game.turf.topPlayers",
         "summary": "Top Performing Players",
-        "description": "GET /territorial-wars/leaderboards/top-performing-players, slow (seconds)\n\nLibrary: `krunker.game.turf.topPlayers()`",
+        "description": "Slow, several seconds. Rows: `{position, player_id, player_name, clan_id, clan_name, kills, deaths, games, kd, earnings}`.",
         "tags": [
           "game/turf"
         ],
         "x-krapi": "krunker.game.turf.topPlayers()",
         "x-routes": [
           "game.turf.topPlayers"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst topPlayers = await krunker.game.turf.topPlayers({ map_id, player_name });\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -5087,13 +6022,20 @@
       "get": {
         "operationId": "game.turf.player",
         "summary": "Get Player",
-        "description": "GET /territorial-wars/player/:id, also resolves a stored id to the current name\n\nLibrary: `krunker.game.turf.player()`",
+        "description": "Also the way to resolve a stored player id to the current name.\n\n`{player_id, player_name, current_clan, current_clan_id, current_clan_logo, total_kills, total_deaths, total_games, kd, total_kr, first_day, last_day}`",
         "tags": [
           "game/turf"
         ],
         "x-krapi": "krunker.game.turf.player()",
         "x-routes": [
           "game.turf.player"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst player = await krunker.game.turf.player(playerId);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -5148,13 +6090,20 @@
       "get": {
         "operationId": "game.turf.playerContributions",
         "summary": "Get Player Contributions",
-        "description": "GET /territorial-wars/player/:id/contributions, every day and map of the season\n\nLibrary: `krunker.game.turf.playerContributions()`",
+        "description": "Every day and map of the season without `day`. Rows: `{day, clan_id, clan_name, map_id, map_name, kills, deaths, games, kd}`.",
         "tags": [
           "game/turf"
         ],
         "x-krapi": "krunker.game.turf.playerContributions()",
         "x-routes": [
           "game.turf.playerContributions"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst playerContributions = await krunker.game.turf.playerContributions(playerId, day);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -5221,13 +6170,20 @@
       "get": {
         "operationId": "game.turf.playerEarnings",
         "summary": "Get Player Earnings",
-        "description": "GET /territorial-wars/player/:id/earnings\n\nLibrary: `krunker.game.turf.playerEarnings()`",
+        "description": "`{day, map_id, map_name, clan_id, clan_name, amount}[]`.",
         "tags": [
           "game/turf"
         ],
         "x-krapi": "krunker.game.turf.playerEarnings()",
         "x-routes": [
           "game.turf.playerEarnings"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst playerEarnings = await krunker.game.turf.playerEarnings(playerId);\n"
+          }
         ],
         "security": [],
         "parameters": [
@@ -5285,13 +6241,20 @@
       "get": {
         "operationId": "token.creator.clanApplications",
         "summary": "Clan Applications",
-        "description": "GET /clans/my-applications, clan_ids is null without any\n\nLibrary: `krunker.as(token).creator.clanApplications()`",
+        "description": "`me.creator.clanApplications()`\n\n`{clan_ids: number[] | null}`, null without any.",
         "tags": [
           "token/creator"
         ],
         "x-krapi": "krunker.as(token).creator.clanApplications()",
         "x-routes": [
           "token.creator.clanApplications"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst clanApplications = await krunker.as(token).creator.clanApplications();\n"
+          }
         ],
         "security": [
           {
@@ -5340,13 +6303,20 @@
       "get": {
         "operationId": "token.creator.mapVersions",
         "summary": "Map Versions",
-        "description": "GET /maps/:id/versions, the version history of an own map; empty for a map that is not yours\n\nLibrary: `krunker.as(token).creator.mapVersions()`",
+        "description": "`me.creator.mapVersions(mapId)`\n\nThe version history of an own map, empty for a map that is not yours.",
         "tags": [
           "token/creator"
         ],
         "x-krapi": "krunker.as(token).creator.mapVersions()",
         "x-routes": [
           "token.creator.mapVersions"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst mapVersions = await krunker.as(token).creator.mapVersions(mapId);\n"
+          }
         ],
         "security": [
           {
@@ -5406,13 +6376,20 @@
       "get": {
         "operationId": "token.creator.mapData",
         "summary": "Map Data",
-        "description": "GET /maps/:id/data?player=, a map's stored key value data for one player (the kvs of map scripts)\n\nLibrary: `krunker.as(token).creator.mapData()`",
+        "description": "`me.creator.mapData(mapId, playerName)`\n\nA map's stored key value data for one player (the key value store of map scripts).",
         "tags": [
           "token/creator"
         ],
         "x-krapi": "krunker.as(token).creator.mapData()",
         "x-routes": [
           "token.creator.mapData"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst mapData = await krunker.as(token).creator.mapData(mapId, playerName);\n"
+          }
         ],
         "security": [
           {
@@ -5478,13 +6455,20 @@
       "get": {
         "operationId": "token.creator.studios",
         "summary": "Studios",
-        "description": "GET /studios/mine\n\nLibrary: `krunker.as(token).creator.studios()`",
+        "description": "`me.creator.studios()`, `.studioInvites()`, `.studio(id)`, `.studioMonetization(id)`, `.studioAnalytics(id)`, `.studioSkins(id)`",
         "tags": [
           "token/creator"
         ],
         "x-krapi": "krunker.as(token).creator.studios()",
         "x-routes": [
           "token.creator.studios"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst studios = await krunker.as(token).creator.studios();\n"
+          }
         ],
         "security": [
           {
@@ -5533,14 +6517,21 @@
     "/studios/invites": {
       "get": {
         "operationId": "token.creator.studioInvites",
-        "summary": "creator.studioInvites",
-        "description": "GET /studios/invites\n\nLibrary: `krunker.as(token).creator.studioInvites()`",
+        "summary": "Studios",
+        "description": "`me.creator.studios()`, `.studioInvites()`, `.studio(id)`, `.studioMonetization(id)`, `.studioAnalytics(id)`, `.studioSkins(id)`",
         "tags": [
           "token/creator"
         ],
         "x-krapi": "krunker.as(token).creator.studioInvites()",
         "x-routes": [
           "token.creator.studioInvites"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst studioInvites = await krunker.as(token).creator.studioInvites();\n"
+          }
         ],
         "security": [
           {
@@ -5589,14 +6580,21 @@
     "/studios/{studioId}": {
       "get": {
         "operationId": "token.creator.studio",
-        "summary": "creator.studio",
-        "description": "GET /studios/:id\n\nLibrary: `krunker.as(token).creator.studio()`",
+        "summary": "Studios",
+        "description": "`me.creator.studios()`, `.studioInvites()`, `.studio(id)`, `.studioMonetization(id)`, `.studioAnalytics(id)`, `.studioSkins(id)`",
         "tags": [
           "token/creator"
         ],
         "x-krapi": "krunker.as(token).creator.studio()",
         "x-routes": [
           "token.creator.studio"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst studio = await krunker.as(token).creator.studio(studioId);\n"
+          }
         ],
         "security": [
           {
@@ -5652,14 +6650,21 @@
     "/studios/{studioId}/monetization": {
       "get": {
         "operationId": "token.creator.studioMonetization",
-        "summary": "creator.studioMonetization",
-        "description": "GET /studios/:id/monetization\n\nLibrary: `krunker.as(token).creator.studioMonetization()`",
+        "summary": "Studios",
+        "description": "`me.creator.studios()`, `.studioInvites()`, `.studio(id)`, `.studioMonetization(id)`, `.studioAnalytics(id)`, `.studioSkins(id)`",
         "tags": [
           "token/creator"
         ],
         "x-krapi": "krunker.as(token).creator.studioMonetization()",
         "x-routes": [
           "token.creator.studioMonetization"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst studioMonetization = await krunker.as(token).creator.studioMonetization(studioId);\n"
+          }
         ],
         "security": [
           {
@@ -5715,14 +6720,21 @@
     "/studios/{studioId}/analytics": {
       "get": {
         "operationId": "token.creator.studioAnalytics",
-        "summary": "creator.studioAnalytics",
-        "description": "GET /studios/:id/analytics\n\nLibrary: `krunker.as(token).creator.studioAnalytics()`",
+        "summary": "Studios",
+        "description": "`me.creator.studios()`, `.studioInvites()`, `.studio(id)`, `.studioMonetization(id)`, `.studioAnalytics(id)`, `.studioSkins(id)`",
         "tags": [
           "token/creator"
         ],
         "x-krapi": "krunker.as(token).creator.studioAnalytics()",
         "x-routes": [
           "token.creator.studioAnalytics"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst studioAnalytics = await krunker.as(token).creator.studioAnalytics(studioId);\n"
+          }
         ],
         "security": [
           {
@@ -5778,14 +6790,21 @@
     "/studios/{studioId}/skins": {
       "get": {
         "operationId": "token.creator.studioSkins",
-        "summary": "creator.studioSkins",
-        "description": "GET /studios/:id/skins\n\nLibrary: `krunker.as(token).creator.studioSkins()`",
+        "summary": "Studios",
+        "description": "`me.creator.studios()`, `.studioInvites()`, `.studio(id)`, `.studioMonetization(id)`, `.studioAnalytics(id)`, `.studioSkins(id)`",
         "tags": [
           "token/creator"
         ],
         "x-krapi": "krunker.as(token).creator.studioSkins()",
         "x-routes": [
           "token.creator.studioSkins"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst studioSkins = await krunker.as(token).creator.studioSkins(studioId);\n"
+          }
         ],
         "security": [
           {
@@ -5845,13 +6864,20 @@
       "get": {
         "operationId": "token.market.listings",
         "summary": "Listings",
-        "description": "GET /market/listings, what the market tab shows; a token is required although the data is not about the player\n\nLibrary: `krunker.as(token).market.listings()`",
+        "description": "`me.market.listings({ item_id, items, sort, cursor_id, limit, rarities, weapons, types, wears, season, painted, searchTerm })`\n\nWhat the market tab shows. A token is required although the data is not about the player.\n\n| Name | Type | Description |\n| --- | --- | --- |\n| item_id | int | one skin index |\n| items | int list | several skin indices |\n| sort | string | `latest`, `price_asc`, `price_desc` or `popular` |\n| cursor_id | int | the last `uid` of the previous page |\n| limit | int | 1 to 100 |\n| rarities, weapons, types, wears | int list | comma separated filters |\n| season | int | |\n| painted | bool | sent as `1` when true |\n| searchTerm | string | |\n\n```ts\ntype MarketListings = {\n    listings: LiveListing[];\n};\n\ntype LiveListing = {\n    uid: number;\n    marketid: number;\n    skinid: number;          // the item instance\n    skinindex: number;\n    funds: number;           // asking price in kr\n    seller_id: number;\n    seller_name: string;\n    listed_time: number;     // unix ms\n    listing_count: number;   // how many of this skin the seller has listed\n};\n```",
         "tags": [
           "token/market"
         ],
         "x-krapi": "krunker.as(token).market.listings()",
         "x-routes": [
           "token.market.listings"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst listings = await krunker.as(token).market.listings({ item_id, items, sort, cursor_id, limit, rarities, weapons, types, wears, season, painted, searchTerm });\n"
+          }
         ],
         "security": [
           {
@@ -6035,13 +7061,20 @@
       "get": {
         "operationId": "token.market.inventory",
         "summary": "Inventory",
-        "description": "GET /market/inventory, the player's stacks\n\nLibrary: `krunker.as(token).market.inventory()`",
+        "description": "`me.market.inventory()`\n\nThe player's stacks: `{i, cnt, sid, st}[]` (skin index, count, instance id, state).",
         "tags": [
           "token/market"
         ],
         "x-krapi": "krunker.as(token).market.inventory()",
         "x-routes": [
           "token.market.inventory"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst inventory = await krunker.as(token).market.inventory();\n"
+          }
         ],
         "security": [
           {
@@ -6093,13 +7126,20 @@
       "get": {
         "operationId": "token.market.sales",
         "summary": "Sales",
-        "description": "GET /market/sales, the player's open listings; only seen empty\n\nLibrary: `krunker.as(token).market.sales()`",
+        "description": "`me.market.sales()`\n\nThe player's open listings. Only ever seen `[]`.",
         "tags": [
           "token/market"
         ],
         "x-krapi": "krunker.as(token).market.sales()",
         "x-routes": [
           "token.market.sales"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst sales = await krunker.as(token).market.sales();\n"
+          }
         ],
         "security": [
           {
@@ -6149,13 +7189,20 @@
       "get": {
         "operationId": "token.market.history",
         "summary": "History",
-        "description": "GET /market/history, the player's completed buys and sells, newest first by default\n\nLibrary: `krunker.as(token).market.history()`",
+        "description": "`me.market.history({ sort, cursor, limit })`\n\nThe player's completed buys and sells, newest first by default. `sort` is one of `date_asc`, `date_desc`, `amount_asc`, `amount_desc`, `item_asc`, `item_desc`; `limit` 1 to 100.\n\n```ts\ntype MarketHistory = {\n    history: {\n        marketid: number;\n        type: \"sell\" | \"buy\";\n        date: string;\n        skinindex: number;\n        amount: number;\n        other_party_id: number;\n        other_party_name: string;\n        status: string;\n    }[];\n};\n```",
         "tags": [
           "token/market"
         ],
         "x-krapi": "krunker.as(token).market.history()",
         "x-routes": [
           "token.market.history"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst history = await krunker.as(token).market.history({ sort, cursor, limit });\n"
+          }
         ],
         "security": [
           {
@@ -6240,13 +7287,20 @@
       "get": {
         "operationId": "token.market.blackMarket",
         "summary": "Black Market",
-        "description": "GET /market/black-market, the skin indices on offer\n\nLibrary: `krunker.as(token).market.blackMarket()`",
+        "description": "`me.market.blackMarket()`, `me.market.blackMarketRank()`\n\nThe skin indices on offer, and `{peak_mmr}` (null without a ranked history), the player's peak MMR for the ranked tier of the black market.",
         "tags": [
           "token/market"
         ],
         "x-krapi": "krunker.as(token).market.blackMarket()",
         "x-routes": [
           "token.market.blackMarket"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst blackMarket = await krunker.as(token).market.blackMarket();\n"
+          }
         ],
         "security": [
           {
@@ -6294,14 +7348,21 @@
     "/market/black-market/rank": {
       "get": {
         "operationId": "token.market.blackMarketRank",
-        "summary": "the player's peak mmr for the ranked tier of the black market",
-        "description": "GET /market/black-market/rank, the player's peak mmr for the ranked tier of the black market\n\nLibrary: `krunker.as(token).market.blackMarketRank()`",
+        "summary": "Black Market",
+        "description": "`me.market.blackMarket()`, `me.market.blackMarketRank()`\n\nThe skin indices on offer, and `{peak_mmr}` (null without a ranked history), the player's peak MMR for the ranked tier of the black market.",
         "tags": [
           "token/market"
         ],
         "x-krapi": "krunker.as(token).market.blackMarketRank()",
         "x-routes": [
           "token.market.blackMarketRank"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst blackMarketRank = await krunker.as(token).market.blackMarketRank();\n"
+          }
         ],
         "security": [
           {
@@ -6350,13 +7411,20 @@
       "get": {
         "operationId": "token.player.me",
         "summary": "Me",
-        "description": "GET /player/me\n\nLibrary: `krunker.as(token).player.me()`",
+        "description": "`me.player.me()`\n\n`{player: {id, name, data}}`, where `data` is the packed account blob the game decodes itself.",
         "tags": [
           "token/player"
         ],
         "x-krapi": "krunker.as(token).player.me()",
         "x-routes": [
           "token.player.me"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst me = await krunker.as(token).player.me();\n"
+          }
         ],
         "security": [
           {
@@ -6405,13 +7473,20 @@
       "get": {
         "operationId": "token.player.wallet",
         "summary": "Wallet",
-        "description": "GET /player/wallet, kr and every studio currency\n\nLibrary: `krunker.as(token).player.wallet()`",
+        "description": "`me.player.wallet()`\n\nKr plus every studio currency.\n\n```ts\ntype Wallet = {\n    currencies: { id: number; name: string; symbol: string; amount: number }[];\n    spending_tier: number;\n};\n```",
         "tags": [
           "token/player"
         ],
         "x-krapi": "krunker.as(token).player.wallet()",
         "x-routes": [
           "token.player.wallet"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst wallet = await krunker.as(token).player.wallet();\n"
+          }
         ],
         "security": [
           {
@@ -6460,13 +7535,20 @@
       "get": {
         "operationId": "token.player.guestProfile",
         "summary": "Guest Profile",
-        "description": "GET /guest/profile, the stats of a guest token\n\nLibrary: `krunker.as(token).player.guestProfile()`",
+        "description": "`me.player.guestProfile()`\n\nThe stats of a guest token: `{profile: {score, funds, kills, deaths, games, wins}}`, zeros for a registered account.",
         "tags": [
           "token/player"
         ],
         "x-krapi": "krunker.as(token).player.guestProfile()",
         "x-routes": [
           "token.player.guestProfile"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst guestProfile = await krunker.as(token).player.guestProfile();\n"
+          }
         ],
         "security": [
           {
@@ -6515,13 +7597,20 @@
       "get": {
         "operationId": "token.player.usernames",
         "summary": "Usernames",
-        "description": "GET /account/usernames, the active name, reserved names and the rename cooldown\n\nLibrary: `krunker.as(token).player.usernames()`",
+        "description": "`me.player.usernames()`\n\nThe active name, the reserved names and the rename cooldown.\n\n```ts\ntype Usernames = {\n    active: string;\n    names: { name: string; state: string; leave_release_secs: number }[];\n    cooldown_secs: number;\n};\n```",
         "tags": [
           "token/player"
         ],
         "x-krapi": "krunker.as(token).player.usernames()",
         "x-routes": [
           "token.player.usernames"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst usernames = await krunker.as(token).player.usernames();\n"
+          }
         ],
         "security": [
           {
@@ -6570,13 +7659,20 @@
       "get": {
         "operationId": "token.player.emailPreferences",
         "summary": "Email Preferences",
-        "description": "GET /email/preferences\n\nLibrary: `krunker.as(token).player.emailPreferences()`",
+        "description": "`me.player.emailPreferences()`\n\n`{chosen, promotional}`.",
         "tags": [
           "token/player"
         ],
         "x-krapi": "krunker.as(token).player.emailPreferences()",
         "x-routes": [
           "token.player.emailPreferences"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst emailPreferences = await krunker.as(token).player.emailPreferences();\n"
+          }
         ],
         "security": [
           {
@@ -6625,13 +7721,20 @@
       "get": {
         "operationId": "token.player.discordStatus",
         "summary": "Discord Status",
-        "description": "GET /discord/status, the linked discord account\n\nLibrary: `krunker.as(token).player.discordStatus()`",
+        "description": "`me.player.discordStatus()`\n\n`{configured, linked, id?, username?, globalName?, avatar?, linkedAt?, guildUrl?, inGuild?}`, the optional fields only while linked.",
         "tags": [
           "token/player"
         ],
         "x-krapi": "krunker.as(token).player.discordStatus()",
         "x-routes": [
           "token.player.discordStatus"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst discordStatus = await krunker.as(token).player.discordStatus();\n"
+          }
         ],
         "security": [
           {
@@ -6680,13 +7783,20 @@
       "get": {
         "operationId": "token.ranked.leaderboard",
         "summary": "Season Rankings",
-        "description": "GET /leaderboards/rankings/season/:season[/region/:region], 40 per page in the game; a token is required although the board is public\n\nLibrary: `krunker.as(token).ranked.leaderboard()`",
+        "description": "`me.ranked.leaderboard(season, { limit, offset, region })`\n\nThe game reads 40 per page; `limit` 1 to 100, `offset` 0 based. Regions are the ranked region ids (2 Asia, 3 Europe, 4 North America).\n\n```ts\ntype SeasonRankings = {\n    leaderboard: { position: number; profile: { player_name: string; conservative_rating: number; total_matches: number; rank: number } }[];\n    totalPages: number;\n};\n```",
         "tags": [
           "token/ranked"
         ],
         "x-krapi": "krunker.as(token).ranked.leaderboard()",
         "x-routes": [
           "token.ranked.leaderboard"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst leaderboard = await krunker.as(token).ranked.leaderboard(season, { region, limit, offset });\n"
+          }
         ],
         "security": [
           {
@@ -6766,13 +7876,20 @@
       "get": {
         "operationId": "token.ranked.leaderboard.region",
         "summary": "Season Rankings",
-        "description": "GET /leaderboards/rankings/season/:season[/region/:region], 40 per page in the game; a token is required although the board is public\n\nLibrary: `krunker.as(token).ranked.leaderboard()`",
+        "description": "`me.ranked.leaderboard(season, { limit, offset, region })`\n\nThe game reads 40 per page; `limit` 1 to 100, `offset` 0 based. Regions are the ranked region ids (2 Asia, 3 Europe, 4 North America).\n\n```ts\ntype SeasonRankings = {\n    leaderboard: { position: number; profile: { player_name: string; conservative_rating: number; total_matches: number; rank: number } }[];\n    totalPages: number;\n};\n```",
         "tags": [
           "token/ranked"
         ],
         "x-krapi": "krunker.as(token).ranked.leaderboard()",
         "x-routes": [
           "token.ranked.leaderboard"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst leaderboard = await krunker.as(token).ranked.leaderboard(season, { region, limit, offset });\n"
+          }
         ],
         "security": [
           {
@@ -6861,13 +7978,20 @@
       "get": {
         "operationId": "token.ranked.profile",
         "summary": "Ranked Profile",
-        "description": "GET /player-profile/me/season/:season[/region/:region], the player's ranked card with season totals (accuracy included)\n\nLibrary: `krunker.as(token).ranked.profile()`",
+        "description": "`me.ranked.profile(season, region?)`\n\nThe player's ranked card with season totals. `total_accuracy` here is the only aggregate ranked accuracy anywhere in Krunker's APIs, and it is own account only.\n\n```ts\ntype RankedProfile = {\n    profile: {\n        player_id: number;\n        season: number;\n        rank: number;\n        mu: number;\n        sigma: number;\n        conservative_rating: number;\n        wins: number;\n        losses: number;\n        total_matches: number;\n        total_kills: number;\n        total_deaths: number;\n        total_assists: number;\n        total_score: number;\n        total_objective_score: number;\n        total_accuracy: number;\n        total_damage_done: number;\n        total_time_played: number;\n        highest_kill_count: number;\n        highest_damage_in_match: number;\n        player_score: number;\n        level: number;\n        last_milestone_claimed: number;\n        player_name: string;\n    };\n    milestones: { id: number; matches: number; reward: number }[];\n};\n```",
         "tags": [
           "token/ranked"
         ],
         "x-krapi": "krunker.as(token).ranked.profile()",
         "x-routes": [
           "token.ranked.profile"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst profile = await krunker.as(token).ranked.profile(season, region);\n"
+          }
         ],
         "security": [
           {
@@ -6926,13 +8050,20 @@
       "get": {
         "operationId": "token.ranked.profile.region",
         "summary": "Ranked Profile",
-        "description": "GET /player-profile/me/season/:season[/region/:region], the player's ranked card with season totals (accuracy included)\n\nLibrary: `krunker.as(token).ranked.profile()`",
+        "description": "`me.ranked.profile(season, region?)`\n\nThe player's ranked card with season totals. `total_accuracy` here is the only aggregate ranked accuracy anywhere in Krunker's APIs, and it is own account only.\n\n```ts\ntype RankedProfile = {\n    profile: {\n        player_id: number;\n        season: number;\n        rank: number;\n        mu: number;\n        sigma: number;\n        conservative_rating: number;\n        wins: number;\n        losses: number;\n        total_matches: number;\n        total_kills: number;\n        total_deaths: number;\n        total_assists: number;\n        total_score: number;\n        total_objective_score: number;\n        total_accuracy: number;\n        total_damage_done: number;\n        total_time_played: number;\n        highest_kill_count: number;\n        highest_damage_in_match: number;\n        player_score: number;\n        level: number;\n        last_milestone_claimed: number;\n        player_name: string;\n    };\n    milestones: { id: number; matches: number; reward: number }[];\n};\n```",
         "tags": [
           "token/ranked"
         ],
         "x-krapi": "krunker.as(token).ranked.profile()",
         "x-routes": [
           "token.ranked.profile"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst profile = await krunker.as(token).ranked.profile(season, region);\n"
+          }
         ],
         "security": [
           {
@@ -7000,13 +8131,20 @@
       "get": {
         "operationId": "token.ranked.matchHistory",
         "summary": "Match History",
-        "description": "GET /match-history/me/season/:season/gameMode/:mode/isRanked/:ranked[/region/:region]; the game sends the literal \"undefined\" as mode for all modes, which the api accepts\n\nLibrary: `krunker.as(token).ranked.matchHistory()`",
+        "description": "`me.ranked.matchHistory(season, { limit, offset, gameMode, isRanked, region })`\n\n`:mode` is a gamemode id or the literal `undefined` for all modes (that is what the game sends, and the API accepts it), `:ranked` is `true`, `false` or `all`. The game reads 5 per page. Returns `{matchHistory: {matches, totalPages}}`.",
         "tags": [
           "token/ranked"
         ],
         "x-krapi": "krunker.as(token).ranked.matchHistory()",
         "x-routes": [
           "token.ranked.matchHistory"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst matchHistory = await krunker.as(token).ranked.matchHistory(season, { gameMode, isRanked, region, limit, offset });\n"
+          }
         ],
         "security": [
           {
@@ -7121,13 +8259,20 @@
       "get": {
         "operationId": "token.ranked.matchHistory.region",
         "summary": "Match History",
-        "description": "GET /match-history/me/season/:season/gameMode/:mode/isRanked/:ranked[/region/:region]; the game sends the literal \"undefined\" as mode for all modes, which the api accepts\n\nLibrary: `krunker.as(token).ranked.matchHistory()`",
+        "description": "`me.ranked.matchHistory(season, { limit, offset, gameMode, isRanked, region })`\n\n`:mode` is a gamemode id or the literal `undefined` for all modes (that is what the game sends, and the API accepts it), `:ranked` is `true`, `false` or `all`. The game reads 5 per page. Returns `{matchHistory: {matches, totalPages}}`.",
         "tags": [
           "token/ranked"
         ],
         "x-krapi": "krunker.as(token).ranked.matchHistory()",
         "x-routes": [
           "token.ranked.matchHistory"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst matchHistory = await krunker.as(token).ranked.matchHistory(season, { gameMode, isRanked, region, limit, offset });\n"
+          }
         ],
         "security": [
           {
@@ -7251,13 +8396,20 @@
       "get": {
         "operationId": "token.ranked.connection",
         "summary": "Connection",
-        "description": "GET /ranked/me/connection, the ranked lobby the player is bound to, serverUrl null without one\n\nLibrary: `krunker.as(token).ranked.connection()`",
+        "description": "`me.ranked.connection()`\n\nThe ranked lobby the player is bound to: `{serverUrl}`, null without one.",
         "tags": [
           "token/ranked"
         ],
         "x-krapi": "krunker.as(token).ranked.connection()",
         "x-routes": [
           "token.ranked.connection"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst connection = await krunker.as(token).ranked.connection();\n"
+          }
         ],
         "security": [
           {
@@ -7306,13 +8458,20 @@
       "get": {
         "operationId": "token.ranked.dailySpin",
         "summary": "Daily Spin",
-        "description": "GET /daily-spin/progress, the daily spin meter\n\nLibrary: `krunker.as(token).ranked.dailySpin()`",
+        "description": "`me.ranked.dailySpin()`\n\nThe daily spin meter: `{score, maxScore, stage, timeRemaining, claimed}`, `timeRemaining` in seconds.",
         "tags": [
           "token/ranked"
         ],
         "x-krapi": "krunker.as(token).ranked.dailySpin()",
         "x-routes": [
           "token.ranked.dailySpin"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst dailySpin = await krunker.as(token).ranked.dailySpin();\n"
+          }
         ],
         "security": [
           {
@@ -7361,13 +8520,20 @@
       "get": {
         "operationId": "token.shop.ranked",
         "summary": "Ranked Shop",
-        "description": "GET /ranked/shop, with the player's purchase counts\n\nLibrary: `krunker.as(token).shop.ranked()`",
+        "description": "`me.shop.ranked()`\n\nThe skins bought with ranked currency, with the player's purchase counts: `{skins: {id, skin_id, price, max_purchase, purchase_count}[]}`.",
         "tags": [
           "token/shop"
         ],
         "x-krapi": "krunker.as(token).shop.ranked()",
         "x-routes": [
           "token.shop.ranked"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst ranked = await krunker.as(token).shop.ranked();\n"
+          }
         ],
         "security": [
           {
@@ -7416,13 +8582,20 @@
       "get": {
         "operationId": "token.shop.wildOffer",
         "summary": "Wild Offer",
-        "description": "GET /shop/wild-offer, a 200 with {error} inside data when there is none\n\nLibrary: `krunker.as(token).shop.wildOffer()`",
+        "description": "`me.shop.wildOffer()`\n\nA 200 with `{error: \"Wild offer is not available\"}` inside `data` when there is none. krapi returns that object as is, check for an `error` key.",
         "tags": [
           "token/shop"
         ],
         "x-krapi": "krunker.as(token).shop.wildOffer()",
         "x-routes": [
           "token.shop.wildOffer"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst wildOffer = await krunker.as(token).shop.wildOffer();\n"
+          }
         ],
         "security": [
           {
@@ -7471,13 +8644,20 @@
       "get": {
         "operationId": "token.shop.wristband",
         "summary": "Wristband",
-        "description": "GET /krunkcup/wristband, the player's wristband skin and whether it was claimed\n\nLibrary: `krunker.as(token).shop.wristband()`",
+        "description": "`me.shop.wristband()`\n\nThe player's KrunkCup wristband skin and whether it was claimed: `{skin_index, claimed, style, instance_id}`.",
         "tags": [
           "token/shop"
         ],
         "x-krapi": "krunker.as(token).shop.wristband()",
         "x-routes": [
           "token.shop.wristband"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst wristband = await krunker.as(token).shop.wristband();\n"
+          }
         ],
         "security": [
           {
@@ -7526,13 +8706,20 @@
       "get": {
         "operationId": "token.shop.customSkins",
         "summary": "Custom Skins",
-        "description": "GET /skins, the player's custom skins\n\nLibrary: `krunker.as(token).shop.customSkins()`",
+        "description": "`me.shop.customSkins({ page, page_size, type, weapon, search })`, `me.shop.customSkin(skinId)`\n\nThe player's own skins from the skin editor, `page_size` 1 to 100.\n\n```ts\ntype CustomSkinsPage = {\n    skins: CustomSkin[];\n    total: number;\n    page: number;\n    pageSize: number;\n};\n\ntype CustomSkin = {\n    skinId: number;\n    name: string;\n    type: number;\n    weapon: number;\n    rarity: number;\n    itemConfig: Record<string, unknown>;\n    playerId: number;\n    createdAt: string;\n    updatedAt: string;\n};\n```",
         "tags": [
           "token/shop"
         ],
         "x-krapi": "krunker.as(token).shop.customSkins()",
         "x-routes": [
           "token.shop.customSkins"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst customSkins = await krunker.as(token).shop.customSkins({ page, page_size, type, weapon, search });\n"
+          }
         ],
         "security": [
           {
@@ -7627,14 +8814,21 @@
     "/skins/{skinId}": {
       "get": {
         "operationId": "token.shop.customSkin",
-        "summary": "one custom skin",
-        "description": "GET /skins/:id, one custom skin\n\nLibrary: `krunker.as(token).shop.customSkin()`",
+        "summary": "Custom Skins",
+        "description": "`me.shop.customSkins({ page, page_size, type, weapon, search })`, `me.shop.customSkin(skinId)`\n\nThe player's own skins from the skin editor, `page_size` 1 to 100.\n\n```ts\ntype CustomSkinsPage = {\n    skins: CustomSkin[];\n    total: number;\n    page: number;\n    pageSize: number;\n};\n\ntype CustomSkin = {\n    skinId: number;\n    name: string;\n    type: number;\n    weapon: number;\n    rarity: number;\n    itemConfig: Record<string, unknown>;\n    playerId: number;\n    createdAt: string;\n    updatedAt: string;\n};\n```",
         "tags": [
           "token/shop"
         ],
         "x-krapi": "krunker.as(token).shop.customSkin()",
         "x-routes": [
           "token.shop.customSkin"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst customSkin = await krunker.as(token).shop.customSkin(skinId);\n"
+          }
         ],
         "security": [
           {
@@ -7693,13 +8887,20 @@
       "get": {
         "operationId": "token.staff.chatBan",
         "summary": "a player's chat ban",
-        "description": "GET /moderation/chat/:name, a player's chat ban\n\nLibrary: `krunker.as(token).staff.chatBan()`",
+        "description": "a player's chat ban",
         "tags": [
           "token/staff"
         ],
         "x-krapi": "krunker.as(token).staff.chatBan()",
         "x-routes": [
           "token.staff.chatBan"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst chatBan = await krunker.as(token).staff.chatBan(playerName);\n"
+          }
         ],
         "security": [
           {
@@ -7713,7 +8914,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "example": "NulPing"
             }
           }
         ],
@@ -7756,13 +8958,20 @@
       "get": {
         "operationId": "token.staff.reports",
         "summary": "403 \"not authorized\" for everyone else",
-        "description": "GET /players/:name/reports, 403 \"not authorized\" for everyone else\n\nLibrary: `krunker.as(token).staff.reports()`",
+        "description": "403 \"not authorized\" for everyone else",
         "tags": [
           "token/staff"
         ],
         "x-krapi": "krunker.as(token).staff.reports()",
         "x-routes": [
           "token.staff.reports"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst reports = await krunker.as(token).staff.reports(playerName);\n"
+          }
         ],
         "security": [
           {
@@ -7776,7 +8985,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "example": "NulPing"
             }
           }
         ],
@@ -7819,13 +9029,20 @@
       "get": {
         "operationId": "token.staff.kpdDemos",
         "summary": "the demo review queue",
-        "description": "GET /kpd/demos, the demo review queue\n\nLibrary: `krunker.as(token).staff.kpdDemos()`",
+        "description": "the demo review queue",
         "tags": [
           "token/staff"
         ],
         "x-krapi": "krunker.as(token).staff.kpdDemos()",
         "x-routes": [
           "token.staff.kpdDemos"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst kpdDemos = await krunker.as(token).staff.kpdDemos({ off, q });\n"
+          }
         ],
         "security": [
           {
@@ -7890,13 +9107,20 @@
       "get": {
         "operationId": "token.staff.kpdDemo",
         "summary": "ct is the review ticket the game passes along",
-        "description": "GET /kpd/demos/:id, ct is the review ticket the game passes along\n\nLibrary: `krunker.as(token).staff.kpdDemo()`",
+        "description": "ct is the review ticket the game passes along",
         "tags": [
           "token/staff"
         ],
         "x-krapi": "krunker.as(token).staff.kpdDemo()",
         "x-routes": [
           "token.staff.kpdDemo"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst kpdDemo = await krunker.as(token).staff.kpdDemo(demoId, ct);\n"
+          }
         ],
         "security": [
           {
@@ -7961,13 +9185,20 @@
       "get": {
         "operationId": "token.staff.kpdReviewers",
         "summary": "staff.kpdReviewers",
-        "description": "GET /kpd/reviewers\n\nLibrary: `krunker.as(token).staff.kpdReviewers()`",
+        "description": "",
         "tags": [
           "token/staff"
         ],
         "x-krapi": "krunker.as(token).staff.kpdReviewers()",
         "x-routes": [
           "token.staff.kpdReviewers"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst kpdReviewers = await krunker.as(token).staff.kpdReviewers();\n"
+          }
         ],
         "security": [
           {
@@ -8014,13 +9245,20 @@
       "get": {
         "operationId": "token.trades.history",
         "summary": "History",
-        "description": "GET /trades/history, open and completed trades of the player\n\nLibrary: `krunker.as(token).trades.history()`",
+        "description": "`me.trades.history({ offset, limit, includeOpen })`\n\nOpen and completed trades of the player, `limit` 1 to 100. krapi sends `include_open=0` only when `includeOpen` is `false`.\n\n```ts\ntype TradeHistory = {\n    open: Trade[];\n    completed: Trade[];\n};\n\ntype Trade = {\n    trid: number;\n    sksell: { ind: number }[];         // items offered\n    skbuy: { ind: number }[];          // items asked for\n    csell: { cid: number; amt: number }[];\n    cbuy: { cid: number; amt: number }[];\n    pl: number;                        // the other player's id\n    buy: number;                       // the buyer's id\n    buyer: string;\n    player: string;\n    message: string;\n    dte: string;                       // \"YYYY-MM-DD HH:MM:SS\"\n};\n```",
         "tags": [
           "token/trades"
         ],
         "x-krapi": "krunker.as(token).trades.history()",
         "x-routes": [
           "token.trades.history"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst history = await krunker.as(token).trades.history({ offset, limit, includeOpen });\n"
+          }
         ],
         "security": [
           {
@@ -8099,13 +9337,20 @@
       "get": {
         "operationId": "token.trades.inventory",
         "summary": "Trade Inventories",
-        "description": "GET /trades/inventory/:playerId, both inventories side by side\n\nLibrary: `krunker.as(token).trades.inventory()`",
+        "description": "`me.trades.inventory(playerId)`\n\nBoth inventories side by side: `{my_inventory, their_inventory}`, each `{i, cnt, sid, st}[]`.",
         "tags": [
           "token/trades"
         ],
         "x-krapi": "krunker.as(token).trades.inventory()",
         "x-routes": [
           "token.trades.inventory"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst inventory = await krunker.as(token).trades.inventory(playerId);\n"
+          }
         ],
         "security": [
           {
@@ -8164,13 +9409,20 @@
       "get": {
         "operationId": "token.trades.playerSearch",
         "summary": "Player Search",
-        "description": "GET /trades/player-search, one player by exact name\n\nLibrary: `krunker.as(token).trades.playerSearch()`",
+        "description": "`me.trades.playerSearch(playerName)`\n\nOne player by exact name: `{player_id, player_name, player_score}`.",
         "tags": [
           "token/trades"
         ],
         "x-krapi": "krunker.as(token).trades.playerSearch()",
         "x-routes": [
           "token.trades.playerSearch"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "ts",
+            "label": "krapi",
+            "source": "import { Krunker } from \"krapi\";\n\nconst krunker = new Krunker();\nconst playerSearch = await krunker.as(token).trades.playerSearch(playerName);\n"
+          }
         ],
         "security": [
           {
@@ -8370,13 +9622,15 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TradeItem"
-            }
+            },
+            "description": "items offered"
           },
           "skbuy": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TradeItem"
-            }
+            },
+            "description": "items asked for"
           },
           "csell": {
             "type": "array",
@@ -9639,7 +10893,8 @@
                   "type": "number"
                 },
                 "comparison_kills": {
-                  "type": "number"
+                  "type": "number",
+                  "description": "the clan one position up"
                 },
                 "comparison_deaths": {
                   "type": "number"
@@ -9712,7 +10967,8 @@
             "type": "number"
           },
           "comparison_kills": {
-            "type": "number"
+            "type": "number",
+            "description": "the clan one position up"
           },
           "comparison_deaths": {
             "type": "number"
@@ -9760,7 +11016,8 @@
             "type": "string"
           },
           "clan_id": {
-            "type": "number"
+            "type": "number",
+            "description": "the owner"
           },
           "clan_name": {
             "type": "string"
@@ -9893,7 +11150,8 @@
             "description": "poster name and id"
           },
           "pli": {
-            "type": "number"
+            "type": "number",
+            "description": "poster id"
           },
           "tim": {
             "type": "number"
@@ -10621,49 +11879,64 @@
             "description": "score per class, c0 to c15"
           },
           "c1": {
-            "type": "number"
+            "type": "number",
+            "description": "score with class 1"
           },
           "c2": {
-            "type": "number"
+            "type": "number",
+            "description": "score with class 2"
           },
           "c3": {
-            "type": "number"
+            "type": "number",
+            "description": "score with class 3"
           },
           "c4": {
-            "type": "number"
+            "type": "number",
+            "description": "score with class 4"
           },
           "c5": {
-            "type": "number"
+            "type": "number",
+            "description": "score with class 5"
           },
           "c6": {
-            "type": "number"
+            "type": "number",
+            "description": "score with class 6"
           },
           "c7": {
-            "type": "number"
+            "type": "number",
+            "description": "score with class 7"
           },
           "c8": {
-            "type": "number"
+            "type": "number",
+            "description": "score with class 8"
           },
           "c9": {
-            "type": "number"
+            "type": "number",
+            "description": "score with class 9"
           },
           "c10": {
-            "type": "number"
+            "type": "number",
+            "description": "score with class 10"
           },
           "c11": {
-            "type": "number"
+            "type": "number",
+            "description": "score with class 11"
           },
           "c12": {
-            "type": "number"
+            "type": "number",
+            "description": "score with class 12"
           },
           "c13": {
-            "type": "number"
+            "type": "number",
+            "description": "score with class 13"
           },
           "c14": {
-            "type": "number"
+            "type": "number",
+            "description": "score with class 14"
           },
           "c15": {
-            "type": "number"
+            "type": "number",
+            "description": "score with class 15"
           }
         },
         "required": [
@@ -11412,7 +12685,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ItemOwner"
-            }
+            },
+            "description": "name, count owned, staff, featured, cr"
           },
           "sales": {
             "type": "array",
@@ -11934,13 +13208,15 @@
             "$ref": "#/components/schemas/LootDistributionMode"
           },
           "clan_pct": {
-            "type": "number"
+            "type": "number",
+            "description": "the treasury cut"
           },
           "top_player_count": {
             "type": "number"
           },
           "top_player_pct": {
-            "type": "number"
+            "type": "number",
+            "description": "top_player_pct + remainder_pct = 100"
           },
           "remainder_pct": {
             "type": "number"
@@ -12237,58 +13513,76 @@
         "type": "object",
         "properties": {
           "match_id": {
-            "type": "number"
+            "type": "number",
+            "description": "Unique match identifier"
           },
           "date": {
-            "type": "string"
+            "type": "string",
+            "description": "Match date (RFC3339 format)"
           },
           "map": {
-            "type": "number"
+            "type": "number",
+            "description": "Map ID"
           },
           "duration": {
-            "type": "number"
+            "type": "number",
+            "description": "Match duration in seconds"
           },
           "season": {
-            "type": "number"
+            "type": "number",
+            "description": "Ranked season number"
           },
           "region": {
-            "type": "number"
+            "type": "number",
+            "description": "Region ID"
           },
           "kills": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's kills in this match"
           },
           "deaths": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's deaths in this match"
           },
           "assists": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's assists in this match"
           },
           "score": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's score in this match"
           },
           "damage_done": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's damage dealt in this match"
           },
           "headshots": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's headshots in this match"
           },
           "accuracy": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's accuracy percentage"
           },
           "objective_score": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's objective score"
           },
           "kr": {
-            "type": "number"
+            "type": "number",
+            "description": "KR earned from this match"
           },
           "victory": {
-            "$ref": "#/components/schemas/MatchResult"
+            "$ref": "#/components/schemas/MatchResult",
+            "description": "Match result (1 = win, 0 = loss, -1 = draw)"
           },
           "rounds_won": {
-            "type": "number"
+            "type": "number",
+            "description": "Rounds won by player's team"
           },
           "team": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's team number"
           },
           "play_time": {
             "type": "number",
@@ -12359,13 +13653,16 @@
         "type": "object",
         "properties": {
           "skin_index": {
-            "type": "number"
+            "type": "number",
+            "description": "Identifier for the skin being sold"
           },
           "price": {
-            "type": "number"
+            "type": "number",
+            "description": "Listing price in KR"
           },
           "listed_at": {
-            "type": "string"
+            "type": "string",
+            "description": "When the listing was created"
           }
         },
         "required": [
@@ -12379,7 +13676,8 @@
         "type": "object",
         "properties": {
           "skin_index": {
-            "type": "number"
+            "type": "number",
+            "description": "Identifier for the skin"
           },
           "skin_id": {
             "type": "number",
@@ -12919,40 +14217,52 @@
             "type": "string"
           },
           "kills": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's kills in this match"
           },
           "deaths": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's deaths in this match"
           },
           "assists": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's assists in this match"
           },
           "score": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's score in this match"
           },
           "damage_done": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's damage dealt in this match"
           },
           "headshots": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's headshots in this match"
           },
           "accuracy": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's accuracy percentage"
           },
           "objective_score": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's objective score"
           },
           "victory": {
-            "$ref": "#/components/schemas/MatchResult"
+            "$ref": "#/components/schemas/MatchResult",
+            "description": "Match result (1 = win, 0 = loss, -1 = draw)"
           },
           "rounds_won": {
-            "type": "number"
+            "type": "number",
+            "description": "Rounds won by player's team"
           },
           "team": {
-            "type": "number"
+            "type": "number",
+            "description": "Player's team number"
           },
           "play_time": {
-            "type": "number"
+            "type": "number",
+            "description": "milliseconds"
           }
         },
         "required": [
@@ -13456,75 +14766,92 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number"
+            "type": "number",
+            "description": "Report id"
           },
           "date": {
             "type": "string",
             "description": "rfc3339 utc"
           },
           "caller_id": {
-            "type": "number"
+            "type": "number",
+            "description": "Reporter player id"
           },
           "caller_name": {
-            "type": "string"
+            "type": "string",
+            "description": "Reporter name"
           },
           "caller_score": {
-            "type": "number"
+            "type": "number",
+            "description": "Reporter score"
           },
           "caller_job_rating": {
-            "type": "number"
+            "type": "number",
+            "description": "Reporter's total KPD job rating"
           },
           "caller_job_rating_positive": {
             "type": "number",
             "description": "correct calls of the reporter"
           },
           "called_id": {
-            "type": "number"
+            "type": "number",
+            "description": "Reported player id"
           },
           "called_name": {
             "type": "string",
             "description": "\"guest\" when unregistered"
           },
           "called_score": {
-            "type": "number"
+            "type": "number",
+            "description": "Reported player score"
           },
           "kdf_type": {
-            "$ref": "#/components/schemas/KpdCallContext"
+            "$ref": "#/components/schemas/KpdCallContext",
+            "description": "Call context: 0=public, 1=ranked, 2=comp, 3=custom"
           },
           "kdf_type_label": {
-            "type": "string"
+            "type": "string",
+            "description": "Readable kdf_type"
           },
           "status": {
-            "$ref": "#/components/schemas/KpdCallStatus"
+            "$ref": "#/components/schemas/KpdCallStatus",
+            "description": "1=not responded, 2=responded, 3=reviewed"
           },
           "status_label": {
-            "type": "string"
+            "type": "string",
+            "description": "Readable status"
           },
           "rating": {
-            "$ref": "#/components/schemas/KpdCallRating"
+            "$ref": "#/components/schemas/KpdCallRating",
+            "description": "Officer verdict: 0=pending, 1=banned, 2=rejected"
           },
           "rating_label": {
-            "type": "string"
+            "type": "string",
+            "description": "Readable rating"
           },
           "officer_id": {
             "type": "number",
             "description": "0 without one"
           },
           "officer_name": {
-            "type": "string"
+            "type": "string",
+            "description": "Officer name"
           },
           "status_date": {
             "type": "string",
             "description": "last status change, rfc3339 utc"
           },
           "game_code": {
-            "type": "string"
+            "type": "string",
+            "description": "Game instance code"
           },
           "host": {
-            "type": "string"
+            "type": "string",
+            "description": "Game server host"
           },
           "port": {
-            "type": "string"
+            "type": "string",
+            "description": "Game server port"
           },
           "token": {
             "type": "string",
@@ -13719,13 +15046,16 @@
         "type": "object",
         "properties": {
           "player_name": {
-            "type": "string"
+            "type": "string",
+            "description": "Member's username"
           },
           "role": {
-            "type": "number"
+            "type": "number",
+            "description": "Member's role in the clan"
           },
           "verified": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the player is verified"
           },
           "score": {
             "type": "number",

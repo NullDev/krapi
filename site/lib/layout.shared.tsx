@@ -7,6 +7,7 @@ export function baseOptions(): BaseLayoutProps {
         links: [
             { text: "Documentation", url: "/docs", active: "nested-url" },
             { text: "Reference", url: "/docs/reference", active: "nested-url" },
+            { text: "OpenAPI", url: "/openapi", active: "nested-url" },
             { text: "npm", url: "https://www.npmjs.com/package/krapi", external: true },
         ],
     };

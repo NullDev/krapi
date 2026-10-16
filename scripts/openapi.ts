@@ -37,6 +37,8 @@ type Operation = {
     file: string;
     className: string;
     method: string;
+    /** the library call with its arguments, e.g. `matches(playerName, { page, season })` */
+    call: string;
     route: string;
     paths: Segment[];
     query: Param[];
@@ -276,6 +278,39 @@ const CHECKS: Record<string, (args: readonly ts.Expression[]) => { schema: Json;
     oneOf: () => ({ schema: {}, required: false }),
 };
 
+/** the method parameter a value comes from, and the property of it when it is a query object */
+function rootOf(node: ts.Node, method: ts.MethodDeclaration): { param: string; property?: string } | undefined {
+    if (ts.isIdentifier(node)){
+        if (method.parameters.some((p) => p.name.getText() === node.text)) return { param: node.text };
+        const declaration = checker.getSymbolAtLocation(node)?.valueDeclaration;
+        return declaration && ts.isVariableDeclaration(declaration) && declaration.initializer ? rootOf(declaration.initializer, method) : undefined;
+    }
+    if (ts.isPropertyAccessExpression(node)){
+        const inner = rootOf(node.expression, method);
+        return inner && !inner.property ? { param: inner.param, property: node.name.text } : inner;
+    }
+    if (ts.isCallExpression(node)) return node.arguments[0] ? rootOf(node.arguments[0], method) : undefined;
+    if (ts.isBinaryExpression(node)) return rootOf(node.left, method);
+    if (ts.isConditionalExpression(node)) return rootOf(node.whenTrue, method) ?? rootOf(node.whenFalse, method) ?? rootOf(node.condition, method);
+    if (ts.isTemplateExpression(node)) return node.templateSpans[0] ? rootOf(node.templateSpans[0].expression, method) : undefined;
+    return undefined;
+}
+
+/** `matches(playerName, { page, season })`: every parameter by name, query objects as the properties the call reads */
+function callOf(member: ts.MethodDeclaration, values: ts.Node[]): string {
+    const properties = new Map<string, Set<string>>();
+    for (const value of values){
+        const origin = rootOf(value, member);
+        if (origin?.property) (properties.get(origin.param) ?? properties.set(origin.param, new Set()).get(origin.param)!).add(origin.property);
+    }
+    const args = member.parameters.map((p) => {
+        const name = p.name.getText();
+        const used = properties.get(name);
+        return used?.size ? `{ ${[...used].join(", ")} }` : name;
+    });
+    return `${member.name.getText()}(${args.join(", ")})`;
+}
+
 /** the schema and requiredness of one query value expression */
 function describeValue(node: ts.Expression, method: ts.MethodDeclaration): Omit<Param, "name" | "in"> {
     if (ts.isBinaryExpression(node) && node.operatorToken.kind === ts.SyntaxKind.QuestionQuestionToken){
@@ -437,6 +472,7 @@ function collectOperations(): Operation[] {
                     const paths = ts.isTemplateExpression(pathArg) ? segmentsOfTemplate(pathArg, member)
                         : [{ text: ts.isStringLiteral(pathArg) || ts.isNoSubstitutionTemplateLiteral(pathArg) ? pathArg.text : pathArg.getText(), params: [] }];
                     const query: Param[] = [];
+                    const values: ts.Node[] = ts.isTemplateExpression(pathArg) ? pathArg.templateSpans.map((s) => s.expression) : [];
                     const queryNode = option("query");
                     if (queryNode && ts.isObjectLiteralExpression(queryNode)){
                         for (const property of queryNode.properties){
@@ -446,6 +482,7 @@ function collectOperations(): Operation[] {
                             if (ts.isPropertyAssignment(property)) value = property.initializer;
                             else if (ts.isShorthandPropertyAssignment(property)) value = property.name;
                             if (!value) continue;
+                            values.push(value);
                             query.push({ name, "in": "query", ...describeValue(value, member) });
                         }
                     }
@@ -460,6 +497,7 @@ function collectOperations(): Operation[] {
                         file,
                         className,
                         method: member.name.getText(),
+                        call: callOf(member, values),
                         route,
                         paths,
                         query,
@@ -477,33 +515,83 @@ function collectOperations(): Operation[] {
 
 /* ---------- titles and descriptions from the docs ---------- */
 
-type DocTables = Map<string, { title: string; fields: Map<string, string>; params: Map<string, string> }>;
+type DocSection = { title: string; endpoints: string[]; fields: Map<string, string>; params: Map<string, string>; example?: unknown; prose: string };
+type DocGroup = { heading: string; intro: string; endpoints: string[]; sections: DocSection[] };
+type DocHit = { section?: DocSection; group: DocGroup };
+type Doc = { groups: DocGroup[]; byPath: Map<string, DocHit[]> };
 
-const normalizePath = (path: string): string => path.toLowerCase().replace(/(:[a-z_]+|\{[a-z_]+\})/g, "{}");
+const normalizePath = (path: string): string => path.replace(/\?.*$/, "").toLowerCase().replace(/(:[a-z_]+|\{[a-z_]+\})/g, "{}");
 
-/** the heading, Parameters table and Response Fields table of every endpoint section of a doc, keyed by normalized path */
-function readDocTables(doc: string): DocTables {
-    const tables: DocTables = new Map();
-    const text = readFileSync(join(root, "docs", doc), "utf8");
-    for (const section of text.split(/^### /m).slice(1)){
-        const path = section.match(/^GET (\/[^\s?]+)/m)?.[1];
-        if (!path) continue;
-        const title = section.split("\n")[0]?.trim() ?? "";
-        const rows = (heading: string): Map<string, string> => {
-            const map = new Map<string, string>();
-            const start = section.indexOf(`**${heading}:**`);
-            if (start < 0) return map;
-            const block = section.slice(start).split(/\n\s*\n/)[1] ?? "";
-            for (const line of block.split("\n")){
-                const cells = line.split("|").map((c) => c.trim());
-                if (cells.length < 4 || cells[1] === "Field" || cells[1] === "Name" || cells[1]?.startsWith("---")) continue;
-                map.set(cells[1]!.replace(/\\/g, ""), cells[cells.length - 2]!);
-            }
-            return map;
-        };
-        tables.set(normalizePath(path), { title, fields: rows("Response Fields"), params: rows("Parameters") });
+/** the normalized paths of the ```http blocks of a piece of markdown */
+const endpointsOf = (text: string): string[] =>
+    [...text.matchAll(/^```http\n([\s\S]*?)^```/gm)].flatMap((block) => [...block[1]!.matchAll(/^GET (\S+)/gm)].map((line) => normalizePath(line[1]!)));
+
+/** the rows of a `**Heading:**` table: name to description */
+function rows(body: string, heading: string): Map<string, string> {
+    const map = new Map<string, string>();
+    const start = body.indexOf(`**${heading}:**`);
+    if (start < 0) return map;
+    const block = body.slice(start).split(/\n\s*\n/)[1] ?? "";
+    for (const line of block.split("\n")){
+        const cells = line.split("|").map((c) => c.trim());
+        if (cells.length < 4 || cells[1] === "Field" || cells[1] === "Name" || cells[1]?.startsWith("---")) continue;
+        map.set(cells[1]!.replace(/\\/g, ""), cells[cells.length - 2]!);
     }
-    return tables;
+    return map;
+}
+
+/** the example reply of a section, when it is plain json */
+function exampleOf(body: string): unknown {
+    const reply = body.match(/\*\*Response:\*\*\s*```json\n([\s\S]*?)```/)?.[1];
+    if (!reply) return undefined;
+    try {
+        return JSON.parse(reply);
+    }
+    catch {
+        return undefined;
+    }
+}
+
+/**
+ * a section as the description of its operation, tables and shapes included; only the path line, the example reply
+ * (shown as the response example) and the library call (shown as the krapi code sample) are taken out
+ */
+function proseOf(body: string): string {
+    return body
+        .replace(/^```http\n[\s\S]*?^```\n?/gm, "")
+        .replace(/\*\*Response:\*\*\s*```json\n[\s\S]*?```\n?/g, "")
+        .replace(/^`krunker\..*`[ \t]*$/gm, "")
+        .replace(/^---[ \t]*$/gm, "")
+        .replace(/\n{3,}/g, "\n\n")
+        .trim();
+}
+
+/** the `##` groups of a doc with their `###` endpoint sections, and every endpoint keyed by normalized path */
+function readDoc(doc: string): Doc {
+    const text = readFileSync(join(root, "docs", doc), "utf8");
+    const groups: DocGroup[] = [];
+    const byPath: Doc["byPath"] = new Map();
+    for (const chunk of text.split(/^## /m).slice(1)){
+        const [intro = "", ...rest] = chunk.split(/^### /m);
+        const introBody = intro.slice(intro.indexOf("\n") + 1);
+        const group: DocGroup = { heading: intro.split("\n")[0]!.trim(), intro: proseOf(introBody), endpoints: endpointsOf(introBody), sections: [] };
+        for (const part of rest){
+            const body = part.slice(part.indexOf("\n") + 1);
+            const section: DocSection = {
+                title: part.split("\n")[0]!.trim(),
+                endpoints: endpointsOf(body),
+                fields: rows(body, "Response Fields"),
+                params: rows(body, "Parameters"),
+                example: exampleOf(body),
+                prose: proseOf(body),
+            };
+            group.sections.push(section);
+            for (const path of section.endpoints) (byPath.get(path) ?? byPath.set(path, []).get(path)!).push({ section, group });
+        }
+        for (const path of group.endpoints) (byPath.get(path) ?? byPath.set(path, []).get(path)!).push({ group });
+        groups.push(group);
+    }
+    return { groups, byPath };
 }
 
 /* ---------- assembly ---------- */
@@ -583,36 +671,59 @@ export function buildSpec(): { spec: Json; warnings: string[] } {
     neededTypes.clear();
     const operations = collectOperations();
     const schemas = buildSchemas();
-    const docTables = Object.fromEntries((Object.keys(TIERS) as Tier[]).map((tier) => [tier, readDocTables(TIERS[tier].doc)])) as Record<Tier, DocTables>;
+    const docs = Object.fromEntries((Object.keys(TIERS) as Tier[]).map((tier) => [tier, readDoc(TIERS[tier].doc)])) as Record<Tier, Doc>;
     const paths: Json = {};
-    const tags = new Map<string, { name: string; description: string }>();
-    const groups: Record<Tier, string[]> = { developer: [], game: [], token: [] };
+    // a tag per resource class; its page takes the name and intro of the doc group holding its endpoints
+    const tags = new Map<string, { tier: Tier; accessor: string; className: string; file: string; group?: DocGroup }>();
+    const covered = new Set<string>();
+    const hitsOf = (op: Operation): DocHit[] => docs[op.tier].byPath.get(normalizePath(op.paths[0]?.text ?? "")) ?? [];
+    const tagOf = (op: Operation): string => `${op.tier}/${accessorOf.get(op.className) ?? op.className}`;
+
+    // the doc group of a resource is the one most of its endpoints are documented in
+    const votes = new Map<string, Map<DocGroup, number>>();
+    for (const op of operations){
+        const tally = votes.get(tagOf(op)) ?? votes.set(tagOf(op), new Map()).get(tagOf(op))!;
+        for (const hit of hitsOf(op)) tally.set(hit.group, (tally.get(hit.group) ?? 0) + 1);
+    }
+    for (const op of operations){
+        const tag = tagOf(op);
+        if (tags.has(tag)) continue;
+        const group = [...votes.get(tag) ?? []].sort((a, b) => b[1] - a[1])[0]?.[0];
+        tags.set(tag, { tier: op.tier, accessor: accessorOf.get(op.className) ?? op.className, className: op.className, file: op.file, group });
+    }
 
     for (const op of operations){
         const tier = TIERS[op.tier];
-        const accessor = accessorOf.get(op.className) ?? op.className;
-        const tag = `${op.tier}/${accessor}`;
-        if (!tags.has(tag)){
-            const classNode = program.getSourceFile(join(root, tier.dir, op.file))?.statements.find((s) => ts.isClassDeclaration(s) && s.name?.text === op.className);
-            tags.set(tag, { name: tag, description: classNode ? jsDocOf(classNode) : "" });
-            groups[op.tier].push(tag);
-        }
-        const tables = docTables[op.tier].get(normalizePath(op.paths[0]?.text ?? ""));
-        if (tables) applyFieldDescriptions(op.response, tables.fields, schemas);
+        const tag = tagOf(op);
+        const info = tags.get(tag)!;
+        const {accessor} = info;
+        const hits = hitsOf(op);
+        const section = (hits.find((h) => h.group === info.group) ?? hits[0])?.section;
+        if (section) applyFieldDescriptions(op.response, section.fields, schemas);
 
         for (const [index, variant] of op.paths.entries()){
+            covered.add(normalizePath(variant.text));
             const parameters = [...variant.params, ...op.query].map((p) => {
-                const described = { ...p };
-                if (!described.description && tables){
-                    const fromDoc = tables.params.get(p.name) ?? tables.params.get(p.name.toLowerCase());
+                const described = { ...p, schema: { ...p.schema } };
+                // the samples name a real account of the author, nobody else's
+                if (p.name === "playerName" && p.in === "path") described.schema.example = "NulPing";
+                if (!described.description && section){
+                    const fromDoc = section.params.get(p.name) ?? section.params.get(p.name.toLowerCase());
                     if (fromDoc) described.description = fromDoc;
                 }
                 return described;
             });
             const library = `${tier.accessor}.${accessor}.${op.method}()`;
+            const setup = op.tier === "developer" ? "new Krunker({ apiKey: process.env.KRUNKER_API_KEY })" : "new Krunker()";
+            const sample = {
+                lang: "ts",
+                label: "krapi",
+                source: `import { Krunker } from "krapi";\n\nconst krunker = ${setup};\nconst ${op.method} = await ${tier.accessor}.${accessor}.${op.call};\n`,
+            };
+            const description = section?.prose || op.description.replace(/^(GET|POST) \S+,?\s*/, "");
             const item = (paths[variant.text] ??= {}) as Json;
             if (item.get){
-                // two methods read the same path with different filters (players.feed and social.feed): one operation, both filters
+                // two methods read the same path with different filters (players.feed and social.feed): one operation on both pages, with both filters
                 const existing = item.get as Json;
                 const known = existing.parameters as Param[];
                 for (const param of parameters){
@@ -620,22 +731,27 @@ export function buildSpec(): { spec: Json; warnings: string[] } {
                     if (same) same.required = same.required && param.required;
                     else known.push({ ...param, required: false });
                 }
+                if (!(existing.tags as string[]).includes(tag)) (existing.tags as string[]).push(tag);
                 existing["x-krapi"] = [existing["x-krapi"], library].flat();
                 existing["x-routes"] = [existing["x-routes"], op.route].flat();
-                existing.description = `${existing.description as string}\n\nAlso \`${library}\`${op.description ? `: ${op.description}` : ""}`;
+                const samples = existing["x-codeSamples"] as { label: string }[];
+                samples[0]!.label = `krapi: ${(existing["x-krapi"] as string[])[0]!.split(".").slice(-2).join(".").replace("()", "")}`;
+                samples.push({ ...sample, label: `krapi: ${accessor}.${op.method}` });
+                if (description) existing.description = `${existing.description as string}\n\n${description}`;
                 continue;
             }
             const operation: Json = {
                 operationId: index === 0 ? op.route : `${op.route}.${variant.params[variant.params.length - 1]?.name ?? index}`,
-                summary: tables?.title || op.summary || `${accessor}.${op.method}`,
-                description: [op.description, `Library: \`${library}\``].filter(Boolean).join("\n\n"),
+                summary: section?.title || op.summary || `${accessor}.${op.method}`,
+                description,
                 tags: [tag],
                 "x-krapi": library,
                 "x-routes": [op.route],
+                "x-codeSamples": [sample],
                 security: tier.security,
                 parameters,
                 responses: {
-                    200: { description: "OK", content: { "application/json": { schema: op.response } } },
+                    200: { description: "OK", content: { "application/json": { schema: op.response, ...section?.example === undefined ? {} : { example: section.example } } } },
                     "default": { description: "Error", content: { "application/json": { schema: tier.error } } },
                 },
             };
@@ -643,6 +759,28 @@ export function buildSpec(): { spec: Json; warnings: string[] } {
             item.get = operation;
         }
     }
+
+    for (const tier of Object.keys(TIERS) as Tier[]){
+        for (const [path, hits] of docs[tier].byPath){
+            if (!covered.has(path)) warn(`${TIERS[tier].doc}: ${hits[0]?.section?.title ?? hits[0]?.group.heading} documents ${path}, which no resource reads`);
+        }
+    }
+
+    // pages in the order of the docs, resources the docs do not mention last
+    const ordered = [...tags.entries()].sort(([, a], [, b]) => {
+        const at = a.tier === b.tier ? 0 : (Object.keys(TIERS) as Tier[]).indexOf(a.tier) - (Object.keys(TIERS) as Tier[]).indexOf(b.tier);
+        if (at !== 0) return at;
+        const position = (info: typeof a): number => (info.group ? docs[info.tier].groups.indexOf(info.group) : Number.MAX_SAFE_INTEGER);
+        return position(a) - position(b);
+    });
+    const tagObjects = ordered.map(([name, info]) => {
+        const classNode = program.getSourceFile(join(root, TIERS[info.tier].dir, info.file))?.statements.find((s) => ts.isClassDeclaration(s) && s.name?.text === info.className);
+        return {
+            name,
+            "x-displayName": info.group?.heading ?? info.accessor.replace(/^./, (c) => c.toUpperCase()),
+            description: info.group?.intro || (classNode ? jsDocOf(classNode) : ""),
+        };
+    });
 
     const spec: Json = {
         openapi: "3.1.0",
@@ -658,8 +796,8 @@ export function buildSpec(): { spec: Json; warnings: string[] } {
             { url: LEGACY_API_URL, description: "the old rest api and the ranked api" },
             { url: MATCHMAKER_URL, description: "the lobby list" },
         ],
-        tags: [...tags.values()],
-        "x-tagGroups": (Object.keys(TIERS) as Tier[]).map((tier) => ({ name: TIERS[tier].title, tags: groups[tier] })),
+        tags: tagObjects,
+        "x-tagGroups": (Object.keys(TIERS) as Tier[]).map((tier) => ({ name: TIERS[tier].title, tags: ordered.filter(([, info]) => info.tier === tier).map(([name]) => name) })),
         paths,
         components: {
             securitySchemes: {
