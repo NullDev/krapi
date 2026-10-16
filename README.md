@@ -1,6 +1,14 @@
+[![License](https://img.shields.io/github/license/NullDev/krapi?label=License&logo=Creative%20Commons)](https://github.com/NullDev/krapi/blob/master/LICENSE)
+
 # krapi
 
-Typed client for the READ-ONLY Krunker.io APIs. Zero dependencies, ESM, works on Node 18+ and Bun.
+<p align="center"><img height="250" width="auto" src="https://raw.githubusercontent.com/NullDev/Kute/refs/heads/master/resources/icon.png" /></p>
+<p align="center"><b>Typed client for the READ-ONLY Krunker.io APIs. Zero dependencies, ESM, works on Node 18+ and Bun.</p>
+<hr>
+
+## :sparkles: What is it?
+
+krapi is a typed client for the READ-ONLY Krunker.io APIs. Zero dependencies, ESM, works on Node 18+ and Bun.
 
 It covers three things that live behind different doors:
 
@@ -10,9 +18,27 @@ It covers three things that live behind different doors:
 | game | what the game itself reads without any auth (market, turf, social, shop, matchmaker, legacy lists) | none | `krunker.game.*` |
 | token | what the game reads with the player's own FRVR token (wallet, inventory, trades, ranked profile, ...) | `Authorization: Bearer <jwt>` | `krunker.as(token).*` |
 
-Reads only. Every write of the game API (buying, listing, trading, posting) is left out on purpose.
+> [!WARNING]
+> Read only. Every write of the game API (buying, listing, trading, posting) is left out on purpose.
 
-## Install
+### Documentation
+
+Living Spec: https://nulldev.github.io/krapi/
+- Krunker APIs:
+  - https://nulldev.github.io/krapi/docs/developer-api/
+  - https://nulldev.github.io/krapi/docs/game-api/
+  - https://nulldev.github.io/krapi/docs/token-api/
+- krapi library: https://nulldev.github.io/krapi/docs/reference/
+
+Or in the Repo:
+- [Developer API](docs/developer-api.md)
+- [Game API](docs/game-api.md)
+- [Token API](docs/token-api.md)
+- [krapi library](docs/index.md)
+
+---
+
+## :wrench: Install
 
 ```sh
 bun add krapi
@@ -22,7 +48,9 @@ npm install krapi
 
 Bun runs the TypeScript source directly (`bun` export condition), Node gets the compiled ESM in `dist/` with declarations.
 
-## Usage
+---
+
+## :star: Usage
 
 ```ts
 import { Krunker } from "krapi";
@@ -51,7 +79,7 @@ console.log(me.claims.sub); // the player's frvr id, the one stable key for cach
 
 Every tier is also its own class when you only need one: `KrunkerDeveloperApi`, `KrunkerGameApi`, `KrunkerTokenApi`.
 
-### Resources
+### :question: Resources
 
 Developer (root): `player` (profile, inventory, listings, matches, posts), `match`, `clan` (profile, members), `leaderboard` (ranked), `map` (get, featured, leaderboard, leaderboardPlayer), `mods` (list, get), `market` (skin), `skins` (list, get), `kpd` (latestCalls, needs the `kpd` scope), `events` (list, needs an events scope).
 
@@ -62,6 +90,8 @@ Game (`krunker.game`): `players`, `clans`, `turf`, `leaderboards`, `game` (maps,
 Token (`krunker.as(token)`): `player`, `market`, `trades`, `shop`, `creator`, `staff` (moderator and KPD roles only), `ranked`.
 
 Response types are exported under the names the API uses (`PlayerProfile`, `MarketStats`, `Wallet`, ...), and every method documents its endpoint in its JSDoc. The APIs themselves are documented in `docs/`: [developer-api.md](docs/developer-api.md) (Krunker's document, corrected), [game-api.md](docs/game-api.md) and [token-api.md](docs/token-api.md) (the undocumented tiers, from the game code and live replies).
+
+---
 
 ## Options
 
@@ -78,6 +108,8 @@ new Krunker({
     };
 });
 ```
+
+---
 
 ## Errors
 
@@ -99,6 +131,8 @@ Every failure is a `KrunkerError` subclass, nothing else is thrown:
 
 `isNotFound`, `isRateLimited` and `isTransient` are small guards for the common branches.
 
+---
+
 ## Rate limits
 
 The developer key has 240 requests a minute. `gapi` also sends per route windows of 5 requests a second. The client mirrors the `X-RateLimit-*` headers of every reply:
@@ -109,15 +143,21 @@ The developer key has 240 requests a minute. `gapi` also sends per route windows
 
 One `Krunker` instance per key: the tracker lives on the instance, two instances cannot see each other's window.
 
+---
+
 ## No caching
 
 The library caches nothing. What changes rarely (skins, maps, mods) and what changes every second (market, matchmaker) need different policies, and the right store depends on where you run. Put your own cache in front of it. For the token tier, key it by `session.claims.sub`, never by the token.
+
+---
 
 ## Tokens
 
 A player token is sent as a bearer header and nothing else: never stored, never logged, never used for a write. The claims are decoded without verifying the signature (Krunker verifies it), only to refuse an expired token locally and to give you `sub`.
 
-## Development
+---
+
+## :octocat: Development
 
 ```sh
 bun install
@@ -135,3 +175,5 @@ cd site && bun install
 bun run dev   # syncs docs/ and the reference into content/, then next dev
 bun run build # the static export in site/out, served under /krapi (BASE_PATH="" for a domain of its own)
 ```
+
+---
