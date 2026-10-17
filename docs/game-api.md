@@ -611,7 +611,7 @@ type MarketStats = {
 };
 ```
 
-`ski` is the skin index, `inC` the count in circulation, `onS` the count on sale, `high` and `low` the ask range while something is listed.
+`ski` is the skin index, `inC` the count in circulation, `onS` the count on sale, `high` and `low` the ask range while something is listed (seen with `sort=rarity`, absent under other sorts). `onS` of a non tradable skin is noise: Atlantean Armour reports 20 on sale with zero listings anywhere.
 
 ### Item Sales Info
 
@@ -621,7 +621,7 @@ GET /market/items/:id/sales
 
 `krunker.game.market.itemSales(skinIndex)`
 
-Despite the path, no sales: the ask range, the circulation and the player id of every owner.
+Despite the path, no sales: the ask range, the circulation and the player ids of the top owners.
 
 ```ts
 type ItemSalesInfo = {
@@ -629,9 +629,11 @@ type ItemSalesInfo = {
     high: number;       // highest ask, 0 without listings
     low: number;        // lowest ask, 0 without listings
     inC: number;        // count in circulation
-    owners: number[];   // player ids of every owner, one entry per owner however many they hold
+    owners: number[];   // player ids of the top 100 owners, the same 100 the item view lists
 };
 ```
+
+The id list is capped at 100 and is never the whole owner base (Soul Essence, 6.7 million in circulation: 100 ids; Flame Tamer: 61 ids, and 61 owners on the item view). Measured 2026-10-17.
 
 ### Item Sales Statistics
 
@@ -657,14 +659,28 @@ GET /items/:id/view
 
 `krunker.game.items.view(skinIndex)`
 
+The whole order book of the skin in one reply, not a page of it: every live listing (41 of 42 for Codefall Paint, the missing one had sold between two calls; the developer api's market endpoint pages 10), the top 100 owners, about two weeks of daily sales and the stats.
+
 ```ts
 type ItemView = {
     stats: { onS: number; high: number; low: number; inC: number };
-    owners: { nm: string; ct: number; su: number; ft: number; cr: number }[];   // name, count owned, staff, featured, cr
-    sales: unknown[];
-    listings: unknown[];
+    owners: { nm: string; ct: number; su: number; ft: number; cr: number }[];   // top 100 by count: name, count owned, staff, featured, cr
+    sales: { f: number; t: number; d: string }[];                              // kr, count, YYYY-MM-DD, days with a sale
+    listings: ItemListing[];
     stackable: boolean;
     wearable: boolean;
+};
+
+type ItemListing = {
+    uid: number;
+    marketid: number;
+    skinid: number;         // the item instance
+    skinindex: number;
+    funds: number;          // ask in kr
+    seller_id: number;
+    seller_name: string;
+    listed_time: number;    // unix ms
+    m?: string;             // json text {"wear": 0.9013, "serial": 32}, only on wearable skins
 };
 ```
 
@@ -686,7 +702,15 @@ GET /items/:id/instances?sort=mint
 
 `krunker.game.items.instances(skinIndex, sort = "mint")`
 
-Only ever answered `[]`. `mint` is the game's default sort.
+The Mints and Wear tabs of a non stackable skin (the serial numbered Season 10 items): every instance's holder name, serial and, on wearable skins, wear. Stackable skins answer `[]`. Capped at 100 rows and not pageable: `page`, `offset`, `limit` and `cursor` are ignored, and any sort other than `mint` and `wear` falls back to `mint`. So a skin with up to 100 instances is complete (Roselle: 60, Bren Gun: 64), a bigger one gives the 100 lowest serials and the 100 lowest wears.
+
+```ts
+type ItemInstance = {
+    nm: string;       // holder's name
+    serial: number;
+    wear?: number;    // wearable skins only
+};
+```
 
 ---
 

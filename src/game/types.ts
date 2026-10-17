@@ -671,7 +671,7 @@ export type MarketStatsQuery = {
 /** one day of sales of an item: kr, count, date; GET /items/:id/sales and /market/items/:id/sales-statistics */
 export type ItemSale = PlayerSale;
 
-/** GET /market/items/:id/sales: the ask range, circulation and every owner's player id, despite the path no sales */
+/** GET /market/items/:id/sales: the ask range, circulation and the top owners' player ids, despite the path no sales */
 export type ItemSalesInfo = {
     /** skin index */
     ind: number;
@@ -681,8 +681,32 @@ export type ItemSalesInfo = {
     low: number;
     /** count in circulation */
     inC: number;
-    /** player ids of every owner, one entry per owner however many they hold */
+    /** player ids of the top 100 owners, the same 100 the item page lists, never the whole owner base */
     owners: number[];
+};
+
+/** one live listing on an item page, the same row the token tier's market/listings feed gives */
+export type ItemListing = {
+    uid: number;
+    marketid: number;
+    /** the item instance */
+    skinid: number;
+    skinindex: number;
+    /** ask in kr */
+    funds: number;
+    seller_id: number;
+    seller_name: string;
+    /** unix ms */
+    listed_time: number;
+    /** json text {"wear": 0.9013, "serial": 32}, only on wearable skins */
+    m?: string;
+};
+
+/** one row of GET /items/:id/instances: the holder's name, the serial and the wear where the skin has one */
+export type ItemInstance = {
+    nm: string;
+    serial: number;
+    wear?: number;
 };
 
 /** one of an item's top owners, short keys as the game sends them */
@@ -698,13 +722,15 @@ export type ItemOwner = {
     cr: number;
 };
 
-/** GET /items/:id/view, the item page of the social market */
+/** GET /items/:id/view, the item page of the social market: the whole order book of the skin, not a page of it */
 export type ItemView = {
     stats: { onS: number; high: number; low: number; inC: number };
-    /** name, count owned, staff, featured, cr */
+    /** the top 100 by count owned */
     owners: ItemOwner[];
-    sales: unknown[];
-    listings: unknown[];
+    /** about the last two weeks, days with a sale */
+    sales: ItemSale[];
+    /** every live listing of the skin (41 of 42 seen, the one missing had sold between two calls) */
+    listings: ItemListing[];
     stackable: boolean;
     wearable: boolean;
 };

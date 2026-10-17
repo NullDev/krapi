@@ -2942,7 +2942,7 @@
       "get": {
         "operationId": "game.items.view",
         "summary": "Item View",
-        "description": "```ts\ntype ItemView = {\n    stats: { onS: number; high: number; low: number; inC: number };\n    owners: { nm: string; ct: number; su: number; ft: number; cr: number }[];   // name, count owned, staff, featured, cr\n    sales: unknown[];\n    listings: unknown[];\n    stackable: boolean;\n    wearable: boolean;\n};\n```",
+        "description": "The whole order book of the skin in one reply, not a page of it: every live listing (41 of 42 for Codefall Paint, the missing one had sold between two calls; the developer api's market endpoint pages 10), the top 100 owners, about two weeks of daily sales and the stats.\n\n```ts\ntype ItemView = {\n    stats: { onS: number; high: number; low: number; inC: number };\n    owners: { nm: string; ct: number; su: number; ft: number; cr: number }[];   // top 100 by count: name, count owned, staff, featured, cr\n    sales: { f: number; t: number; d: string }[];                              // kr, count, YYYY-MM-DD, days with a sale\n    listings: ItemListing[];\n    stackable: boolean;\n    wearable: boolean;\n};\n\ntype ItemListing = {\n    uid: number;\n    marketid: number;\n    skinid: number;         // the item instance\n    skinindex: number;\n    funds: number;          // ask in kr\n    seller_id: number;\n    seller_name: string;\n    listed_time: number;    // unix ms\n    m?: string;             // json text {\"wear\": 0.9013, \"serial\": 32}, only on wearable skins\n};\n```",
         "tags": [
           "game/items"
         ],
@@ -3091,7 +3091,7 @@
       "get": {
         "operationId": "game.items.instances",
         "summary": "Item Instances",
-        "description": "Only ever answered `[]`. `mint` is the game's default sort.",
+        "description": "The Mints and Wear tabs of a non stackable skin (the serial numbered Season 10 items): every instance's holder name, serial and, on wearable skins, wear. Stackable skins answer `[]`. Capped at 100 rows and not pageable: `page`, `offset`, `limit` and `cursor` are ignored, and any sort other than `mint` and `wear` falls back to `mint`. So a skin with up to 100 instances is complete (Roselle: 60, Bren Gun: 64), a bigger one gives the 100 lowest serials and the 100 lowest wears.\n\n```ts\ntype ItemInstance = {\n    nm: string;       // holder's name\n    serial: number;\n    wear?: number;    // wearable skins only\n};\n```",
         "tags": [
           "game/items"
         ],
@@ -3139,7 +3139,9 @@
                   "properties": {
                     "data": {
                       "type": "array",
-                      "items": {}
+                      "items": {
+                        "$ref": "#/components/schemas/ItemInstance"
+                      }
                     },
                     "error": {
                       "type": "null"
@@ -3990,7 +3992,7 @@
       "get": {
         "operationId": "game.market.stats",
         "summary": "Market Stats",
-        "description": "| Name | Type | Description |\n| --- | --- | --- |\n| cursor | int | `next_cursor` of the previous page |\n| limit | int | 1 to 100 |\n| sort | string | `rarity` is what the market tab sends; an unknown value is answered with the default order |\n| rarities, weapons, types | int list | comma separated filters |\n| season | int | |\n| searchTerm | string | |\n\n```ts\ntype MarketStats = {\n    stats: { ski: number; inC: number; onS: number; high?: number; low?: number }[];\n    has_more: boolean;\n    next_cursor: number | null;\n};\n```\n\n`ski` is the skin index, `inC` the count in circulation, `onS` the count on sale, `high` and `low` the ask range while something is listed.",
+        "description": "| Name | Type | Description |\n| --- | --- | --- |\n| cursor | int | `next_cursor` of the previous page |\n| limit | int | 1 to 100 |\n| sort | string | `rarity` is what the market tab sends; an unknown value is answered with the default order |\n| rarities, weapons, types | int list | comma separated filters |\n| season | int | |\n| searchTerm | string | |\n\n```ts\ntype MarketStats = {\n    stats: { ski: number; inC: number; onS: number; high?: number; low?: number }[];\n    has_more: boolean;\n    next_cursor: number | null;\n};\n```\n\n`ski` is the skin index, `inC` the count in circulation, `onS` the count on sale, `high` and `low` the ask range while something is listed (seen with `sort=rarity`, absent under other sorts). `onS` of a non tradable skin is noise: Atlantean Armour reports 20 on sale with zero listings anywhere.",
         "tags": [
           "game/market"
         ],
@@ -4132,7 +4134,7 @@
       "get": {
         "operationId": "game.market.itemSales",
         "summary": "Item Sales Info",
-        "description": "Despite the path, no sales: the ask range, the circulation and the player id of every owner.\n\n```ts\ntype ItemSalesInfo = {\n    ind: number;        // skin index\n    high: number;       // highest ask, 0 without listings\n    low: number;        // lowest ask, 0 without listings\n    inC: number;        // count in circulation\n    owners: number[];   // player ids of every owner, one entry per owner however many they hold\n};\n```",
+        "description": "Despite the path, no sales: the ask range, the circulation and the player ids of the top owners.\n\n```ts\ntype ItemSalesInfo = {\n    ind: number;        // skin index\n    high: number;       // highest ask, 0 without listings\n    low: number;        // lowest ask, 0 without listings\n    inC: number;        // count in circulation\n    owners: number[];   // player ids of the top 100 owners, the same 100 the item view lists\n};\n```\n\nThe id list is capped at 100 and is never the whole owner base (Soul Essence, 6.7 million in circulation: 100 ids; Flame Tamer: 61 ids, and 61 owners on the item view). Measured 2026-10-17.",
         "tags": [
           "game/market"
         ],
@@ -12220,7 +12222,7 @@
             "items": {
               "type": "number"
             },
-            "description": "player ids of every owner, one entry per owner however many they hold"
+            "description": "player ids of the top 100 owners, the same 100 the item page lists, never the whole owner base"
           }
         },
         "required": [
@@ -12230,7 +12232,7 @@
           "inC",
           "owners"
         ],
-        "description": "GET /market/items/:id/sales: the ask range, circulation and every owner's player id, despite the path no sales"
+        "description": "GET /market/items/:id/sales: the ask range, circulation and the top owners' player ids, despite the path no sales"
       },
       "MarketStats": {
         "type": "object",
@@ -12684,6 +12686,25 @@
         ],
         "description": "one row of a player leaderboard"
       },
+      "ItemInstance": {
+        "type": "object",
+        "properties": {
+          "nm": {
+            "type": "string"
+          },
+          "serial": {
+            "type": "number"
+          },
+          "wear": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "nm",
+          "serial"
+        ],
+        "description": "one row of GET /items/:id/instances: the holder's name, the serial and the wear where the skin has one"
+      },
       "ItemSale": {
         "$ref": "#/components/schemas/PlayerSale",
         "description": "one day of sales of an item: kr, count, date; GET /items/:id/sales and /market/items/:id/sales-statistics"
@@ -12719,15 +12740,21 @@
             "items": {
               "$ref": "#/components/schemas/ItemOwner"
             },
-            "description": "name, count owned, staff, featured, cr"
+            "description": "the top 100 by count owned"
           },
           "sales": {
             "type": "array",
-            "items": {}
+            "items": {
+              "$ref": "#/components/schemas/ItemSale"
+            },
+            "description": "about the last two weeks, days with a sale"
           },
           "listings": {
             "type": "array",
-            "items": {}
+            "items": {
+              "$ref": "#/components/schemas/ItemListing"
+            },
+            "description": "every live listing of the skin (41 of 42 seen, the one missing had sold between two calls)"
           },
           "stackable": {
             "type": "boolean"
@@ -12744,7 +12771,7 @@
           "stackable",
           "wearable"
         ],
-        "description": "GET /items/:id/view, the item page of the social market"
+        "description": "GET /items/:id/view, the item page of the social market: the whole order book of the skin, not a page of it"
       },
       "ItemOwner": {
         "type": "object",
@@ -12777,6 +12804,53 @@
           "cr"
         ],
         "description": "one of an item's top owners, short keys as the game sends them"
+      },
+      "ItemListing": {
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "number"
+          },
+          "marketid": {
+            "type": "number"
+          },
+          "skinid": {
+            "type": "number",
+            "description": "the item instance"
+          },
+          "skinindex": {
+            "type": "number"
+          },
+          "funds": {
+            "type": "number",
+            "description": "ask in kr"
+          },
+          "seller_id": {
+            "type": "number"
+          },
+          "seller_name": {
+            "type": "string"
+          },
+          "listed_time": {
+            "type": "number",
+            "description": "unix ms"
+          },
+          "m": {
+            "type": "string",
+            "description": "json text {\"wear\": 0.9013, \"serial\": 32}, only on wearable skins"
+          }
+        },
+        "required": [
+          "uid",
+          "marketid",
+          "skinid",
+          "skinindex",
+          "funds",
+          "seller_id",
+          "seller_name",
+          "listed_time"
+        ],
+        "description": "one live listing on an item page, the same row the token tier's market/listings feed gives"
       },
       "CreatorEvents": {
         "type": "object",

@@ -1,7 +1,7 @@
 import type { KrunkerClient } from "../../client.js";
 import * as check from "../../validate.js";
 import { unwrap } from "../envelope.js";
-import type { Envelope, ItemSale, ItemView } from "../types.js";
+import type { Envelope, ItemInstance, ItemSale, ItemView } from "../types.js";
 
 // ========================= //
 // = Copyright (c) NullDev = //
@@ -16,7 +16,7 @@ export class PublicItemsApi {
         this.#gapi = gapi;
     }
 
-    /** GET /items/:id/view, stats plus the top owners */
+    /** GET /items/:id/view, the whole order book of the skin plus stats, two weeks of daily sales and the top 100 owners */
     view(skinIndex: number): Promise<ItemView> {
         return unwrap(this.#gapi.get<Envelope<ItemView>>(`/items/${check.int(skinIndex, "skinIndex", 0)}/view`, { route: "game.items.view" }));
     }
@@ -29,9 +29,9 @@ export class PublicItemsApi {
         }));
     }
 
-    /** GET /items/:id/instances, only ever seen empty; "mint" is the game's default sort */
-    instances(skinIndex: number, sort = "mint"): Promise<unknown[]> {
-        return unwrap(this.#gapi.get<Envelope<unknown[]>>(`/items/${check.int(skinIndex, "skinIndex", 0)}/instances`, {
+    /** GET /items/:id/instances, the mints and wear tabs: non stackable skins only, at most 100 rows, no paging; sort is "mint" or "wear" */
+    instances(skinIndex: number, sort = "mint"): Promise<ItemInstance[]> {
+        return unwrap(this.#gapi.get<Envelope<ItemInstance[]>>(`/items/${check.int(skinIndex, "skinIndex", 0)}/instances`, {
             route: "game.items.instances",
             query: { sort: check.text(sort, "sort") },
         }));
