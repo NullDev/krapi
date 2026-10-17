@@ -1,7 +1,7 @@
 import type { KrunkerClient } from "../../client.js";
 import * as check from "../../validate.js";
 import { unwrap } from "../envelope.js";
-import type { Envelope, ItemSale, MarketStats, MarketStatsQuery } from "../types.js";
+import type { Envelope, ItemSale, ItemSalesInfo, MarketStats, MarketStatsQuery } from "../types.js";
 
 // ========================= //
 // = Copyright (c) NullDev = //
@@ -35,9 +35,9 @@ export class PublicMarketApi {
         }));
     }
 
-    /** GET /market/items/:id/sales, same rows as items.sales */
-    itemSales(skinIndex: number): Promise<ItemSale[]> {
-        return unwrap(this.#gapi.get<Envelope<ItemSale[]>>(`/market/items/${check.int(skinIndex, "skinIndex", 0)}/sales`, { route: "game.market.itemSales" }));
+    /** GET /market/items/:id/sales, ask range, circulation and the full owner id list (the daily rows are itemSalesStatistics) */
+    itemSales(skinIndex: number): Promise<ItemSalesInfo> {
+        return unwrap(this.#gapi.get<Envelope<ItemSalesInfo>>(`/market/items/${check.int(skinIndex, "skinIndex", 0)}/sales`, { route: "game.market.itemSales" }));
     }
 
     /** GET /market/items/:id/sales-statistics, one row per day with a sale */

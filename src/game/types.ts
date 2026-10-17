@@ -671,6 +671,20 @@ export type MarketStatsQuery = {
 /** one day of sales of an item: kr, count, date; GET /items/:id/sales and /market/items/:id/sales-statistics */
 export type ItemSale = PlayerSale;
 
+/** GET /market/items/:id/sales: the ask range, circulation and every owner's player id, despite the path no sales */
+export type ItemSalesInfo = {
+    /** skin index */
+    ind: number;
+    /** highest ask, 0 without listings */
+    high: number;
+    /** lowest ask, 0 without listings */
+    low: number;
+    /** count in circulation */
+    inC: number;
+    /** player ids of every owner, one entry per owner however many they hold */
+    owners: number[];
+};
+
 /** one of an item's top owners, short keys as the game sends them */
 export type ItemOwner = {
     /** name */

@@ -613,16 +613,35 @@ type MarketStats = {
 
 `ski` is the skin index, `inC` the count in circulation, `onS` the count on sale, `high` and `low` the ask range while something is listed.
 
-### Item Sales
+### Item Sales Info
 
 ```http
 GET /market/items/:id/sales
+```
+
+`krunker.game.market.itemSales(skinIndex)`
+
+Despite the path, no sales: the ask range, the circulation and the player id of every owner.
+
+```ts
+type ItemSalesInfo = {
+    ind: number;        // skin index
+    high: number;       // highest ask, 0 without listings
+    low: number;        // lowest ask, 0 without listings
+    inC: number;        // count in circulation
+    owners: number[];   // player ids of every owner, one entry per owner however many they hold
+};
+```
+
+### Item Sales Statistics
+
+```http
 GET /market/items/:id/sales-statistics?daysback=:days
 ```
 
-`krunker.game.market.itemSales(skinIndex)`, `krunker.game.market.itemSalesStatistics(skinIndex, daysBack = 30)`
+`krunker.game.market.itemSalesStatistics(skinIndex, daysBack = 30)`
 
-One row per day with a sale: `{f, t, d}[]` (kr, count, `YYYY-MM-DD`).
+One row per day with a sale: `{f, t, d}[]` (kr, count, `YYYY-MM-DD`). Reaches back about 85 days whatever `daysback` says (measured 2026-10-17 with 3650).
 
 ---
 
@@ -657,7 +676,7 @@ GET /items/:id/sales?range=:range
 
 `krunker.game.items.sales(skinIndex, range = 6)`
 
-Same rows as the market's item sales. The item page sends `range=6`.
+Same rows as the market's sales statistics. The item page sends `range=6`, which reaches back about 120 days; `range=24` is answered 400 "invalid sales range".
 
 ### Item Instances
 

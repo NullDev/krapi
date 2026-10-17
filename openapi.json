@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Krunker API",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "summary": "The Krunker.io developer API, the game's public endpoints and the token bound ones, as krapio wraps them",
     "description": "Generated from the krapio source and docs. The developer API is the official one from FRVR and needs an API key; the game and token tiers are the endpoints the game itself reads, documented from observation. Full docs: https://github.com/NullDev/krapio",
     "license": {
@@ -3010,7 +3010,7 @@
       "get": {
         "operationId": "game.items.sales",
         "summary": "Item Sales",
-        "description": "Same rows as the market's item sales. The item page sends `range=6`.",
+        "description": "Same rows as the market's sales statistics. The item page sends `range=6`, which reaches back about 120 days; `range=24` is answered 400 \"invalid sales range\".",
         "tags": [
           "game/items"
         ],
@@ -4131,8 +4131,8 @@
     "/market/items/{skinIndex}/sales": {
       "get": {
         "operationId": "game.market.itemSales",
-        "summary": "Item Sales",
-        "description": "One row per day with a sale: `{f, t, d}[]` (kr, count, `YYYY-MM-DD`).",
+        "summary": "Item Sales Info",
+        "description": "Despite the path, no sales: the ask range, the circulation and the player id of every owner.\n\n```ts\ntype ItemSalesInfo = {\n    ind: number;        // skin index\n    high: number;       // highest ask, 0 without listings\n    low: number;        // lowest ask, 0 without listings\n    inC: number;        // count in circulation\n    owners: number[];   // player ids of every owner, one entry per owner however many they hold\n};\n```",
         "tags": [
           "game/market"
         ],
@@ -4169,10 +4169,7 @@
                   "description": "gapi wraps every reply in {data, error}",
                   "properties": {
                     "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ItemSale"
-                      }
+                      "$ref": "#/components/schemas/ItemSalesInfo"
                     },
                     "error": {
                       "type": "null"
@@ -4202,8 +4199,8 @@
     "/market/items/{skinIndex}/sales-statistics": {
       "get": {
         "operationId": "game.market.itemSalesStatistics",
-        "summary": "Item Sales",
-        "description": "One row per day with a sale: `{f, t, d}[]` (kr, count, `YYYY-MM-DD`).",
+        "summary": "Item Sales Statistics",
+        "description": "One row per day with a sale: `{f, t, d}[]` (kr, count, `YYYY-MM-DD`). Reaches back about 85 days whatever `daysback` says (measured 2026-10-17 with 3650).",
         "tags": [
           "game/market"
         ],
@@ -12198,6 +12195,42 @@
           "totalPlayerCount"
         ],
         "description": "GET /game-list, every public lobby"
+      },
+      "ItemSalesInfo": {
+        "type": "object",
+        "properties": {
+          "ind": {
+            "type": "number",
+            "description": "skin index"
+          },
+          "high": {
+            "type": "number",
+            "description": "highest ask, 0 without listings"
+          },
+          "low": {
+            "type": "number",
+            "description": "lowest ask, 0 without listings"
+          },
+          "inC": {
+            "type": "number",
+            "description": "count in circulation"
+          },
+          "owners": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "description": "player ids of every owner, one entry per owner however many they hold"
+          }
+        },
+        "required": [
+          "ind",
+          "high",
+          "low",
+          "inC",
+          "owners"
+        ],
+        "description": "GET /market/items/:id/sales: the ask range, circulation and every owner's player id, despite the path no sales"
       },
       "MarketStats": {
         "type": "object",
